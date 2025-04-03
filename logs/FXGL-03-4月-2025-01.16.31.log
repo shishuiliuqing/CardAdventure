@@ -1,0 +1,106 @@
+01:16:27.508 [main                     ] DEBUG Logger               - Configured Logger
+01:16:27.533 [main                     ] DEBUG GameApplication      - Logging settings
+Title: 卡牌冒险
+Version: 0.1
+Width: 1900
+Height: 980
+Fullscreen: false
+Intro: false
+Profiling: false
+Single step:false
+App Mode: DEVELOPER
+Menu Key: ESCAPE
+Stage Style: DECORATED
+Scene Factory: class com.almasb.fxgl.app.scene.SceneFactory
+
+01:16:27.932 [JavaFX Application Thread] DEBUG FXGLApplication      - Initializing FXGL
+01:16:27.935 [JavaFX Application Thread] INFO  Engine               - FXGL-17.3 (30.03.2023 11.49) on WINDOWS (J:17.0.6 FX:20)
+01:16:27.936 [JavaFX Application Thread] DEBUG Engine               - JRE Vendor Name: Oracle Corporation
+01:16:27.936 [JavaFX Application Thread] DEBUG Engine               - Running on OS: Windows 11 version 10.0
+01:16:27.936 [JavaFX Application Thread] DEBUG Engine               - Architecture: amd64
+01:16:27.936 [JavaFX Application Thread] INFO  Engine               - Source code and latest versions at: https://github.com/AlmasB/FXGL
+01:16:27.937 [JavaFX Application Thread] INFO  Engine               -       Ask questions and discuss at: https://github.com/AlmasB/FXGL/discussions
+01:16:27.937 [JavaFX Application Thread] INFO  Engine               -              Join the FXGL chat at: https://gitter.im/AlmasB/FXGL
+01:16:28.020 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Creating a JavaFX scene
+01:16:28.020 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target size > screen size
+01:16:28.059 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target settings size: 1900.0 x 980.0
+01:16:28.060 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled scene size:    1682.0 x 880.0
+01:16:28.060 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (0.8852631578947369, 0.8979591836734694)
+01:16:28.061 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Set initial scene to FXGLStartupScene
+01:16:28.064 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Opening main window
+01:16:28.145 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Window border size: (14.6666259765625, 37.33331298828125)
+01:16:28.145 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled size: 1682.0 x 880.0
+01:16:28.146 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (0.8852631578947369, 0.8979591836734694)
+01:16:28.147 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scene size: 1682.0 x 880.0
+01:16:28.147 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Stage size: 1696.6666259765625 x 917.3333129882812
+01:16:28.154 [FXGL Background Thread 1 ] DEBUG Engine               - Initializing environment variables
+01:16:28.178 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - User app class for loading assets: class com.hjc.CardAdventure.CardAdventureApp
+01:16:28.178 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Applying CSS: fxgl_dark.css
+01:16:28.180 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/css/fxgl_dark.css
+01:16:28.221 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Initializing application scenes
+01:16:28.289 [FXGL Background Thread 1 ] DEBUG GameWorld            - Game world initialized
+01:16:28.333 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Physics world initialized: appHeight=980, physics.ppm=50.0
+01:16:28.334 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Using strategy: BRUTE_FORCE
+01:16:28.339 [FXGL Background Thread 1 ] DEBUG GameScene            - Game scene initialized: 1900x980
+01:16:28.350 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createMenuBodyGameMenu()
+01:16:28.358 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createOptionsMenu()
+01:16:28.366 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/textures/particles/smoke.png
+01:16:28.459 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/textures/particles/trace_horizontal.png
+01:16:28.479 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Application scenes initialized
+01:16:28.489 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Loading FXGL system data
+01:16:28.490 [FXGL Background Thread 1 ] DEBUG FileSystemAccess     - Reading from: D:\Project\MAVEN_PROJECT\CardAdventure\system\fxgl.bundle
+01:16:28.493 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Bundle FXGL: {}
+01:16:28.493 [FXGL Background Thread 1 ] DEBUG UpdaterService       - Checking for updates
+01:16:28.502 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Loading fonts
+01:16:28.503 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/VarelaRound-Regular.ttf
+01:16:28.504 [FXGL Background Thread 1 ] DEBUG FXGLApplication      - Loading default localization
+01:16:28.505 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/languages/chinese.lang
+01:16:28.510 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/Abel-Regular.ttf
+01:16:28.512 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/TerminalLandMono-Regular.otf
+01:16:28.515 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/Courier-Prime.ttf
+01:16:28.523 [JavaFX Application Thread] DEBUG FXGLApplication      - Registering font factories with UI factory
+01:16:28.570 [FXGL Background Thread 1 ] INFO  FXGLApplication      - FXGL initialization took: 0.416 sec
+01:16:28.571 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/role/enemy/forestWolf.png
+01:16:28.578 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/HJC/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/textures/fxgl_default_cursor.png
+01:16:28.597 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Screenshot - CTRL+8
+01:16:28.598 [JavaFX Application Thread] DEBUG Input                - Registered new binding: System info dump - CTRL+9
+01:16:28.598 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Restart - CTRL+R
+01:16:28.600 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Toggle Debug Camera - CTRL+7
+01:16:28.607 [JavaFX Application Thread] DEBUG LoopRunner           - Starting loop
+01:16:28.607 [JavaFX Application Thread] DEBUG LoopRunner           - Initializing JavaFX AnimationTimerLoop
+01:16:28.611 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+01:16:28.612 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+01:16:28.624 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLStartupScene and adding to FXGLLoadingScene
+01:16:28.625 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLStartupScene -> FXGLLoadingScene
+01:16:28.625 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+01:16:28.625 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+01:16:28.625 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+01:16:28.625 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+01:16:28.627 [FXGL Background Thread 1 ] DEBUG FXGLApplication      - Initializing game
+01:16:28.648 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading JSON from: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/data/player/soldier.json
+01:16:28.872 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/information/playerBlood.png
+01:16:28.875 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/information/gold.png
+01:16:28.887 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading JSON from: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/data/configuration/forest/spring.json
+01:16:28.897 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading JSON from: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/data/enemy/forestWolf1.json
+01:16:28.908 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading JSON from: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/data/configuration/intention/forestWolf1.json
+01:16:28.911 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading JSON from: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/data/enemy/forestWolf1.json
+01:16:28.917 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading JSON from: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/data/configuration/intention/forestWolf1.json
+01:16:28.925 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/battle/playerAttributeBox.png
+01:16:28.959 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/battle/cardBox.png
+01:16:28.972 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/cardBack/cardBackRed.png
+01:16:28.989 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/battle/buttonDark.png
+01:16:28.996 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/battle/hourglass.png
+01:16:29.279 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/role/targetDark.png
+01:16:29.287 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/role/player/soldier.png
+01:16:29.291 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/D:/Project/MAVEN_PROJECT/CardAdventure/target/classes/assets/textures/role/enemy/forestWolf.png
+01:16:29.294 [FXGL Background Thread 1 ] INFO  FXGLApplication      - Game initialization took: 0.667 sec
+01:16:29.295 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+01:16:29.309 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+01:16:29.310 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+01:16:31.063 [JavaFX Application Thread] DEBUG FXGLApplication      - Exiting FXGL
+01:16:31.063 [JavaFX Application Thread] DEBUG LoopRunner           - Stopping loop
+01:16:31.063 [JavaFX Application Thread] DEBUG SystemBundleService  - Saving FXGL system data
+01:16:31.065 [JavaFX Application Thread] DEBUG FileSystemAccess     - Writing to: D:\Project\MAVEN_PROJECT\CardAdventure\system\fxgl.bundle
+01:16:31.065 [JavaFX Application Thread] DEBUG Async                - Shutting down background threads
+01:16:31.067 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Closing main window
+01:16:31.089 [JavaFX Application Thread] DEBUG Logger               - Closing Logger

@@ -1,0 +1,39 @@
+{
+  "weak": {
+    "day": [
+      [
+        "killerBee",
+        "killerBee"
+      ],
+      [
+        "mushroomRed"
+      ]
+    ],
+    "afternoon": [
+      [
+        "mushroomGreen"
+      ],
+      [
+        "greenFrog",
+        "greenFrog",
+        "greenFrog"
+      ]
+    ],
+    "evening": [
+      [
+        "forestWolf","forestWolf","forestWolf","forestWolf","forestWolf"
+      ]
+    ]
+  },
+  "strong": {
+    "day": [
+      []
+    ],
+    "afternoon": [
+      []
+    ],
+    "evening": [
+      []
+    ]
+  }
+}

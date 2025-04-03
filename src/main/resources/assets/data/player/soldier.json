@@ -1,0 +1,21 @@
+{
+  "name": "战士",
+  "blood": 80,
+  "maxBlood": 80,
+  "attribute": {
+    "power": 2,
+    "intelligence": 0,
+    "defense": 1,
+    "agility": 1,
+    "purity": 0,
+    "speed": 1
+  },
+  "experience": 0,
+  "playerType": 0,
+  "colorS": "#ff0000",
+  "img": "soldier",
+  "width": 104.0,
+  "height": 214.0,
+  "x": 520.0,
+  "y": 230.0
+}
