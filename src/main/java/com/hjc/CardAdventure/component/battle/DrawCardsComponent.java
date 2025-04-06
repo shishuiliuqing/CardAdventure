@@ -1,10 +1,15 @@
 package com.hjc.CardAdventure.component.battle;
 
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.pojo.BattleInformation;
+import com.hjc.CardAdventure.pojo.card.Card;
+import com.hjc.CardAdventure.subScene.LookCardsSubScene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
@@ -21,6 +26,10 @@ public class DrawCardsComponent extends Component {
     public void onAdded() {
         //添加组件
         addComponent();
+
+        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e->lookInformation());
+        entity.getViewComponent().addOnClickHandler(e->lookCards());
+//        entity.getViewComponent().addOnClickHandler(e->draw());
     }
 
     //添加组件
@@ -48,5 +57,49 @@ public class DrawCardsComponent extends Component {
     public void update() {
         entity.getViewComponent().clearChildren();
         addComponent();
+    }
+
+    //抽牌堆信息
+    private void lookInformation() {
+        TipBarComponent.update("抽牌堆，剩余牌数：" + BattleInformation.DRAW_CARDS.size());
+    }
+
+    //查看抽牌堆
+    public void lookCards() {
+        LookCardsSubScene.cards = BattleInformation.DRAW_CARDS;
+        LookCardsSubScene.cardsType = "抽牌区";
+        FXGL.getSceneService().pushSubScene(new LookCardsSubScene());
+    }
+
+    //抽牌
+    public int draw() {
+        int boxNum = nearEmptyBox();
+        if (boxNum == -1) return 0;
+        //抽牌堆没牌
+        if (BattleInformation.DRAW_CARDS.isEmpty()) {
+            return 1;
+        }
+
+        //更新抽牌堆
+        Card card = BattleInformation.DRAW_CARDS.get(0);
+        BattleInformation.DRAW_CARDS.remove(0);
+        update();
+        FXGL.spawn("draw", new SpawnData()
+                .put("boxNum", boxNum)
+                .put("card", card)
+        );
+        CARD_BOX_STATUS[boxNum - 1] = 1;
+        return 0;
+    }
+
+    //获取最近的空选牌框
+    private int nearEmptyBox() {
+        for (int i = 0; i < CARD_BOX_STATUS.length; i++) {
+            if (CARD_BOX_STATUS[i] == 0) {
+                //CARD_BOX_STATUS[i] = 1;
+                return i + 1;
+            }
+        }
+        return -1;
     }
 }

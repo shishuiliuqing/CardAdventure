@@ -8,21 +8,21 @@ import com.almasb.fxgl.entity.Spawns;
 import com.hjc.CardAdventure.component.card.*;
 
 public class CardEntityFactory implements EntityFactory{
-//    //绘制卡牌
-//    @Spawns("card")
-//    public Entity newCard(SpawnData data) {
-//        return FXGL.entityBuilder(data)
-//                .with(new CardComponent())
-//                .build();
-//    }
+    //绘制卡牌
+    @Spawns("card")
+    public Entity newCard(SpawnData data) {
+        return FXGL.entityBuilder(data)
+                .with(new CardComponent())
+                .build();
+    }
 
-//    //抽牌
-//    @Spawns("draw")
-//    public Entity newDraw(SpawnData data) {
-//        return FXGL.entityBuilder(data)
-//                .with(new DrawComponent(data.get("boxNum"), data.get("card")))
-//                .build();
-//    }
+    //抽牌
+    @Spawns("draw")
+    public Entity newDraw(SpawnData data) {
+        return FXGL.entityBuilder(data)
+                .with(new DrawComponent())
+                .build();
+    }
 
     //使用
     @Spawns("produce")

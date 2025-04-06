@@ -4,13 +4,9 @@ import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.pojo.Role;
 
-import java.util.ArrayList;
-
-import static com.hjc.CardAdventure.effect.Effect.*;
-
-//指定目标效果
-public class TargetDesignation extends Effect {
-    public TargetDesignation(Role from, String effect) {
+//指定玩家效果
+public class PlayerDesignation extends Effect {
+    public PlayerDesignation(Role from, String effect) {
         super(from, effect);
     }
 
@@ -18,12 +14,12 @@ public class TargetDesignation extends Effect {
     public void action() {
         if (getFrom() == null) return;
         //解析剩下的效果
-        Effect.continueAction(getFrom(), getEffect(), Global.CARD_USE.target);
+        Effect.continueAction(getFrom(), getEffect(), Global.PLAYER.player);
     }
 
     @Override
     public String toString() {
         Effect effect = Effect.parse(getFrom(), getEffect(), Global.CARD_USE.target);
-        return effect == null ? "" : "[T]" + effect;
+        return effect == null ? "" : "[P]" + effect;
     }
 }

@@ -1,20 +1,23 @@
 package com.hjc.CardAdventure.pojo;
 
-import com.almasb.fxgl.dsl.FXGL;
-import com.hjc.CardAdventure.CardAdventureApp;
+import com.hjc.CardAdventure.Global;
+import com.hjc.CardAdventure.Utils.AttributeUtils;
+import com.hjc.CardAdventure.Utils.CardsUtils;
+import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
+import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.RoleAction;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
 import com.hjc.CardAdventure.pojo.enemy.EnemyType;
-import com.hjc.CardAdventure.pojo.enemy.IntentionGenerateType;
-import com.hjc.CardAdventure.pojo.enemy.IntentionType;
 import com.hjc.CardAdventure.pojo.environment.InsideInformation;
 import com.hjc.CardAdventure.pojo.environment.TimeStatus;
 
 import static com.hjc.CardAdventure.Global.CONFIGURATION.*;
 import static com.hjc.CardAdventure.Global.PLAYER.*;
+import static com.hjc.CardAdventure.Global.CARD_USE.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +54,7 @@ public class BattleInformation {
 
     public static void initBattle() {
         //初始化工具类
-//        AttributeUtil.initUtil();
+        AttributeUtils.initAttributeUtils();
 
         //初始化回合数
         rounds = 0;
@@ -101,52 +104,28 @@ public class BattleInformation {
     //初始化牌堆
     private static void initCards() {
         //初始化抽牌堆
-//        DRAW_CARDS.clear();
-//        DRAW_CARDS.addAll(PlayerInformation.cards);
-//        OutUtil.disruptCards(DRAW_CARDS);
-//        //初始化弃牌堆
-//        ABANDON_CARDS.clear();
-//        //初始化消耗牌堆
-//        CONSUME_CARDS.clear();
-//        //初始化手牌区
-//        CardComponent.HAND_CARDS.clear();
-////        for (int i = 0; i < 10; i++) {
-////            HAND_CARDS[i] = null;
-////        }
-//        //清除手牌区状态
-//        Arrays.fill(DrawCardsComponent.CARD_BOX_STATUS, 0);
+        DRAW_CARDS.clear();
+        DRAW_CARDS.addAll(Global.PLAYER.cards);
+        CardsUtils.disruptCards(DRAW_CARDS);
+        //初始化弃牌堆
+        ABANDON_CARDS.clear();
+        //初始化消耗牌堆
+        CONSUME_CARDS.clear();
+        //初始化手牌区
+        CardComponent.HAND_CARDS.clear();
+        //清除手牌区状态
+        Arrays.fill(DrawCardsComponent.CARD_BOX_STATUS, 0);
     }
 
     //保存角色原有属性,并初始化玩家属性
     private static void initAttribute() {
-//        attribute = new Attribute();
-//        //保留玩家初始属性
-//        Attribute.cloneAttribute(PlayerInformation.player.getAttribute(), attribute);
-//        //清除人物护盾
-//        PlayerInformation.playerArmor = 0;
-//        //初始化各组件布尔值
-//        AbandonComponent.isLight = false;
-//        //非玩家回合
-//        ActionOverComponent.isPlayer = false;
-//        //属性更新
-//        AttributeComponent.attribute = PlayerInformation.player.getAttribute();
-//        //回合失去护盾打开
-//        PlayerInformation.lostArmorFlag = true;
-//        //非弃牌阶段
-//        CardComponent.isAbandon = false;
-//        //不可选择卡牌
-//        CardComponent.selectable = false;
-//        //当前行动卡牌清空
-//        CardComponent.actionCard = null;
-//        //使用键暗
-//        ProduceComponent.isLight = false;
-//        //记牌器刷新
-//        SumCardsComponent.remainingProduce = 0;
-//        //目标指定刷新
-//        TargetComponent.needTarget = false;
-//        TargetComponent.isRam = false;
-//        TargetComponent.isAll = false;
-//        TargetComponent.target = null;
+        attribute = new Attribute();
+        //保留玩家初始属性
+        Attribute.cloneAttribute(player.getAttribute(), attribute);
+        //清除人物护盾
+        armor = 0;
+        //初始化各组件布尔值
+        initCardUse();
 //        //玩家效果序列刷新
 //        PlayerInformation.opportunities.clear();
 //        PlayerInformation.opportunityTypes.clear();
@@ -193,7 +172,7 @@ public class BattleInformation {
         //对玩家之前的序列排序
         sort(result, 0, index - 1);
         //对玩家之后的序列排序
-        sort(result, index + 1, result.size());
+        sort(result, index + 1, result.size() - 1);
 
         //清空原来的序列
         roles.clear();
@@ -211,73 +190,59 @@ public class BattleInformation {
                 if (enemy2.getAttribute().getSpeed() > enemy1.getAttribute().getSpeed()) {
                     roles.set(i, enemy2);
                     roles.set(j, enemy1);
+                    enemy1 = enemy2;
                 }
                 //速度相同，位置前者优先
                 else if (enemy2.getAttribute().getSpeed() == enemy1.getAttribute().getSpeed() && enemy2.getLocation() < enemy1.getLocation()) {
                     roles.set(i, enemy2);
                     roles.set(j, enemy1);
+                    enemy1 = enemy2;
                 }
             }
         }
     }
 
-    //获得速度最大的角色索引，从n出发
-    private static int getMaxI(ArrayList<Role> roles, int n) {
-//        int index = n;
-//        int maxSpeed = 0;
-//        for (int i = n; i < roles.size(); i++) {
-//            int speed = roles.get(i).getRoleAttribute().getSpeed();
-//            if (speed > maxSpeed) {
-//                maxSpeed = speed;
-//                index = i;
-//            }
-//        }
-//        return index;
-        return 0;
-    }
-
     //战斗开始
     public static void battle() {
-//        if (THIS_ACTION.isEmpty()) {
-//            THIS_ACTION.addAll(NEXT_ACTION);
-//            //回合添加
-//            rounds++;
-//            //触发所有角色的回合结束效果
+        if (THIS_ACTION.isEmpty()) {
+            THIS_ACTION.addAll(NEXT_ACTION);
+            //回合添加
+            rounds++;
+            //触发所有角色的回合结束效果
 //            for (int i = ENEMIES.size() - 1; i >= 0; i--) {
 //                if (ENEMIES.get(i) == null) continue;
 //                Opportunity.roundOpportunityLaunch(ENEMIES.get(i));
 //            }
 //            Opportunity.roundOpportunityLaunch(PlayerInformation.player);
-//        }
+        }
 //        //获取当前行动对象
-//        //System.out.println(THIS_ACTION);
-//        Role role = THIS_ACTION.get(0);
-//        THIS_ACTION.remove(0);
-//        //生成行动执行效果
-//        RoleAction roleAction = new RoleAction(role, role, 1);
-//        EFFECTS.add(roleAction);
+        Role role = THIS_ACTION.get(0);
+        THIS_ACTION.remove(0);
+        //生成行动执行效果
+        RoleAction roleAction = new RoleAction(role, "1", role);
+        EFFECTS.add(roleAction);
         //效果执行
-        //effectExecution();
+        effectExecution();
     }
 
     //效果执行器
     public static void effectExecution() {
-//        while (!EFFECTS.isEmpty()) {
-//            //System.out.println(EFFECTS);
-//            if (ENEMIES.isEmpty() && isBattle) {
-//                EFFECTS.clear();
-//                Attribute.cloneAttribute(attribute, PlayerInformation.player.getAttribute());
-//                //FXGL.getSceneService().pushSubScene(new RewardSubScene());
-//                reward();
-//                isBattle = false;
-//                break;
-//            }
-//
-//            Effect effect = EFFECTS.get(0);
-//            EFFECTS.remove(0);
-//            effect.action();
+        while (!EFFECTS.isEmpty()) {
+            //System.out.println(EFFECTS);
+            if (ENEMIES.isEmpty() && isBattle) {
+                EFFECTS.clear();
+                Attribute.cloneAttribute(attribute, player.getAttribute());
+                //FXGL.getSceneService().pushSubScene(new RewardSubScene());
+                reward();
+                isBattle = false;
+                break;
+            }
+
+            Effect effect = EFFECTS.get(0);
+            EFFECTS.remove(0);
+            effect.action();
 //            if (effect instanceof PauseEffect) break;
-//        }
+        }
     }
 
     private static void reward() {

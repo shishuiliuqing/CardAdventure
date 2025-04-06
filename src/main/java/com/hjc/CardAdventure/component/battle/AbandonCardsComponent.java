@@ -1,10 +1,14 @@
 package com.hjc.CardAdventure.component.battle;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.hjc.CardAdventure.CardAdventureApp;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.entityFactory.CardEntityFactory;
 import com.hjc.CardAdventure.pojo.BattleInformation;
+import com.hjc.CardAdventure.subScene.LookCardsSubScene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -19,6 +23,9 @@ public class AbandonCardsComponent extends Component {
     public void onAdded() {
         //添加组件
         addComponent();
+
+        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED,e->lookInformation());
+        entity.getViewComponent().addOnClickHandler(e->lookCards());
     }
 
     private void addComponent() {
@@ -47,6 +54,18 @@ public class AbandonCardsComponent extends Component {
                 25, BattleInformation.ABANDON_CARDS.size(), player.getColorS(),
                 new Font("微软雅黑", 15));
         entity.getViewComponent().addChild(stackPane);
+    }
+
+    //弃牌堆信息
+    private void lookInformation() {
+        TipBarComponent.update("弃牌堆，牌数：" + BattleInformation.ABANDON_CARDS.size());
+    }
+
+    //查看弃牌堆
+    private void lookCards() {
+        LookCardsSubScene.cards = BattleInformation.ABANDON_CARDS;
+        LookCardsSubScene.cardsType = "弃牌区";
+        FXGL.getSceneService().pushSubScene(new LookCardsSubScene());
     }
 
     //更新方法

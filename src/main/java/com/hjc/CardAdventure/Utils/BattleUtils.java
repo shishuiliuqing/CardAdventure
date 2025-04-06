@@ -12,4 +12,5 @@ public class BattleUtils {
         int num = playedCardNum(getLV(player.getExperience()));
         return num;
     }
+
 }

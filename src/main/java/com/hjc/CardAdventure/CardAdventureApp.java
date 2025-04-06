@@ -7,6 +7,7 @@ import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.entity.CampEntity;
 import com.hjc.CardAdventure.entity.InformationEntity;
 import com.hjc.CardAdventure.entityFactory.*;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.environment.InsideInformation;
 import com.hjc.CardAdventure.pojo.player.Player;
 import javafx.scene.paint.Color;
@@ -15,6 +16,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.hjc.CardAdventure.Global.GAME_SETTING.APP_HEIGHT;
 import static com.hjc.CardAdventure.Global.GAME_SETTING.APP_WITH;
 import static com.hjc.CardAdventure.Global.*;
+import static com.hjc.CardAdventure.Global.CONFIGURATION.*;
 
 public class CardAdventureApp extends GameApplication {
 
@@ -53,8 +55,7 @@ public class CardAdventureApp extends GameApplication {
         //初始化环境
         InsideInformation.generateInsideEnvironment();
 
-        //获得角色
-        PLAYER.player = getAssetLoader().loadJSON(getJsonAddress(PLAYER_ADDRESS, "soldier"), Player.class).get();
+        PLAYER.initPlayer();
 
         //初始化局内信息实体
         InformationEntity.initInformationEntities();
@@ -62,6 +63,7 @@ public class CardAdventureApp extends GameApplication {
         //CampEntity.initCampEntities();
         //初始化战斗实体
         BattleEntity.initBattleEntities();
+        BattleInformation.battle();
     }
 
     //启动类

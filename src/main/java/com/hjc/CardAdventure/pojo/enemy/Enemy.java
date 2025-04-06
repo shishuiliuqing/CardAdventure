@@ -1,6 +1,9 @@
 package com.hjc.CardAdventure.pojo.enemy;
 
+import com.almasb.fxgl.entity.Entity;
+import com.hjc.CardAdventure.component.role.EnemyComponent;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
 import lombok.AllArgsConstructor;
@@ -50,6 +53,11 @@ public class Enemy implements Role {
 
 
     @Override
+    public void action() {
+
+    }
+
+    @Override
     public String getRoleName() {
         return getName();
     }
@@ -65,12 +73,64 @@ public class Enemy implements Role {
     }
 
     @Override
+    public void phyHurt(int value) {
+
+        //伤害减护盾
+        value -= getRoleArmor();
+
+        if (value > 0) {
+            //护盾值变为0
+            setRoleArmor(0);
+            //血量减少
+            lossBlood(value);
+        } else {
+            //护盾减少
+            int x = getRoleArmor() + value;
+            setRoleArmor(value * (-1));
+            update();
+        }
+    }
+
+    @Override
+    public void lossBlood(int value) {
+        this.blood -= value;
+        if (this.blood < 0) this.blood = 0;
+        update();
+    }
+
+    @Override
+    public int getRoleArmor() {
+        return getArmor();
+    }
+
+    @Override
+    public void setRoleArmor(int armor) {
+        setArmor(armor);
+    }
+
+    @Override
     public Attribute getRoleAttribute() {
         return getAttribute();
     }
 
+    //更新敌人
+    public void update() {
+        int index = getIndex();
+        Entity entity = BattleEntity.enemies[index];
+        entity.getComponent(EnemyComponent.class).update();
+    }
+
+    //获取敌人实体索引
+    public int getIndex() {
+        for (int i = 0; i < BattleEntity.enemyGenerateOrder.length; i++) {
+            if (BattleEntity.enemyGenerateOrder[i] == getLocation()) return i;
+        }
+        return -1;
+    }
+
     @Override
     public String toString() {
-        return name + "   " + blood + "/" + maxBlood + Effect.NEW_LINE + attribute.displayAttribute() + Effect.NEW_LINE;
+        return getLocation() + "";
+        //return name + "   " + blood + "/" + maxBlood + Effect.NEW_LINE + attribute.displayAttribute() + Effect.NEW_LINE;
     }
 }

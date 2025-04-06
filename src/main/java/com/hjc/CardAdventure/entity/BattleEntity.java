@@ -69,7 +69,7 @@ public class BattleEntity {
         for (int i = 0; i < BattleInformation.ENEMIES.size(); i++) {
             enemies[i] = FXGL.spawn("enemy", new SpawnData().put("index", i));
         }
-//        actionBox = FXGL.spawn("actionBox");
+        actionBox = FXGL.spawn("actionBox");
 //
 //        BattleInformation.battle();
 //        BattleInformation.effectExecution();
