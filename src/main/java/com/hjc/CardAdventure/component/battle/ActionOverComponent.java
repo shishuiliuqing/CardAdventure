@@ -4,9 +4,13 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
-import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.component.card.AbandonComponent;
+import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.component.information.TipBarComponent;
+import com.hjc.CardAdventure.effect.basic.PauseEffect;
+import com.hjc.CardAdventure.entity.BattleEntity;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -47,8 +51,36 @@ public class ActionOverComponent extends Component {
     //结束动画
     public void onOver() {
         if (isPlayer) {
-            //动画播放
-            animatedTexture.play();
+            //非玩家回合
+            isPlayer = false;
+            //不可选牌
+            selectable = false;
+            //弃牌后回合结束
+            isAbandonOver = true;
+            //可保留牌的数量
+            int reserveNum = PLAYER.player.getAttribute().getAgility() / 5;
+            //需要弃牌数
+            needAbandon = Math.max(CardComponent.HAND_CARDS.size() - reserveNum, 0);
+            //执行弃牌
+            BattleEntity.abandon.getComponent(AbandonComponent.class).abandonJudge();
         }
+    }
+
+    //回合结束
+    public void over() {
+        //若为玩家，初始化玩家所有用牌属性
+        if (BattleInformation.nowAction == PLAYER.player) {
+            initCardUse();
+        }
+        //执行动画
+        animatedTexture.play();
+        //暂停1秒
+        BattleInformation.EFFECTS.add(new PauseEffect(null,"10"));
+        //删除当前行动者
+        BattleInformation.THIS_ACTION.remove(0);
+        //更新行动序列
+        BattleEntity.actionBox.getComponent(ActionComponent.class).update();
+        //下一个角色行动
+        BattleInformation.battle();
     }
 }

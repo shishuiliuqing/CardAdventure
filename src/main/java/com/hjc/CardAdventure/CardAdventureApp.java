@@ -64,6 +64,7 @@ public class CardAdventureApp extends GameApplication {
         //初始化战斗实体
         BattleEntity.initBattleEntities();
         BattleInformation.battle();
+        BattleInformation.effectExecution();
     }
 
     //启动类

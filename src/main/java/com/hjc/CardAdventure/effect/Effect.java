@@ -1,9 +1,9 @@
 package com.hjc.CardAdventure.effect;
 
-import com.hjc.CardAdventure.effect.basic.DrawEffect;
-import com.hjc.CardAdventure.effect.basic.PhysicalDamage;
-import com.hjc.CardAdventure.effect.target.PlayerDesignation;
-import com.hjc.CardAdventure.effect.target.TargetDesignation;
+import com.hjc.CardAdventure.effect.basic.*;
+import com.hjc.CardAdventure.effect.player.*;
+import com.hjc.CardAdventure.effect.target.*;
+import com.hjc.CardAdventure.effect.enemy.*;
 import com.hjc.CardAdventure.pojo.Role;
 import lombok.*;
 
@@ -38,14 +38,32 @@ public abstract class Effect {
         //获取操作符
         String operation = getFirst(strings);
         return switch (operation) {
-            //指定玩家效果
+            //目标指定效果
+            //指定玩家效果#effect
             case "PLAYER" -> new PlayerDesignation(from, montage(strings));
-            //指定目标效果
+            //指定目标效果#effect
             case "TARGET" -> new TargetDesignation(from, montage(strings));
-            //物理攻击效果
+
+            //基础效果
+            //物理攻击效果#x#y(x为伤害数值，y为力量加成倍率)
             case "DAMAGE" -> new PhysicalDamage(from, montage(strings), to);
-            //抽牌效果
+
+            //玩家特有
+            //抽牌效果#x(x为抽牌数)
             case "DRAW" -> new DrawEffect(from, montage(strings));
+            //使用牌后置入牌堆效果#cards(cards为指定牌堆)
+            case "USE_TO" -> new CardUseEnd(from, montage(strings));
+            //减少出牌数效果#x(x为减少出牌数的数值)
+            case "HEAVY" -> new ReduceProduce(from, montage(strings));
+
+            //敌人特有
+            //删除意图效果
+            case "INTENTION_DELETE" -> new IntentionDelete(from, montage(strings));
+            //意图生成效果
+            case "INTENTION_GENERATE" -> new IntentionGenerate(from, montage(strings));
+
+            //暂停效果#x(x为暂停的时间，999为直接暂停)
+            case "PAUSE" -> new PauseEffect(from, montage(strings));
             default -> null;
         };
     }
@@ -84,5 +102,13 @@ public abstract class Effect {
         Effect next = parse(from, effect, to);
         if (next == null) return;
         next.action();
+    }
+
+    //拼接接下来的效果解析
+    public static String getNextEffectString(Role from, String effect, Role to, String text) {
+        Effect next = parse(from, effect, to);
+        if (next == null) return "";
+        if (next.toString().isEmpty()) return "";
+        return text + next;
     }
 }

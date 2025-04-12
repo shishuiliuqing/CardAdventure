@@ -1,4 +1,4 @@
-package com.hjc.CardAdventure.effect.basic;
+package com.hjc.CardAdventure.effect.player;
 
 import com.hjc.CardAdventure.component.battle.SumCardsComponent;
 import com.hjc.CardAdventure.effect.Effect;
@@ -21,6 +21,6 @@ public class ShuffleProduce extends Effect {
 
     @Override
     public String toString() {
-        return "逆转";
+        return "逆转" + Effect.getNextEffectString(getFrom(), getEffect(), null, ",");
     }
 }

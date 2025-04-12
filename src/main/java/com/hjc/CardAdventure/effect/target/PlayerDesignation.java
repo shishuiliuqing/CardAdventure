@@ -19,7 +19,6 @@ public class PlayerDesignation extends Effect {
 
     @Override
     public String toString() {
-        Effect effect = Effect.parse(getFrom(), getEffect(), Global.CARD_USE.target);
-        return effect == null ? "" : "[P]" + effect;
+        return Effect.getNextEffectString(getFrom(), getEffect(), Global.PLAYER.player, "[P]");
     }
 }

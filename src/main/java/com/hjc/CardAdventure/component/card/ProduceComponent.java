@@ -5,10 +5,11 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
 import com.hjc.CardAdventure.Utils.EntityUtils;
 import com.hjc.CardAdventure.entity.BattleEntity;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import static com.hjc.CardAdventure.Global.CARD_USE.produce;
+import static com.hjc.CardAdventure.Global.CARD_USE.*;
 import static com.hjc.CardAdventure.Global.GAME_SETTING.*;
 import static com.hjc.CardAdventure.Global.*;
 
@@ -26,6 +27,26 @@ public class ProduceComponent extends Component {
                 Color.BLACK);
         EntityUtils.nodeMove(use, APP_WITH - 150 + 25, APP_HEIGHT - 250 + 35);
         entity.getViewComponent().addChild(use);
+
+        entity.getViewComponent().addOnClickHandler(e -> produce());
+    }
+
+
+    //执行出牌效果
+    private void produce() {
+        //不允许继续点击使用按钮
+        update(false);
+        //不可更改指定目标
+        needTarget = false;
+        //不可选择卡牌
+        selectable = false;
+        //卡牌移出被选择数组
+        CardComponent cardComponent = CardComponent.CARD_COMPONENTS.get(0);
+        CardComponent.CARD_COMPONENTS.remove(0);
+        //执行卡牌效果
+        cardComponent.action();
+
+        BattleInformation.effectExecution();
     }
 
     //更新方法

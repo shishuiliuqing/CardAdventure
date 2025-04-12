@@ -42,6 +42,7 @@ public class PhysicalDamage extends TargetedEffect {
         int magnification = changeToInt(getFirst(effect));
         //计算真实伤害数值
         int realValue = AttributeUtils.mathPhyDamage(getFrom(), getTo(), value, magnification);
-        return "造成" + realValue + "点物理伤害";
+        String next = Effect.getNextEffectString(getFrom(), montage(effect), null, ",");
+        return "造成" + realValue + "点物理伤害" + (magnification == 1 ? "" : "," + magnification + "倍力量加成") + next;
     }
 }

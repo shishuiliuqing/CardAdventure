@@ -34,7 +34,7 @@ public class CardEntityFactory implements EntityFactory{
     }
 
     //弃牌
-    @Spawns("abandon")
+    @Spawns("abandonJudge")
     public Entity newAbandon(SpawnData data) {
         return FXGL.entityBuilder(data)
                 .with(new AbandonComponent())

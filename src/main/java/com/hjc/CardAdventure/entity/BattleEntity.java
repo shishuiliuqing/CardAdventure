@@ -3,7 +3,12 @@ package com.hjc.CardAdventure.entity;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
+import com.hjc.CardAdventure.Global;
+import com.hjc.CardAdventure.configuration.MonsterPool;
 import com.hjc.CardAdventure.pojo.BattleInformation;
+import com.hjc.CardAdventure.pojo.enemy.EnemyType;
+import com.hjc.CardAdventure.pojo.environment.InsideInformation;
+import com.hjc.CardAdventure.pojo.environment.TimeStatus;
 
 public class BattleEntity {
     //    //背景
@@ -40,6 +45,9 @@ public class BattleEntity {
     public static void initBattleEntities() {
         //初始化背景
 //        bg = FXGL.spawn("bg");
+        //获得怪池
+        MonsterPool.enemyType = EnemyType.LITTLE_MONSTER;
+        MonsterPool.monsterPool = Global.CONFIGURATION.seasonMonsterPool.generateLittleMonsterPool(InsideInformation.day, TimeStatus.EVENING);
         //初始化战斗信息
         BattleInformation.initBattle();
         //初始化出牌框
@@ -55,7 +63,7 @@ public class BattleEntity {
         //初始化使用按钮
         produce = FXGL.spawn("produce");
         //初始化弃牌按钮
-        abandon = FXGL.spawn("abandon");
+        abandon = FXGL.spawn("abandonJudge");
         //初始化目标指定文本
         target = FXGL.spawn("target");
         //初始化结束回合按钮

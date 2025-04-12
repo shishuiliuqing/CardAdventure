@@ -1,4 +1,4 @@
-package com.hjc.CardAdventure.effect.basic;
+package com.hjc.CardAdventure.effect.player;
 
 import com.hjc.CardAdventure.Utils.CardsUtils;
 import com.hjc.CardAdventure.component.battle.AbandonCardsComponent;
@@ -32,6 +32,6 @@ public class ShuffleEffect extends Effect {
 
     @Override
     public String toString() {
-        return "洗牌";
+        return "洗牌" + Effect.getNextEffectString(getFrom(), getEffect(), null, ",");
     }
 }

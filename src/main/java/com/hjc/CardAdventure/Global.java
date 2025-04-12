@@ -40,6 +40,8 @@ public class Global {
     public static final String PLAYER_IMG_ADDRESS = ROLE_ADDRESS + "player/";
     //怪物图片地址
     public static final String ENEMY_IMG_ADDRESS = ROLE_ADDRESS + "enemy/";
+    //怪物意图图片地址
+    public static final String INTENTION_IMG_ADDRESS = "intention/";
 
     //根据图片地址和图片名字获取地址
     public static String getTextureAddress(String textTureTypeAddress, String textureName) {
@@ -104,6 +106,8 @@ public class Global {
         public static boolean isPlayer = false;
         //当前状态是否为弃牌状态
         public static boolean isAbandon = false;
+        //当前弃牌状态是否为弃牌阶段
+        public static boolean isAbandonOver = false;
         //当前状态是否可以选择卡牌
         public static boolean selectable = false;
         //当前行动卡牌
@@ -124,6 +128,7 @@ public class Global {
             target = null;
             isPlayer = false;
             isAbandon = false;
+            isAbandonOver = false;
             selectable = true;
             actionCard = null;
             specialProduce = false;

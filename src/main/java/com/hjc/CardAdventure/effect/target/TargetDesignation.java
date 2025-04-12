@@ -23,7 +23,6 @@ public class TargetDesignation extends Effect {
 
     @Override
     public String toString() {
-        Effect effect = Effect.parse(getFrom(), getEffect(), Global.CARD_USE.target);
-        return effect == null ? "" : "[T]" + effect;
+        return Effect.getNextEffectString(getFrom(), getEffect(), Global.CARD_USE.target, "[T]");
     }
 }

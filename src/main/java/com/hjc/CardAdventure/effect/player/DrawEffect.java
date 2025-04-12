@@ -1,9 +1,8 @@
-package com.hjc.CardAdventure.effect.basic;
+package com.hjc.CardAdventure.effect.player;
 
 import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.entity.BattleEntity;
-import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 
 import java.util.ArrayList;
@@ -33,6 +32,11 @@ public class DrawEffect extends Effect {
 
     @Override
     public String toString() {
-        return "抽" + changeToInt(getEffect()) + "张牌";
+        //解析效果
+        ArrayList<String> effect = Effect.cutEffect(getEffect());
+        //获取抽牌数
+        int value = Effect.changeToInt(Effect.getFirst(effect));
+        String next = Effect.getNextEffectString(getFrom(), Effect.montage(effect), null, ",");
+        return "抽" + value + "张牌" + next;
     }
 }

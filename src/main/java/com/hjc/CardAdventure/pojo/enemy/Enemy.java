@@ -1,9 +1,12 @@
 package com.hjc.CardAdventure.pojo.enemy;
 
 import com.almasb.fxgl.entity.Entity;
+import com.hjc.CardAdventure.Utils.BattleUtils;
 import com.hjc.CardAdventure.component.role.EnemyComponent;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.PauseEffect;
 import com.hjc.CardAdventure.entity.BattleEntity;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
 import lombok.AllArgsConstructor;
@@ -55,6 +58,18 @@ public class Enemy implements Role {
     @Override
     public void action() {
 
+        //解析并执行当前意图效果
+        ArrayList<Effect> effects = new ArrayList<>();
+        for (String effect : nowIntention.getEffects()) {
+            Effect now = Effect.parse(this, effect, null);
+            if (now == null) continue;
+            effects.add(now);
+        }
+        BattleInformation.insetEffect(effects);
+
+        //行动结束
+        //BattleInformation.EFFECTS.add(new PauseEffect(null, "999"));
+        BattleUtils.actionOver();
     }
 
     @Override
@@ -130,7 +145,6 @@ public class Enemy implements Role {
 
     @Override
     public String toString() {
-        return getLocation() + "";
-        //return name + "   " + blood + "/" + maxBlood + Effect.NEW_LINE + attribute.displayAttribute() + Effect.NEW_LINE;
+        return name + "   " + blood + "/" + maxBlood + Effect.NEW_LINE + attribute.displayAttribute() + Effect.NEW_LINE;
     }
 }

@@ -16,8 +16,8 @@ public class ConsumeCardsComponent extends Component {
         //添加组件
         addComponent();
 
-        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e->lookInformation());
-        entity.getViewComponent().addOnClickHandler(e->lookCards());
+        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e -> lookInformation());
+        entity.getViewComponent().addOnClickHandler(e -> lookCards());
     }
 
     private void addComponent() {
@@ -41,7 +41,7 @@ public class ConsumeCardsComponent extends Component {
     }
 
     //更新方法
-    private void update() {
+    public void update() {
         entity.getViewComponent().clearChildren();
         addComponent();
     }

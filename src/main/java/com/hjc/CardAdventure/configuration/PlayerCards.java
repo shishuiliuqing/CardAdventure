@@ -5,7 +5,9 @@ import com.hjc.CardAdventure.pojo.card.Card;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.hjc.CardAdventure.Global.*;
 import static com.hjc.CardAdventure.Global.PLAYER.player;
@@ -27,9 +29,27 @@ public class PlayerCards {
     public static ArrayList<Card> getCards(ArrayList<String> cards) {
         ArrayList<Card> result = new ArrayList<>();
         for (String s : cards) {
-            Card card = FXGL.getAssetLoader().loadJSON(getJsonAddress(CARDS_ADDRESS,player.getImg() + "/" + s), Card.class).get();
+            Card card = FXGL.getAssetLoader().loadJSON(getJsonAddress(CARDS_ADDRESS, player.getImg() + "/" + s), Card.class).get();
             result.add(card);
         }
         return result;
+    }
+
+    //日常战斗，60%白，30蓝，10%金
+    //根据数量随机获得人物卡牌
+    public static ArrayList<String> rewardCard(int num, PlayerCards playerCards) {
+        Random r = new Random();
+        ArrayList<String> cards = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            int n = r.nextInt(100) + 1;
+            if (n <= 60) {
+                cards.add(playerCards.getWhite().get(r.nextInt()));
+            } else if (n <= 90) {
+                cards.add(playerCards.getBlue().get(r.nextInt()));
+            } else {
+                cards.add(playerCards.getYellow().get(r.nextInt()));
+            }
+        }
+        return cards;
     }
 }

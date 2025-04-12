@@ -3,10 +3,16 @@ package com.hjc.CardAdventure.Utils;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
+import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
+import com.hjc.CardAdventure.pojo.enemy.Enemy;
+import com.hjc.CardAdventure.pojo.enemy.IntentionType;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -17,6 +23,7 @@ import javafx.scene.text.Text;
 
 import static com.hjc.CardAdventure.Global.*;
 import static com.hjc.CardAdventure.Global.CARD_DISPLAY.*;
+import static com.hjc.CardAdventure.Global.PLAYER.player;
 
 //用于实体创建
 public class EntityUtils {
@@ -83,17 +90,17 @@ public class EntityUtils {
     //卡牌创建
     public static Pane createCard(Card card) {
         Pane pane = new Pane();
-        pane.setPrefSize(CARD_WIDTH,CARD_HEIGHT);
+        pane.setPrefSize(CARD_WIDTH, CARD_HEIGHT);
 
         //制作矩形牌背
-        Rectangle cardBack = new Rectangle(CARD_WIDTH,CARD_HEIGHT,Color.valueOf(card.getColorS()));
+        Rectangle cardBack = new Rectangle(CARD_WIDTH, CARD_HEIGHT, Color.valueOf(card.getColorS()));
         pane.getChildren().add(cardBack);
 
         //卡牌品质框
-        Rectangle cardQuality = new Rectangle(CARD_WIDTH,CARD_HEIGHT/5,card.getCardQuality().getColor());
+        Rectangle cardQuality = new Rectangle(CARD_WIDTH, CARD_HEIGHT / 5, card.getCardQuality().getColor());
         //卡牌名文本
         Text cardName = getText(card.getCardName(),
-                "华文行楷",20,
+                "华文行楷", 20,
                 Color.BLACK);
         //卡牌品质框与卡牌名居中
         StackPane stackPane = new StackPane(cardQuality);
@@ -102,22 +109,22 @@ public class EntityUtils {
 
         //卡牌描述
         //背景框
-        StackPane cardDescriptionBack = new StackPane(new Rectangle(CARD_WIDTH - 10,CARD_HEIGHT / 2 -5,Color.valueOf("#696969")));
-        nodeMove(cardDescriptionBack,5,CARD_HEIGHT / 2);
+        StackPane cardDescriptionBack = new StackPane(new Rectangle(CARD_WIDTH - 10, CARD_HEIGHT / 2 - 5, Color.valueOf("#696969")));
+        nodeMove(cardDescriptionBack, 5, CARD_HEIGHT / 2);
         pane.getChildren().add(cardDescriptionBack);
 
-        Label cardDescription = getLabel(CARD_WIDTH - 10 , CARD_HEIGHT/2-5,
-                card.toString(),"微软雅黑",11.7,
+        Label cardDescription = getLabel(CARD_WIDTH - 10, CARD_HEIGHT / 2 - 5,
+                card.toString(), "微软雅黑", 11.7,
                 Color.WHITE);
         cardDescription.setStyle("-fx-background-color: #696969");
-        nodeMove(cardDescription,5,CARD_HEIGHT/2);
+        nodeMove(cardDescription, 5, CARD_HEIGHT / 2);
         pane.getChildren().add(cardDescription);
 
         //卡牌属性要求打印
-        Label cardAttribute = getLabel(CARD_WIDTH-10,CARD_HEIGHT * 3/10,
-                card.getAttribute().displayAttribute(),"华文仿宋",11.3,
+        Label cardAttribute = getLabel(CARD_WIDTH - 10, CARD_HEIGHT * 3 / 10,
+                card.getAttribute().displayAttribute(), "华文仿宋", 11.3,
                 Color.WHITE);
-        nodeMove(cardAttribute,5,CARD_HEIGHT/5);
+        nodeMove(cardAttribute, 5, CARD_HEIGHT / 5);
         pane.getChildren().add(cardAttribute);
 
         return pane;
@@ -151,5 +158,36 @@ public class EntityUtils {
         stackPane.getChildren().add(bloodValue);
         nodeMove(stackPane, x + (250 - bloodBoxLen) / 2, y + 178);
         entity.getViewComponent().addChild(stackPane);
+    }
+
+    //敌人意图展示
+    public static void displayIntention(Enemy enemy, Entity entity, double x, double y) {
+        //无意图，返回
+        if (enemy.getNowIntention() == null) return;
+        //生成攻击意图
+        if (enemy.getNowIntention().getIntentionType() == IntentionType.ATTACK) {
+            Texture attackTexture = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "attack"),40,40);
+            nodeMove(attackTexture, x - 50, y - 50);
+            entity.getViewComponent().addChild(attackTexture);
+
+            displayDamage(enemy, entity, x, y);
+        }
+    }
+
+    //伤害类意图伤害显示
+    private static void displayDamage(Enemy enemy, Entity entity, double x, double y) {
+        int[] value = IntentionType.getAttackValue(enemy, enemy.getNowIntention().getEffects());
+        String attackValue;
+        if (value[0] == 0) {
+            attackValue = String.valueOf(value[1]);
+        } else {
+            attackValue = value[1] + "✖" + value[0];
+        }
+
+        Label label = getLabel(enemy.getWidth() / 2, 40, attackValue,
+                "微软雅黑", 17,
+                Color.RED);
+        nodeMove(label, x - 10, y - 50);
+        entity.getViewComponent().addChild(label);
     }
 }

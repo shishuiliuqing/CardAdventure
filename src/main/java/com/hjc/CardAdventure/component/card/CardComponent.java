@@ -1,18 +1,31 @@
 package com.hjc.CardAdventure.component.card;
 
+import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
+import com.hjc.CardAdventure.CardAdventureApp;
+import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.component.battle.AbandonCardsComponent;
+import com.hjc.CardAdventure.component.battle.ConsumeCardsComponent;
+import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.component.battle.SumCardsComponent;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.card.Card;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
 import static com.hjc.CardAdventure.Global.CARD_DISPLAY.*;
 import static com.hjc.CardAdventure.Global.GAME_SETTING.*;
 import static com.hjc.CardAdventure.Global.CARD_USE.*;
+import static com.hjc.CardAdventure.Global.PLAYER.player;
 
 public class CardComponent extends Component {
     //被选择时移动的距离
@@ -24,8 +37,9 @@ public class CardComponent extends Component {
     //当前卡牌
     private Card card;
     //卡牌所在位置
-    private int boxNum;
-
+    public int boxNum;
+    //当前卡牌ui
+    Pane pane;
 
     //相对牌框移动距离
     private static final double X_TO_BOX = 30 / PROPORTION;
@@ -41,7 +55,7 @@ public class CardComponent extends Component {
         //绘制卡牌
         addUI();
 
-        entity.getViewComponent().addOnClickHandler(e->select());
+        entity.getViewComponent().addOnClickHandler(e -> select());
     }
 
 
@@ -50,13 +64,19 @@ public class CardComponent extends Component {
         Pane pane = EntityUtils.createCard(card);
         EntityUtils.nodeMove(pane, CARD_BOX_HEIGHT + 10 + boxNum * CARD_BOX_WIDTH + X_TO_BOX, APP_HEIGHT - CARD_BOX_HEIGHT + Y_TO_BOX - (isSelected() ? Y_MOVE_SELECTED : 0));
         entity.getViewComponent().addChild(pane);
+        this.pane = pane;
     }
 
     //选择卡牌
     public void select() {
+        //卡牌不在手牌区,不允许选择
+        if (!isHand()) return;
+
+        double paneY = APP_HEIGHT - CARD_BOX_HEIGHT + Y_TO_BOX;
+
         if (isSelected() && specialProduce) {
             //点击后下移
-            entity.translateY(Y_MOVE_SELECTED);
+            pane.setTranslateY(paneY);
             //选择区移除
             CARD_COMPONENTS.remove(this);
             //触发牌的放下效果
@@ -74,7 +94,7 @@ public class CardComponent extends Component {
         //被选择时
         if (isSelected()) {
             //点击后下移
-            entity.translateY(Y_MOVE_SELECTED);
+            pane.setTranslateY(paneY);
             //选择区移除
             CARD_COMPONENTS.remove(this);
             //如果为弃牌状态
@@ -86,14 +106,14 @@ public class CardComponent extends Component {
                 //触发牌的放下效果
                 card.putDown();
                 //使用按钮变暗
-               BattleEntity.produce.getComponent(ProduceComponent.class).update(false);
+                BattleEntity.produce.getComponent(ProduceComponent.class).update(false);
             }
 
             return;
         }
 
         //该牌上移
-        entity.translateY(-1 * Y_MOVE_SELECTED);
+        pane.setTranslateY(paneY - Y_MOVE_SELECTED);
 
         //如果是弃牌
         if (isAbandon) {
@@ -124,7 +144,7 @@ public class CardComponent extends Component {
         //当前出牌数为0，不允许选择牌
         if (remainingProduce == 0 && !specialProduce) {
             //该牌强制下移
-            entity.translateY(Y_MOVE_SELECTED);
+            pane.setTranslateY(paneY);
             SumCardsComponent.warn();
             return;
         }
@@ -144,11 +164,107 @@ public class CardComponent extends Component {
         BattleEntity.produce.getComponent(ProduceComponent.class).update(true);
     }
 
+    //执行卡牌效果
+    public void action() {
+        //如果是特殊使用，特殊使用结束
+        specialProduce = false;
+        //当前行动卡牌
+        actionCard = this;
+        //将该牌移至中央
+        pane.setLayoutX(APP_WITH / 2.0 - (199.0 + CARD_BOX_WIDTH * boxNum + X_TO_BOX + 1));
+        pane.setLayoutY(-290);
+        //更新抽牌区状态
+        DrawCardsComponent.CARD_BOX_STATUS[boxNum - 1] = 0;
+        //运行卡牌效果
+        card.action();
+        //执行卡牌放下效果--目标指定刷新
+        card.putDown();
+        //手牌区删除此牌
+        HAND_CARDS.remove(this);
+        //更新抽牌区状态
+        DrawCardsComponent.CARD_BOX_STATUS[boxNum - 1] = 0;
+        //如果当前行动仍然是玩家，可以继续行动
+        if (BattleInformation.nowAction == player) selectable = true;
+    }
+
+    //判断此牌是否在手牌区
+    private boolean isHand() {
+        for (CardComponent handCard : HAND_CARDS) {
+            if (handCard == this) return true;
+        }
+        return false;
+    }
+
+    //卡牌消失特效,并置入3大牌堆
+    public void disappear(ArrayList<Card> cards) {
+        //牌堆置入此牌
+        cards.add(card);
+        ScaleTransition st = new ScaleTransition(Duration.seconds(0.3), pane);
+        st.setToX(0.2);
+        st.setToY(0.2);
+        st.setOnFinished(e -> {
+            goToCards(cards, pane.getTranslateX() + pane.getLayoutX(), pane.getTranslateY() + pane.getLayoutY());
+            entity.removeFromWorld();
+
+        });
+        st.play();
+    }
+
+    //置入牌堆
+    private void goToCards(ArrayList<Card> cards, double x, double y) {
+        //生成一个圆
+        Circle circle = new Circle(20, Color.valueOf(card.getColorS()));
+        double cx = x + CARD_WIDTH / 2;
+        double cy = y + CARD_HEIGHT / 2;
+        circle.setCenterX(cx);
+        circle.setCenterY(cy);
+        Entity c = FXGL.entityBuilder().view(circle).buildAndAttach();
+        //生成圆圈移动动画
+        double targetCircleX;
+        double targetCircleY;
+        if (cards == BattleInformation.ABANDON_CARDS) {
+            //外框偏移量
+            double outXMove = APP_WITH - CARD_BOX_WIDTH;
+            double outYMove = APP_HEIGHT - CARD_BOX_HEIGHT;
+            //内框偏移量
+            double inXMove = outXMove + 30 / PROPORTION;
+            double inYMove = outYMove + 75 / PROPORTION;
+            //圆心所在位置
+            targetCircleX = inXMove + CARD_WIDTH / 2;
+            targetCircleY = inYMove + CARD_HEIGHT / 2;
+        } else if (cards == BattleInformation.DRAW_CARDS) {
+            targetCircleX = 30 / PROPORTION + CARD_WIDTH / 2;
+            targetCircleY = APP_HEIGHT - CARD_BOX_HEIGHT + 75 / PROPORTION + CARD_HEIGHT / 2;
+        } else {
+            targetCircleX = 1825;
+            targetCircleY = 630;
+        }
+
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(0.5), circle);
+        tt.setToX(targetCircleX - cx);
+        tt.setToY(targetCircleY - cy);
+        tt.setOnFinished(e -> {
+            c.removeFromWorld();
+            if (cards == BattleInformation.DRAW_CARDS)
+                BattleEntity.drawCards.getComponent(DrawCardsComponent.class).update();
+            else if (cards == BattleInformation.ABANDON_CARDS)
+                BattleEntity.abandonCards.getComponent(AbandonCardsComponent.class).update();
+            else BattleEntity.consumeCards.getComponent(ConsumeCardsComponent.class).update();
+        });
+        tt.play();
+    }
+
     //判断当前卡牌是否被选择
     private boolean isSelected() {
         for (CardComponent cardComponent : CARD_COMPONENTS) {
             if (cardComponent == this) return true;
         }
         return false;
+    }
+
+    //更新卡牌
+    public void update() {
+        entity.getViewComponent().clearChildren();
+        addUI();
     }
 }

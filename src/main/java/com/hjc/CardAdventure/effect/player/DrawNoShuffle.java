@@ -1,4 +1,4 @@
-package com.hjc.CardAdventure.effect.basic;
+package com.hjc.CardAdventure.effect.player;
 
 import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.effect.Effect;

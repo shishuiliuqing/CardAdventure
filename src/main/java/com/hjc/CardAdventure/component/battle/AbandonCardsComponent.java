@@ -39,6 +39,7 @@ public class AbandonCardsComponent extends Component {
         double cXMove = inXMove + CARD_WIDTH / 2;
         double cYMove = inYMove + CARD_HEIGHT / 2;
 
+
         //外框
         Rectangle outBox = new Rectangle(CARD_BOX_WIDTH, CARD_BOX_HEIGHT, Color.valueOf(player.getColorS()));
         EntityUtils.nodeMove(outBox, outXMove, outYMove);

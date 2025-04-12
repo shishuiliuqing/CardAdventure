@@ -62,6 +62,19 @@ public class Card {
         return sb.toString();
     }
 
+    //卡牌使用
+    public void action() {
+        //解析卡牌效果
+        ArrayList<Effect> effects = new ArrayList<>();
+        for (String cardEffect : cardEffects) {
+            effects.add(Effect.parse(player, cardEffect, null));
+        }
+        //将所有效果添加至效果序列
+        BattleInformation.insetEffect(effects);
+        //执行效果序列
+        BattleInformation.effectExecution();
+    }
+
     //当卡牌被选择时调用
     public void isSelected() {
         //群体指定
@@ -88,7 +101,7 @@ public class Card {
 
         BattleEntity.target.getComponent(TargetComponent.class).update();
     }
-    
+
     //当卡牌被放下时使用
     public void putDown() {
         //群体指定

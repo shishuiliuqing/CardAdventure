@@ -2,10 +2,12 @@ package com.hjc.CardAdventure.pojo.player;
 
 import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.AttributeUtils;
+import com.hjc.CardAdventure.component.information.BloodComponent;
 import com.hjc.CardAdventure.component.role.PlayerComponent;
-import com.hjc.CardAdventure.effect.basic.DrawEffect;
-import com.hjc.CardAdventure.effect.basic.ShuffleProduce;
+import com.hjc.CardAdventure.effect.player.DrawEffect;
+import com.hjc.CardAdventure.effect.player.ShuffleProduce;
 import com.hjc.CardAdventure.entity.BattleEntity;
+import com.hjc.CardAdventure.entity.InformationEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
@@ -14,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static com.hjc.CardAdventure.Global.PLAYER.*;
 import static com.hjc.CardAdventure.Global.CARD_USE.*;
 
 @Getter
@@ -123,5 +124,6 @@ public class Player implements Role {
     //更新玩家
     public void update() {
         BattleEntity.playerBattle.getComponent(PlayerComponent.class).update();
+        InformationEntity.playerBlood.getComponent(BloodComponent.class).update();
     }
 }

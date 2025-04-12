@@ -5,13 +5,16 @@ import com.hjc.CardAdventure.Utils.AttributeUtils;
 import com.hjc.CardAdventure.Utils.CardsUtils;
 import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.component.card.CardComponent;
+import com.hjc.CardAdventure.configuration.MonsterPool;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.PauseEffect;
 import com.hjc.CardAdventure.effect.basic.RoleAction;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
 import com.hjc.CardAdventure.pojo.enemy.EnemyType;
+import com.hjc.CardAdventure.pojo.enemy.IntentionGenerateType;
 import com.hjc.CardAdventure.pojo.environment.InsideInformation;
 import com.hjc.CardAdventure.pojo.environment.TimeStatus;
 
@@ -24,8 +27,6 @@ import java.util.Arrays;
 
 //战斗信息类
 public class BattleInformation {
-    //敌人类型，用于决定获得经验
-    public static EnemyType enemyType;
     //敌人序列
     public static final ArrayList<Enemy> ENEMIES = new ArrayList<>();
     //当前行动序列
@@ -53,11 +54,8 @@ public class BattleInformation {
     }
 
     public static void initBattle() {
-        //初始化工具类
-        AttributeUtils.initAttributeUtils();
-
         //初始化回合数
-        rounds = 0;
+        rounds = 1;
 
         //初始化敌人序列
         initEnemies();
@@ -71,9 +69,12 @@ public class BattleInformation {
         //初始化行动序列
         initActions();
 
+        //初始化工具类
+        AttributeUtils.initAttributeUtils();
 
         //正在战斗
         isBattle = true;
+
     }
 
 
@@ -82,8 +83,7 @@ public class BattleInformation {
         //初始化敌人序列
         ENEMIES.clear();
         //添加怪物
-        ArrayList<String> monsters = seasonMonsterPool.generateLittleMonsterPool(InsideInformation.day, TimeStatus.EVENING);
-        ENEMIES.addAll(seasonMonsterPool.getEnemies(monsters, InsideInformation.day));
+        ENEMIES.addAll(MonsterPool.getEnemies(InsideInformation.day));
         //为怪物分配位置
         for (int i = 0; i < ENEMIES.size(); i++) {
             ENEMIES.get(i).setLocation(BattleEntity.enemyGenerateOrder[i]);
@@ -96,9 +96,9 @@ public class BattleInformation {
 //        }
 
         //为每位敌人初始化意图
-//        for (Enemy enemy : ENEMIES) {
-//            IntentionGenerateType.generateIntention(enemy);
-//        }
+        for (Enemy enemy : ENEMIES) {
+            IntentionGenerateType.generateIntention(enemy);
+        }
     }
 
     //初始化牌堆
@@ -141,8 +141,6 @@ public class BattleInformation {
         THIS_ACTION.addAll(ENEMIES);
         sort(THIS_ACTION);
         NEXT_ACTION.addAll(THIS_ACTION);
-        //初始化回合数为1
-        rounds++;
     }
 
     //根据速度排序行动序列
@@ -217,18 +215,17 @@ public class BattleInformation {
         }
 //        //获取当前行动对象
         Role role = THIS_ACTION.get(0);
-        THIS_ACTION.remove(0);
         //生成行动执行效果
-        RoleAction roleAction = new RoleAction(role, "1", role);
+        RoleAction roleAction = new RoleAction(role, "", role);
         EFFECTS.add(roleAction);
         //效果执行
-        effectExecution();
+        //effectExecution();
     }
 
     //效果执行器
     public static void effectExecution() {
         while (!EFFECTS.isEmpty()) {
-            //System.out.println(EFFECTS);
+            System.out.println(EFFECTS);
             if (ENEMIES.isEmpty() && isBattle) {
                 EFFECTS.clear();
                 Attribute.cloneAttribute(attribute, player.getAttribute());
@@ -240,8 +237,8 @@ public class BattleInformation {
 
             Effect effect = EFFECTS.get(0);
             EFFECTS.remove(0);
-            effect.action();
-//            if (effect instanceof PauseEffect) break;
+            if (effect != null) effect.action();
+            if (effect instanceof PauseEffect) break;
         }
     }
 

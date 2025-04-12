@@ -13,8 +13,8 @@
   "colorS": "#ff0000",
   "cardEffects": [
     "TARGET#DAMAGE#6#1",
-    "NULL#HEAVY#1",
-    "NULL#TO_ABANDON"
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
   ],
   "targetType": 0,
   "effectiveEffect": 1

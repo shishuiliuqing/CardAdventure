@@ -6,9 +6,12 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
 import com.hjc.CardAdventure.Utils.EntityUtils;
 import com.hjc.CardAdventure.component.card.TargetComponent;
+import com.hjc.CardAdventure.component.information.TipBarComponent;
+import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
+import javafx.scene.input.MouseEvent;
 
 import static com.hjc.CardAdventure.Global.*;
 import static com.hjc.CardAdventure.Global.CARD_USE.*;
@@ -33,9 +36,13 @@ public class EnemyComponent extends Component {
         addComponent();
         //加载图片
         addEnemy();
-        
-        entity.getViewComponent().addOnClickHandler(e->target());
+        //加载意图
+        addIntention();
+
+        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e -> lookInformation());
+        entity.getViewComponent().addOnClickHandler(e -> target());
     }
+
 
     //非人物组件
     private void addComponent() {
@@ -48,6 +55,16 @@ public class EnemyComponent extends Component {
         EntityUtils.nodeMove(enemyImg, 550 + location * 215 + enemy.getX(), 300 + enemy.getY());
         entity.getViewComponent().addChild(enemyImg);
     }
+
+    //加载意图
+    private void addIntention() {
+        EntityUtils.displayIntention(enemy, entity, 550 + location * 215 + enemy.getX() + enemy.getWidth() / 2, 300 + enemy.getY());
+    }
+
+    private void lookInformation() {
+        TipBarComponent.update("当前位置：" + enemy.getLocation() + "号位" + Effect.NEW_LINE + enemy);
+    }
+
 
     //选择该目标
     private void target() {
@@ -67,7 +84,7 @@ public class EnemyComponent extends Component {
         BattleEntity.target.getComponent(TargetComponent.class).update();
         this.update(true);
     }
-    
+
     //更新目标指示
     public void update(boolean isSelected) {
         this.isSelected = isSelected;
@@ -79,5 +96,6 @@ public class EnemyComponent extends Component {
         entity.getViewComponent().clearChildren();
         addComponent();
         addEnemy();
+        addIntention();
     }
 }
