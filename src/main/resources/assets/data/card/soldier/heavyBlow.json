@@ -1,8 +1,8 @@
 {
   "cardAddress": "strike",
-  "cardName": "打击",
+  "cardName": "重击",
   "attribute": {
-    "power": 1,
+    "power": 2,
     "intelligence": 0,
     "defense": 0,
     "agility": 0,
@@ -12,7 +12,7 @@
   "cardQuality": 0,
   "colorS": "#ff0000",
   "cardEffects": [
-    "TARGET#DAMAGE#6#1",
+    "TARGET#DAMAGE#9#1",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],

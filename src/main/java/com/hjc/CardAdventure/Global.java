@@ -4,6 +4,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.configuration.PlayerCards;
 import com.hjc.CardAdventure.configuration.SeasonMonsterPool;
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.player.Player;
@@ -42,6 +43,8 @@ public class Global {
     public static final String ENEMY_IMG_ADDRESS = ROLE_ADDRESS + "enemy/";
     //怪物意图图片地址
     public static final String INTENTION_IMG_ADDRESS = "intention/";
+    //特效图片
+    public static final String EFFECT_IMG_ADDRESS = "effect/";
 
     //根据图片地址和图片名字获取地址
     public static String getTextureAddress(String textTureTypeAddress, String textureName) {
@@ -62,6 +65,8 @@ public class Global {
     public static final String INTENTION_ADDRESS = CONFIGURATION_ADDRESS + "intention/";
     //角色卡牌
     public static final String PLAYER_CARDS_ADDRESS = CONFIGURATION_ADDRESS + "playerCards/";
+    //怪物卡牌
+    public static final String ENEMY_CARDS_ADDRESS = CONFIGURATION_ADDRESS + "enemyCards/";
 
     //根据json文件地址和名字获取json文件地址
     public static String getJsonAddress(String jsonAddress, String jsonName) {
@@ -146,6 +151,8 @@ public class Global {
         public static ArrayList<Card> cards = new ArrayList<>();
         //玩家护盾
         public static int armor = 0;
+        //玩家时机效果
+        public static ArrayList<Opportunity> opportunities = new ArrayList<>();
 
         //初始化角色
         public static void initPlayer() {
@@ -162,5 +169,11 @@ public class Global {
         public static SeasonMonsterPool seasonMonsterPool = FXGL.getAssetLoader().loadJSON(getJsonAddress(FOREST_ADDRESS, "spring"), SeasonMonsterPool.class).get();
         //人物卡牌
         public static PlayerCards playerCards = FXGL.getAssetLoader().loadJSON(getJsonAddress(PLAYER_CARDS_ADDRESS, "soldier"), PlayerCards.class).get();
+
+        //初始化配置
+        public static void initConfiguration() {
+            seasonMonsterPool = FXGL.getAssetLoader().loadJSON(getJsonAddress(FOREST_ADDRESS, "spring"), SeasonMonsterPool.class).get();
+            playerCards = FXGL.getAssetLoader().loadJSON(getJsonAddress(PLAYER_CARDS_ADDRESS, "soldier"), PlayerCards.class).get();
+        }
     }
 }

@@ -7,8 +7,11 @@ import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.configuration.MonsterPool;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.ActionOver;
 import com.hjc.CardAdventure.effect.basic.PauseEffect;
 import com.hjc.CardAdventure.effect.basic.RoleAction;
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
+import com.hjc.CardAdventure.effect.target.TargetedEffect;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
 import com.hjc.CardAdventure.pojo.card.Card;
@@ -24,6 +27,7 @@ import static com.hjc.CardAdventure.Global.CARD_USE.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 //战斗信息类
 public class BattleInformation {
@@ -126,9 +130,8 @@ public class BattleInformation {
         armor = 0;
         //初始化各组件布尔值
         initCardUse();
-//        //玩家效果序列刷新
-//        PlayerInformation.opportunities.clear();
-//        PlayerInformation.opportunityTypes.clear();
+        //玩家时机效果序列刷新
+        opportunities.clear();
     }
 
     //初始化行动序列
@@ -206,12 +209,12 @@ public class BattleInformation {
             THIS_ACTION.addAll(NEXT_ACTION);
             //回合添加
             rounds++;
-            //触发所有角色的回合结束效果
-//            for (int i = ENEMIES.size() - 1; i >= 0; i--) {
-//                if (ENEMIES.get(i) == null) continue;
-//                Opportunity.roundOpportunityLaunch(ENEMIES.get(i));
-//            }
-//            Opportunity.roundOpportunityLaunch(PlayerInformation.player);
+            //触发所有角色的回合开始效果
+            for (int i = ENEMIES.size() - 1; i >= 0; i--) {
+                if (ENEMIES.get(i) == null) continue;
+                Opportunity.roundLaunch(ENEMIES.get(i));
+            }
+            Opportunity.roundLaunch(player);
         }
 //        //获取当前行动对象
         Role role = THIS_ACTION.get(0);
@@ -229,8 +232,9 @@ public class BattleInformation {
             if (ENEMIES.isEmpty() && isBattle) {
                 EFFECTS.clear();
                 Attribute.cloneAttribute(attribute, player.getAttribute());
-                //FXGL.getSceneService().pushSubScene(new RewardSubScene());
-                reward();
+                //FXGL.getSceneService().pushSubScene(new BattleRewardSubScene());
+                //reward();
+                Reward reward = Reward.getReward(getBattleReward());
                 isBattle = false;
                 break;
             }
@@ -242,23 +246,61 @@ public class BattleInformation {
         }
     }
 
-    private static void reward() {
+    //战斗奖励获取
+    private static ArrayList<String> getBattleReward() {
 //        if (enemyType == EnemyType.LITTLE_MONSTER) {
-//            RewardSubScene.REWARD.clear();
-//            RewardSubScene.REWARD.add(1);
-//            //RewardSubScene.REWARD.add(1);
-//            RewardSubScene.REWARD.add(4);
-//            FXGL.getSceneService().pushSubScene(new RewardSubScene());
+//            BattleRewardSubScene.REWARD.clear();
+//            BattleRewardSubScene.REWARD.add(1);
+//            //BattleRewardSubScene.REWARD.add(1);
+//            BattleRewardSubScene.REWARD.add(4);
+//            FXGL.getSceneService().pushSubScene(new BattleRewardSubScene());
 //        }
+        Random r = new Random();
+        ArrayList<String> rewards = new ArrayList<>();
+        if (MonsterPool.enemyType == EnemyType.LITTLE_MONSTER) {
+            //卡牌奖励
+            rewards.add("CARDS#3");
+            //金币奖励
+            int gold = r.nextInt(19) + 30;
+            rewards.add("GOLD#" + gold);
+            //经验奖励
+            int experience = InsideInformation.day;
+            rewards.add("EXPERIENCE#" + experience);
+        }
+
+        return rewards;
     }
 
     //删除某个角色
     public static void clearRole(Role role) {
-//        //行动序列移除该角色
-//        THIS_ACTION.remove(role);
-//        NEXT_ACTION.remove(role);
-//        //移除所有有关该角色的效果（除回合结束）
-//        EFFECTS.removeIf(effect -> (!(effect instanceof ActionOver)) && (effect.getFrom() == role || effect.getTo() == role));
+        //行动序列移除该角色
+        THIS_ACTION.remove(role);
+        NEXT_ACTION.remove(role);
+
+        int n = 0;
+        //移除所有有关该角色的效果（除回合结束）
+        while (n < EFFECTS.size()) {
+            Effect effect = EFFECTS.get(n);
+
+            if (effect instanceof ActionOver) {
+                n++;
+                continue;
+            }
+
+            if (effect.getFrom() == role) {
+                EFFECTS.remove(n);
+                continue;
+            }
+
+            if (effect instanceof TargetedEffect targetedEffect) {
+                if (targetedEffect.getTo() == role) {
+                    EFFECTS.remove(n);
+                    continue;
+                }
+            }
+
+            n++;
+        }
     }
 
     //效果序列插入一种效果

@@ -2,6 +2,7 @@ package com.hjc.CardAdventure.pojo.card;
 
 import com.almasb.fxgl.entity.Entity;
 import com.hjc.CardAdventure.Global;
+import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.component.card.TargetComponent;
 import com.hjc.CardAdventure.component.role.EnemyComponent;
 import com.hjc.CardAdventure.component.role.PlayerComponent;
@@ -42,24 +43,69 @@ public class Card {
     private TargetType targetType;
     //卡牌有效效果数量（用于复制）
     private int effectiveEffect;
+    //卡牌描述
+    private String description;
+    //卡牌详情
+    private String detail;
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (String cardEffect : cardEffects) {
-            //解析卡牌效果
-            Effect effect = Effect.parse(player, cardEffect, null);
-            //解析失败
-            if (effect == null) break;
-            //获取卡牌效果描述
-            String description = effect.toString();
-            if (!description.isEmpty()) {
-                sb.append(effect);
-                sb.append("；");
+        if (description == null) return "";
+
+        String[] strings = description.split(";");
+        //解析部分指定效果
+        for (int i = 0; i < strings.length; i++) {
+            String s = strings[i];
+            if (s.contains("EFFECT")) {
+                int index = Integer.parseInt(s.substring(6));
+                Effect effect = Effect.parse(player, this.cardEffects.get(index), null);
+                strings[i] = effect.toString();
             }
         }
 
+        //拼接
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < strings.length; i++) {
+            String s = strings[i];
+            sb.append(s);
+            if (i != strings.length - 1) {
+                sb.append(";");
+            }
+        }
+        //返回
         return sb.toString();
+    }
+
+    //卡牌详情
+    private String detail() {
+        if (detail == null || detail.isEmpty()) return "";
+        String[] strings = detail.split(";");
+        //解析每个特殊效果
+        for (int i = 0; i < strings.length; i++) {
+            String s = strings[i];
+            strings[i] = Effect.effectDetail(s);
+        }
+
+        //拼接
+        StringBuilder sb = new StringBuilder();
+        for (String string : strings) {
+            sb.append(string).append(Effect.NEW_LINE);
+        }
+
+        return sb.toString();
+    }
+
+    //卡牌完整描述
+    public String cardDescription() {
+        return cardName +
+                Effect.NEW_LINE +
+                "该牌打出需要属性\n" +
+                attribute.displayAttribute() +
+                Effect.NEW_LINE +
+                this +
+                Effect.NEW_LINE +
+                detail() +
+                "目标指定类型：" + targetType.getTargetString();
     }
 
     //卡牌使用
@@ -99,7 +145,12 @@ public class Card {
             BattleEntity.enemies[index].getComponent(EnemyComponent.class).update(true);
         }
 
+        //目标指定更新
         BattleEntity.target.getComponent(TargetComponent.class).update();
+        //手牌区更新
+        for (CardComponent handCard : CardComponent.HAND_CARDS) {
+            handCard.update();
+        }
     }
 
     //当卡牌被放下时使用
@@ -129,5 +180,9 @@ public class Card {
 
         Global.CARD_USE.target = null;
         BattleEntity.target.getComponent(TargetComponent.class).update();
+        //手牌区更新
+        for (CardComponent handCard : CardComponent.HAND_CARDS) {
+            handCard.update();
+        }
     }
 }

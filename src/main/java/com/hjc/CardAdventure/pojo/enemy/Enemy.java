@@ -4,7 +4,9 @@ import com.almasb.fxgl.entity.Entity;
 import com.hjc.CardAdventure.Utils.BattleUtils;
 import com.hjc.CardAdventure.component.role.EnemyComponent;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.DeathEffect;
 import com.hjc.CardAdventure.effect.basic.PauseEffect;
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
@@ -54,9 +56,13 @@ public class Enemy implements Role {
     //敌人当前意图
     private Intention nowIntention;
 
+    //怪物时机效果
+    private ArrayList<Opportunity> opportunities = new ArrayList<>();
 
     @Override
     public void action() {
+        //失去所有护盾
+        setRoleArmor(0);
 
         //解析并执行当前意图效果
         ArrayList<Effect> effects = new ArrayList<>();
@@ -111,6 +117,8 @@ public class Enemy implements Role {
         this.blood -= value;
         if (this.blood < 0) this.blood = 0;
         update();
+
+        if (this.blood == 0) BattleInformation.insetEffect(new DeathEffect(this, ""));
     }
 
     @Override
@@ -121,11 +129,28 @@ public class Enemy implements Role {
     @Override
     public void setRoleArmor(int armor) {
         setArmor(armor);
+        update();
     }
 
     @Override
     public Attribute getRoleAttribute() {
         return getAttribute();
+    }
+
+    @Override
+    public ArrayList<Opportunity> getRoleOpportunities() {
+        return getOpportunities();
+    }
+
+    @Override
+    public void die() {
+        int index = getIndex();
+        //怪物序列移除该敌人
+        BattleInformation.ENEMIES.remove(this);
+        //播放死亡动画
+        BattleEntity.enemies[index].getComponent(EnemyComponent.class).deathAnimation();
+        //删除该实体
+        BattleEntity.enemies[getIndex()] = null;
     }
 
     //更新敌人

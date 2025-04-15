@@ -17,10 +17,8 @@ public class PlayerComponent extends Component {
 
     @Override
     public void onAdded() {
-        //添加组件
-        addComponent();
-        //添加人物
-        addPlayer();
+        //显示
+        update();
     }
 
     //非人物组件
@@ -36,6 +34,11 @@ public class PlayerComponent extends Component {
         entity.getViewComponent().addChild(playerImg);
     }
 
+    //添加护盾显示
+    private void addArmor() {
+        EntityUtils.displayArmor(entity, player, 450, 300, 180);
+    }
+
     //更新人物指定
     public void update(boolean isSelected) {
         PlayerComponent.isSelected = isSelected;
@@ -47,5 +50,6 @@ public class PlayerComponent extends Component {
         entity.getViewComponent().clearChildren();
         addComponent();
         addPlayer();
+        addArmor();
     }
 }

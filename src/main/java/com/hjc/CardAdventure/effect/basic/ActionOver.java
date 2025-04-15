@@ -19,6 +19,6 @@ public class ActionOver extends Effect {
 
     @Override
     public String toString() {
-        return "终止" + Effect.getNextEffectString(getFrom(), getEffect(), null, ",");
+        return "结束回合" + Effect.getNextEffectString(getFrom(), getEffect(), null, ",");
     }
 }

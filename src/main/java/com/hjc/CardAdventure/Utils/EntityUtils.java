@@ -9,6 +9,7 @@ import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
 import com.hjc.CardAdventure.pojo.enemy.IntentionType;
+import com.hjc.CardAdventure.pojo.player.Player;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -160,13 +161,35 @@ public class EntityUtils {
         entity.getViewComponent().addChild(stackPane);
     }
 
+    //角色护盾展示
+    public static void displayArmor(Entity entity, Role role, double x, double y, double bloodBoxLen) {
+        if (role.getRoleArmor() <= 0) return;
+
+        Texture armor = FXGL.texture(getTextureAddress(EFFECT_IMG_ADDRESS, "armor"), 40, 40);
+        nodeMove(armor, x + (250 - bloodBoxLen) / 2 - 35, y + 180 - 15);
+        entity.getViewComponent().addChild(armor);
+
+        Rectangle textBar = new Rectangle(40, 40, Color.rgb(0, 0, 0, 0));
+        Text text = getText(String.valueOf(role.getRoleArmor()),
+                "微软雅黑", 15,
+                Color.BLACK);
+        StackPane stackPane = new StackPane(textBar);
+        stackPane.getChildren().add(text);
+        nodeMove(stackPane, x + (250 - bloodBoxLen) / 2 - 35, y + 180 - 15);
+        entity.getViewComponent().addChild(stackPane);
+
+        Rectangle rectangle = new Rectangle(bloodBoxLen + 5, 11, Color.valueOf("#a7fefeB3"));
+        nodeMove(rectangle, x + (250 - bloodBoxLen) / 2, y + 180);
+        entity.getViewComponent().addChild(rectangle);
+    }
+
     //敌人意图展示
     public static void displayIntention(Enemy enemy, Entity entity, double x, double y) {
         //无意图，返回
         if (enemy.getNowIntention() == null) return;
         //生成攻击意图
         if (enemy.getNowIntention().getIntentionType() == IntentionType.ATTACK) {
-            Texture attackTexture = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "attack"),40,40);
+            Texture attackTexture = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "attack"), 40, 40);
             nodeMove(attackTexture, x - 50, y - 50);
             entity.getViewComponent().addChild(attackTexture);
 
@@ -190,4 +213,5 @@ public class EntityUtils {
         nodeMove(label, x - 10, y - 50);
         entity.getViewComponent().addChild(label);
     }
+
 }

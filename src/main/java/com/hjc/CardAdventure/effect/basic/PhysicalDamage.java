@@ -2,6 +2,8 @@ package com.hjc.CardAdventure.effect.basic;
 
 import com.hjc.CardAdventure.Utils.AttributeUtils;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
 import com.hjc.CardAdventure.effect.target.TargetedEffect;
 import com.hjc.CardAdventure.pojo.Role;
 
@@ -28,6 +30,8 @@ public class PhysicalDamage extends TargetedEffect {
         int realValue = AttributeUtils.mathPhyDamage(getFrom(), getTo(), value, magnification);
         //对目标造成伤害
         getTo().phyHurt(realValue);
+        //触发发动者攻击后时机
+        Opportunity.launchOpportunity(getFrom(), OpportunityType.PHY_ATTACK_END);
         //继续执行下面的序列
         Effect.continueAction(getFrom(), montage(effect), null);
     }

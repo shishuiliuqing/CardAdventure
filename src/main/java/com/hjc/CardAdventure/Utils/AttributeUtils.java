@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import static com.hjc.CardAdventure.Global.PLAYER.player;
 import static com.hjc.CardAdventure.pojo.BattleInformation.ENEMIES;
+import static com.hjc.CardAdventure.pojo.BattleInformation.isBattle;
 
 public class AttributeUtils {
     private AttributeUtils() {
@@ -20,16 +21,21 @@ public class AttributeUtils {
         //初始化倍率增幅器
         FROM_MAGNIFICATION.clear();
         TO_MAGNIFICATION.clear();
+        //初始化护盾增加倍率器
+        ARMOR_ADD_MAGNIFICATION.clear();
 
         //增幅器添加玩家单位
         FROM_ADD_DAMAGE.put(player, 0);
         FROM_MAGNIFICATION.put(player, 1.0);
         TO_MAGNIFICATION.put(player, 1.0);
+        ARMOR_ADD_MAGNIFICATION.put(player, 1.0);
+
         //增幅器添加敌人单位
         for (Enemy enemy : ENEMIES) {
             FROM_ADD_DAMAGE.put(enemy, 0);
             FROM_MAGNIFICATION.put(enemy, 1.0);
             TO_MAGNIFICATION.put(enemy, 1.0);
+            ARMOR_ADD_MAGNIFICATION.put(enemy, 1.0);
         }
     }
 
@@ -43,7 +49,7 @@ public class AttributeUtils {
     //计算物理伤害数值
     public static int mathPhyDamage(Role from, Role to, int value, int magnification) {
         //非战斗状态，显示初始数值
-        if (!BattleInformation.isBattle) return value;
+        if (!BattleInformation.isBattle) return Math.max(value, 0);
         //发动者不为null
         if (from != null) {
             //添加力量加成
@@ -60,6 +66,17 @@ public class AttributeUtils {
             value = (int) (value * TO_MAGNIFICATION.get(to));
         }
 
+        return Math.max(value, 0);
+    }
+
+    //护盾倍率器
+    public static final HashMap<Role, Double> ARMOR_ADD_MAGNIFICATION = new HashMap<>();
+
+    //计算增加的护盾值
+    public static int mathArmor(Role role, int value) {
+        if (!isBattle) return value;
+        if (role != null)
+            return (int) ((value + role.getRoleAttribute().getDefense()) * ARMOR_ADD_MAGNIFICATION.get(role));
         return value;
     }
 

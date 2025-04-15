@@ -20,6 +20,6 @@ public class IntentionDelete extends Effect {
 
     @Override
     public String toString() {
-        return "";
+        return "意图删除";
     }
 }

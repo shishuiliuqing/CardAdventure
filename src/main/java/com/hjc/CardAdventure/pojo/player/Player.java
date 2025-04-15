@@ -4,6 +4,7 @@ import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.AttributeUtils;
 import com.hjc.CardAdventure.component.information.BloodComponent;
 import com.hjc.CardAdventure.component.role.PlayerComponent;
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.effect.player.DrawEffect;
 import com.hjc.CardAdventure.effect.player.ShuffleProduce;
 import com.hjc.CardAdventure.entity.BattleEntity;
@@ -16,7 +17,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 import static com.hjc.CardAdventure.Global.CARD_USE.*;
+import static com.hjc.CardAdventure.Global.PLAYER.*;
 
 @Getter
 @Setter
@@ -52,6 +56,9 @@ public class Player implements Role {
 
     @Override
     public void action() {
+        //失去所有护盾
+        setRoleArmor(0);
+
         //回合开始阶段
         isPlayer = true;
         BattleInformation.nowAction = this;
@@ -114,11 +121,22 @@ public class Player implements Role {
     @Override
     public void setRoleArmor(int armor) {
         Global.PLAYER.armor = armor;
+        update();
     }
 
     @Override
     public Attribute getRoleAttribute() {
         return getAttribute();
+    }
+
+    @Override
+    public ArrayList<Opportunity> getRoleOpportunities() {
+        return opportunities;
+    }
+
+    @Override
+    public void die() {
+
     }
 
     //更新玩家

@@ -2,6 +2,7 @@ package com.hjc.CardAdventure.configuration;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.hjc.CardAdventure.pojo.card.Card;
+import com.hjc.CardAdventure.pojo.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class PlayerCards {
     //金卡
     ArrayList<String> yellow;
 
-    //初始化玩家牌组
+    //获取玩家牌组
     public static ArrayList<Card> getCards(ArrayList<String> cards) {
         ArrayList<Card> result = new ArrayList<>();
         for (String s : cards) {
@@ -37,7 +38,7 @@ public class PlayerCards {
 
     //日常战斗，60%白，30蓝，10%金
     //根据数量随机获得人物卡牌
-    public static ArrayList<String> rewardCard(int num, PlayerCards playerCards) {
+    public static ArrayList<String> getCardReward(int num, PlayerCards playerCards) {
         Random r = new Random();
         ArrayList<String> cards = new ArrayList<>();
         for (int i = 0; i < num; i++) {

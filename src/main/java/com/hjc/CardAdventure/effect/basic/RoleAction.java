@@ -19,6 +19,6 @@ public class RoleAction extends TargetedEffect {
 
     @Override
     public String toString() {
-        return "";
+        return "获得回合";
     }
 }

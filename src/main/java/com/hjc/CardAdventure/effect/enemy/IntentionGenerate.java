@@ -20,6 +20,6 @@ public class IntentionGenerate extends Effect {
 
     @Override
     public String toString() {
-        return "";
+        return "意图生成";
     }
 }

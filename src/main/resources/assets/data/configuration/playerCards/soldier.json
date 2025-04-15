@@ -1,12 +1,14 @@
 {
   "initial": [
-    "strike",
-    "strike",
-    "strike"
+    "flurry",
+    "anticipation"
   ],
   "white": [
+    "strike",
+    "defense"
   ],
   "blue": [
+    "anticipation"
   ],
   "yellow": [
   ]

@@ -10,11 +10,14 @@ import com.hjc.CardAdventure.component.battle.AbandonCardsComponent;
 import com.hjc.CardAdventure.component.battle.ConsumeCardsComponent;
 import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.component.battle.SumCardsComponent;
+import com.hjc.CardAdventure.component.information.TipBarComponent;
+import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.card.Card;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -56,6 +59,12 @@ public class CardComponent extends Component {
         addUI();
 
         entity.getViewComponent().addOnClickHandler(e -> select());
+        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED,e->lookInformation());
+    }
+
+    //查看卡牌信息
+    private void lookInformation() {
+        TipBarComponent.update(card.cardDescription());
     }
 
 
@@ -175,14 +184,12 @@ public class CardComponent extends Component {
         pane.setLayoutY(-290);
         //更新抽牌区状态
         DrawCardsComponent.CARD_BOX_STATUS[boxNum - 1] = 0;
+        //手牌区删除此牌
+        HAND_CARDS.remove(this);
         //运行卡牌效果
         card.action();
         //执行卡牌放下效果--目标指定刷新
         card.putDown();
-        //手牌区删除此牌
-        HAND_CARDS.remove(this);
-        //更新抽牌区状态
-        DrawCardsComponent.CARD_BOX_STATUS[boxNum - 1] = 0;
         //如果当前行动仍然是玩家，可以继续行动
         if (BattleInformation.nowAction == player) selectable = true;
     }

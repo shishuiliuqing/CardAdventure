@@ -5,13 +5,16 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.component.battle.ActionComponent;
 import com.hjc.CardAdventure.component.card.TargetComponent;
 import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
+import javafx.animation.FadeTransition;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import static com.hjc.CardAdventure.Global.*;
 import static com.hjc.CardAdventure.Global.CARD_USE.*;
@@ -32,12 +35,9 @@ public class EnemyComponent extends Component {
         int index = entity.getInt("index");
         enemy = BattleInformation.ENEMIES.get(index);
         location = enemy.getLocation();
-        //添加其他组件
-        addComponent();
-        //加载图片
-        addEnemy();
-        //加载意图
-        addIntention();
+
+        //显示
+        update();
 
         entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e -> lookInformation());
         entity.getViewComponent().addOnClickHandler(e -> target());
@@ -56,15 +56,20 @@ public class EnemyComponent extends Component {
         entity.getViewComponent().addChild(enemyImg);
     }
 
+    //显示护盾
+    private void addArmor() {
+        EntityUtils.displayArmor(entity, enemy, 550 + location * 215, 300.0, 120.0);
+    }
+
     //加载意图
     private void addIntention() {
         EntityUtils.displayIntention(enemy, entity, 550 + location * 215 + enemy.getX() + enemy.getWidth() / 2, 300 + enemy.getY());
     }
 
+    //查看怪物信息
     private void lookInformation() {
         TipBarComponent.update("当前位置：" + enemy.getLocation() + "号位" + Effect.NEW_LINE + enemy);
     }
-
 
     //选择该目标
     private void target() {
@@ -85,6 +90,24 @@ public class EnemyComponent extends Component {
         this.update(true);
     }
 
+    //死亡动画
+    //死亡动画
+    public void deathAnimation() {
+        entity.removeFromWorld();
+        Texture enemyTexture = FXGL.texture(getTextureAddress(ENEMY_IMG_ADDRESS, enemy.getImg()), enemy.getWidth(), enemy.getHeight());
+        enemyTexture.setTranslateX(550 + 215 * location + enemy.getX());
+        enemyTexture.setTranslateY(300 + enemy.getY());
+        Entity death = FXGL.entityBuilder().view(enemyTexture).buildAndAttach();
+
+        FadeTransition ft = new FadeTransition(Duration.seconds(0.5), enemyTexture);
+        ft.setToValue(0);
+        ft.setOnFinished(e -> {
+            death.removeFromWorld();
+            BattleEntity.actionBox.getComponent(ActionComponent.class).update();
+        });
+        ft.play();
+    }
+
     //更新目标指示
     public void update(boolean isSelected) {
         this.isSelected = isSelected;
@@ -97,5 +120,6 @@ public class EnemyComponent extends Component {
         addComponent();
         addEnemy();
         addIntention();
+        addArmor();
     }
 }

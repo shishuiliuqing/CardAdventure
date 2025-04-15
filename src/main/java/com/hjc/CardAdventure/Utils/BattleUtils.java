@@ -20,7 +20,7 @@ public class BattleUtils {
 
     //回合结束
     public static void actionOver() {
-        BattleInformation.EFFECTS.add(new PauseEffect(null, "15"));
+        BattleInformation.EFFECTS.add(new PauseEffect(null, "10"));
         BattleInformation.EFFECTS.add(new ActionOver(BattleInformation.nowAction, ""));
         //BattleInformation.effectExecution();
     }

@@ -1,0 +1,23 @@
+{
+  "cardAddress": "anticipation",
+  "cardName": "蓄势",
+  "attribute": {
+    "power": 4,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#DAMAGE_M_ADD#200",
+    "PLAYER#OPPORTUNITY_END#蓄势#PHY_ATTACK_END#1#1#1#NO#PLAYER#DAMAGE_M_ADD#50",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "[P]使下一次物理伤害翻倍，持续一回合"
+}

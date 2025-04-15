@@ -8,6 +8,7 @@ import com.hjc.CardAdventure.pojo.environment.InsideInformation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import static com.hjc.CardAdventure.Global.*;
 
@@ -35,8 +36,17 @@ public class MonsterPool {
         return enemies;
     }
 
-    //奖励获得
-    public static ArrayList<String> getReward() {
-
+    //获取当前怪物的卡牌奖励
+    public static String getCardReward() {
+        Random random = new Random();
+        ArrayList<String> cards = new ArrayList<>();
+        //从每一个怪物中获取一张卡牌
+        for (String enemy : monsterPool) {
+            EnemyCards enemyCards = EnemyCards.getEnemyCards(enemy);
+            String card = enemyCards.getByDay(InsideInformation.day);
+            cards.add(card);
+        }
+        //从获取的卡牌中随机一张卡牌
+        return cards.get(random.nextInt(cards.size()));
     }
 }

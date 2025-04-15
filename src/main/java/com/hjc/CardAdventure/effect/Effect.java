@@ -1,6 +1,7 @@
 package com.hjc.CardAdventure.effect;
 
 import com.hjc.CardAdventure.effect.basic.*;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityEndEffect;
 import com.hjc.CardAdventure.effect.player.*;
 import com.hjc.CardAdventure.effect.target.*;
 import com.hjc.CardAdventure.effect.enemy.*;
@@ -43,10 +44,20 @@ public abstract class Effect {
             case "PLAYER" -> new PlayerDesignation(from, montage(strings));
             //指定目标效果#effect
             case "TARGET" -> new TargetDesignation(from, montage(strings));
+            //自身目标效果#effect
+            case "FROM" -> new FromDesignation(from, montage(strings));
+            //群体效果
+            case "ALL" -> new AllDesignation(from, montage(strings));
 
             //基础效果
             //物理攻击效果#x#y(x为伤害数值，y为力量加成倍率)
             case "DAMAGE" -> new PhysicalDamage(from, montage(strings), to);
+            //物理伤害倍率变化
+            case "DAMAGE_M_ADD" -> new PhyDamageMagnificationAdd(from, montage(strings), to);
+            //获得护盾
+            case "ARMOR_GET" -> new ArmorGet(from, montage(strings), to);
+            //结束触发时机
+            case "OPPORTUNITY_END" -> new OpportunityEndEffect(from, montage(strings), to);
 
             //玩家特有
             //抽牌效果#x(x为抽牌数)
@@ -110,5 +121,14 @@ public abstract class Effect {
         if (next == null) return "";
         if (next.toString().isEmpty()) return "";
         return text + next;
+    }
+
+    //效果详情解析
+    public static String effectDetail(String sketch) {
+        return switch (sketch) {
+            case "虚弱" -> "使下x次物理伤害降低25%（x为虚弱层数）";
+            case "易伤" -> "使下x次受到的物理伤害增加50%（x为易伤层数）";
+            default -> "";
+        };
     }
 }

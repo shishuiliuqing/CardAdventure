@@ -1,22 +1,22 @@
 {
   "cardAddress": "strike",
-  "cardName": "打击",
+  "cardName": "乱舞",
   "attribute": {
-    "power": 1,
+    "power": 2,
     "intelligence": 0,
     "defense": 0,
     "agility": 0,
     "purity": 0,
-    "speed": 0
+    "speed": 2
   },
   "cardQuality": 0,
   "colorS": "#ff0000",
   "cardEffects": [
-    "TARGET#DAMAGE#6#1",
+    "ALL#DAMAGE#5#1",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],
-  "targetType": 0,
+  "targetType": 3,
   "effectiveEffect": 1,
   "description": "EFFECT0",
   "detail": ""

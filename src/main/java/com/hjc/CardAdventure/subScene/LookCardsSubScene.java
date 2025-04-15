@@ -25,7 +25,7 @@ public class LookCardsSubScene extends SubScene {
     //要展示的牌堆
     public static ArrayList<Card> cards;
     //返回键
-    private static final Texture back = FXGL.texture(getTextureAddress(BATTLE_ADDRESS,"back"), 200, 200);
+    private static final Texture back = FXGL.texture(getTextureAddress(BATTLE_ADDRESS, "back"), 200, 200);
     //牌堆类型
     public static String cardsType = "你好呀";
     //卡牌描述
@@ -71,6 +71,8 @@ public class LookCardsSubScene extends SubScene {
             Card card = cards.get(i);
             Pane cardPane = EntityUtils.createCard(card);
             EntityUtils.nodeMove(cardPane, 10 + (i % 5) * 200, 10 + (i / 5) * 200);
+            //添加查看卡牌信息
+            cardPane.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> describe(card));
             pane.getChildren().add(cardPane);
         }
 
@@ -84,8 +86,8 @@ public class LookCardsSubScene extends SubScene {
         getContentRoot().getChildren().add(back);
     }
 
-//    //卡牌描述
-//    private void describe(Card card) {
-//        LABEL.setText(card.cardToString());
-//    }
+    //卡牌描述
+    private void describe(Card card) {
+        LABEL.setText(card.cardDescription());
+    }
 }

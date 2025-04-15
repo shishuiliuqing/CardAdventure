@@ -1,6 +1,9 @@
 package com.hjc.CardAdventure.pojo;
 
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
+
+import java.util.ArrayList;
 
 public interface Role {
 
@@ -30,4 +33,10 @@ public interface Role {
 
     //获取属性
     Attribute getRoleAttribute();
+
+    //获取角色的时机效果
+    ArrayList<Opportunity> getRoleOpportunities();
+
+    //死亡
+    void die();
 }

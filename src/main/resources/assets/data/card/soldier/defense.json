@@ -1,10 +1,10 @@
 {
-  "cardAddress": "strike",
-  "cardName": "打击",
+  "cardAddress": "defense",
+  "cardName": "防御",
   "attribute": {
-    "power": 1,
+    "power": 0,
     "intelligence": 0,
-    "defense": 0,
+    "defense": 1,
     "agility": 0,
     "purity": 0,
     "speed": 0
@@ -12,11 +12,11 @@
   "cardQuality": 0,
   "colorS": "#ff0000",
   "cardEffects": [
-    "TARGET#DAMAGE#6#1",
+    "PLAYER#ARMOR_GET#5",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],
-  "targetType": 0,
+  "targetType": 1,
   "effectiveEffect": 1,
   "description": "EFFECT0",
   "detail": ""
