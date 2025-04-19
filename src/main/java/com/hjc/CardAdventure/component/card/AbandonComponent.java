@@ -134,6 +134,7 @@ public class AbandonComponent extends Component {
             FXGL.entityBuilder().with(new AttributeUpComponent()).buildAndAttach();
         } else {
             BattleUtils.actionOver();
+            BattleInformation.effectExecution();
         }
     }
 

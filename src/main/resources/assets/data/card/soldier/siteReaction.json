@@ -1,0 +1,24 @@
+{
+  "cardAddress": "siteReaction",
+  "cardName": "临场反应",
+  "attribute": {
+    "power": 0,
+    "intelligence": 2,
+    "defense": 0,
+    "agility": 0,
+    "purity": 3,
+    "speed": 3
+  },
+  "cardQuality": 0,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#ATTRIBUTE_UP#I#2",
+    "PLAYER#OPPORTUNITY#智力下降#OWN_ROUND_END#NEGATIVE#0#1#2#YES#PLAYER#ATTRIBUTE_DOWN#I#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;[P]自身回合结束，[P]失去智力2点",
+  "detail": ""
+}

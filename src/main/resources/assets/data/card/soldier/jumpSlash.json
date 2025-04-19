@@ -1,23 +1,25 @@
 {
-  "cardAddress": "heavyBlow",
-  "cardName": "重击",
+  "cardAddress": "jumpSlash",
+  "cardName": "跳跃斩",
   "attribute": {
-    "power": 2,
+    "power": 3,
     "intelligence": 0,
     "defense": 0,
     "agility": 0,
     "purity": 0,
-    "speed": 0
+    "speed": 4
   },
   "cardQuality": 0,
   "colorS": "#ff0000",
   "cardEffects": [
     "TARGET#DAMAGE#9#1",
+    "PAUSE#2",
+    "TARGET#CONDITION_TARGETED#ONE#TARGET#DAMAGE#9#1",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],
   "targetType": 0,
-  "effectiveEffect": 1,
-  "description": "EFFECT0",
+  "effectiveEffect": 3,
+  "description": "EFFECT0;EFFECT2",
   "detail": ""
 }

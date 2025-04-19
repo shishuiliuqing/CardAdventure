@@ -1,11 +1,20 @@
 {
   "initial": [
-    "flurry",
-    "anticipation"
+    "burningStrike"
   ],
   "white": [
     "strike",
-    "defense"
+    "defense",
+    "heavyBlow",
+    "flurry",
+    "blockAssault",
+    "jumpSlash",
+    "standErect",
+    "bloodRitual",
+    "intimidation",
+    "siteReaction",
+    "punch",
+    "burningStrike"
   ],
   "blue": [
     "anticipation"

@@ -5,6 +5,8 @@ import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.configuration.PlayerCards;
 import com.hjc.CardAdventure.configuration.SeasonMonsterPool;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.player.Player;
@@ -12,6 +14,7 @@ import com.hjc.CardAdventure.pojo.player.Player;
 import java.util.ArrayList;
 
 import static com.almasb.fxgl.dsl.FXGL.getAssetLoader;
+import static com.hjc.CardAdventure.Global.PLAYER.player;
 
 //全局变量
 public class Global {
@@ -93,6 +96,10 @@ public class Global {
 
     //卡牌使用
     public static class CARD_USE {
+        //当前正在使用的卡牌
+        public static Card usingCard;
+        //卡牌检测线程
+        public static Thread usingThread = new Thread(CARD_USE::run);
         //使用按钮
         public static boolean produce = false;
         //弃牌按钮
@@ -121,6 +128,12 @@ public class Global {
         public static boolean specialProduce = false;
         //是否需要弃牌
         public static int needAbandon = 0;
+        //        //卡牌是否使用卡牌
+//        public static boolean isUse = false;
+        //卡牌是否正在使用
+        public static boolean isUsing = false;
+        //是否为攻击卡
+        public static boolean isAttack = false;
 
         //初始化卡牌使用
         public static void initCardUse() {
@@ -138,7 +151,33 @@ public class Global {
             actionCard = null;
             specialProduce = false;
             needAbandon = 0;
+            isAttack = false;
         }
+
+        //检测卡牌使用
+        public static void run() {
+            while (isUsing) {
+            }
+
+            //若为攻击卡，触发攻击后效果
+            if (isAttack) {
+                Opportunity.launchOpportunity(player, OpportunityType.PHY_ATTACK_END);
+                isAttack = false;
+            }
+            //System.out.println(usingCard);
+            //执行卡牌放下效果--目标指定刷新
+            usingCard.putDown();
+            //卡牌使用结束
+//            isUse = false;
+            isUsing = false;
+            //更新手牌区
+//            for (CardComponent handCard : CardComponent.HAND_CARDS) {
+//                handCard.update();
+//            }
+            //如果当前行动仍然是玩家，可以继续行动
+            if (BattleInformation.nowAction == player) selectable = true;
+        }
+
     }
 
     //玩家信息
@@ -157,7 +196,7 @@ public class Global {
         //初始化角色
         public static void initPlayer() {
             //获得角色
-            PLAYER.player = getAssetLoader().loadJSON(getJsonAddress(PLAYER_ADDRESS, "soldier"), Player.class).get();
+            player = getAssetLoader().loadJSON(getJsonAddress(PLAYER_ADDRESS, "soldier"), Player.class).get();
             //初始化玩家初始卡组
             cards.addAll(PlayerCards.getCards(CONFIGURATION.playerCards.getInitial()));
         }

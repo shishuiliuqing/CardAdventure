@@ -6,6 +6,7 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
 import com.hjc.CardAdventure.Utils.EntityUtils;
 import com.hjc.CardAdventure.component.battle.ActionComponent;
+import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.component.card.TargetComponent;
 import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.effect.Effect;
@@ -88,6 +89,10 @@ public class EnemyComponent extends Component {
         target = enemy;
         BattleEntity.target.getComponent(TargetComponent.class).update();
         this.update(true);
+        //更新手牌区
+        for (CardComponent handCard : CardComponent.HAND_CARDS) {
+            handCard.update();
+        }
     }
 
     //死亡动画

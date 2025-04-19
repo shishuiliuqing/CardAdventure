@@ -225,10 +225,16 @@ public class BattleInformation {
         //effectExecution();
     }
 
+    //效果执行器是否执行中
+    public static boolean isExecute = false;
+
     //效果执行器
     public static void effectExecution() {
+        if (isExecute) return;
+        //正在执行
+        isExecute = true;
         while (!EFFECTS.isEmpty()) {
-            System.out.println(EFFECTS);
+            //System.out.println(EFFECTS);
             if (ENEMIES.isEmpty() && isBattle) {
                 EFFECTS.clear();
                 Attribute.cloneAttribute(attribute, player.getAttribute());
@@ -236,6 +242,7 @@ public class BattleInformation {
                 //reward();
                 Reward reward = Reward.getReward(getBattleReward());
                 isBattle = false;
+                isExecute = false;
                 break;
             }
 
@@ -244,6 +251,8 @@ public class BattleInformation {
             if (effect != null) effect.action();
             if (effect instanceof PauseEffect) break;
         }
+        //执行完毕
+        isExecute = false;
     }
 
     //战斗奖励获取

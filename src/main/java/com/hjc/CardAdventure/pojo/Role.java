@@ -1,12 +1,14 @@
 package com.hjc.CardAdventure.pojo;
 
+import com.hjc.CardAdventure.Utils.EffectUtils;
+import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.effect.basic.PauseEffect;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
 
 import java.util.ArrayList;
 
 public interface Role {
-
     //角色行动
     void action();
 
@@ -21,6 +23,9 @@ public interface Role {
 
     //受到物理伤害
     void phyHurt(int value);
+
+    //特殊受伤效果
+    void specialHurt(HurtType hurtType, int value);
 
     //失去生命
     void lossBlood(int value);
@@ -39,4 +44,14 @@ public interface Role {
 
     //死亡
     void die();
+
+    //特殊伤害受伤特效播放
+    static void specialHurtEffect(Role role, HurtType hurtType) {
+        if (hurtType == HurtType.FIRE) {
+            BattleInformation.insetEffect(new PauseEffect(null, "10"));
+            EffectUtils.displayEffect("fireDamage", 23, 1, 1, role, 40, 0);
+        }
+        BattleInformation.effectExecution();
+    }
+
 }

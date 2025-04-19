@@ -83,7 +83,7 @@ public class Card {
         //解析每个特殊效果
         for (int i = 0; i < strings.length; i++) {
             String s = strings[i];
-            strings[i] = Effect.effectDetail(s);
+            strings[i] = strings[i] + "\n" + Effect.effectDetail(s);
         }
 
         //拼接
@@ -116,9 +116,9 @@ public class Card {
             effects.add(Effect.parse(player, cardEffect, null));
         }
         //将所有效果添加至效果序列
-        BattleInformation.insetEffect(effects);
+        BattleInformation.EFFECTS.addAll(effects);
         //执行效果序列
-        BattleInformation.effectExecution();
+        //BattleInformation.effectExecution();
     }
 
     //当卡牌被选择时调用

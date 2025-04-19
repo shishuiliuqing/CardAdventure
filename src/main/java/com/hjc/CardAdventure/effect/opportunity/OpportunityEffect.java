@@ -5,9 +5,9 @@ import com.hjc.CardAdventure.pojo.Role;
 
 import java.util.ArrayList;
 
-//结束释放时机效果
-public class OpportunityEndEffect extends TargetedEffect {
-    public OpportunityEndEffect(Role from, String effect, Role to) {
+//时机效果
+public class OpportunityEffect extends TargetedEffect {
+    public OpportunityEffect(Role from, String effect, Role to) {
         super(from, effect, to);
     }
 
@@ -31,7 +31,7 @@ public class OpportunityEndEffect extends TargetedEffect {
         //判断是否可堆叠
         boolean stackable = getFirst(effect).equals("YES");
         //时机创建
-        Opportunity opportunity = new Opportunity(name, opportunityType, opportunityStatus, rounds, num, layer, stackable, null, montage(effect));
+        Opportunity opportunity = new Opportunity(name, opportunityType, opportunityStatus, rounds, num, layer, stackable, montage(effect), null);
         //目标添加时机
         Opportunity.addOpportunity(getTo(), opportunity);
     }

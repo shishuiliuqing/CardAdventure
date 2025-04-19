@@ -1,6 +1,7 @@
 package com.hjc.CardAdventure.effect.player;
 
 import com.hjc.CardAdventure.Global;
+import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
@@ -18,6 +19,8 @@ public class CardUseEnd extends Effect {
             case "DRAW" -> BattleInformation.DRAW_CARDS;
             default -> BattleInformation.ABANDON_CARDS;
         });
+        //卡牌使用结束
+        Global.CARD_USE.isUsing = false;
     }
 
     @Override

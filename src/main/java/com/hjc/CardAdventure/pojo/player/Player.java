@@ -2,16 +2,22 @@ package com.hjc.CardAdventure.pojo.player;
 
 import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.AttributeUtils;
+import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.component.information.BloodComponent;
 import com.hjc.CardAdventure.component.role.PlayerComponent;
+import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.PauseEffect;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
 import com.hjc.CardAdventure.effect.player.DrawEffect;
 import com.hjc.CardAdventure.effect.player.ShuffleProduce;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.entity.InformationEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
+import com.hjc.CardAdventure.pojo.HurtType;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
+import javafx.scene.paint.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,8 +62,15 @@ public class Player implements Role {
 
     @Override
     public void action() {
-        //失去所有护盾
-        setRoleArmor(0);
+        if (getRoleArmor() != 0) {
+            //失去所有护盾
+            setRoleArmor(0);
+            //暂缓0.5秒
+            BattleInformation.EFFECTS.add(new PauseEffect(null, "5"));
+        }
+
+        //触发自身回合开始效果
+        Opportunity.launchOpportunity(player, OpportunityType.OWN_ROUND_BEGIN);
 
         //回合开始阶段
         isPlayer = true;
@@ -102,14 +115,22 @@ public class Player implements Role {
             //护盾减少
             int x = getRoleArmor() + value;
             setRoleArmor(value * (-1));
+            EffectUtils.lossBlood(x, this, Color.valueOf("#15FEFC"));
             update();
         }
+    }
+
+    @Override
+    public void specialHurt(HurtType hurtType, int value) {
+        Role.specialHurtEffect(this, hurtType);
+        lossBlood(value);
     }
 
     @Override
     public void lossBlood(int value) {
         this.blood -= value;
         if (this.blood < 0) this.blood = 0;
+        EffectUtils.lossBlood(value, this, Color.RED);
         update();
     }
 
@@ -120,6 +141,9 @@ public class Player implements Role {
 
     @Override
     public void setRoleArmor(int armor) {
+        if (armor == 0 && Global.PLAYER.armor != 0) {
+            EffectUtils.amplifyAndDisappear(this, 30, -40, "armorBreak");
+        }
         Global.PLAYER.armor = armor;
         update();
     }
@@ -143,5 +167,10 @@ public class Player implements Role {
     public void update() {
         BattleEntity.playerBattle.getComponent(PlayerComponent.class).update();
         InformationEntity.playerBlood.getComponent(BloodComponent.class).update();
+    }
+
+    @Override
+    public String toString() {
+        return "当前角色拥有效果" + Effect.NEW_LINE + Opportunity.displayOpportunities(getRoleOpportunities()) + Opportunity.detailOpportunities(player);
     }
 }

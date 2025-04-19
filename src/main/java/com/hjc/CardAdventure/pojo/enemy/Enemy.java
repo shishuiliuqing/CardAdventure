@@ -1,16 +1,21 @@
 package com.hjc.CardAdventure.pojo.enemy;
 
 import com.almasb.fxgl.entity.Entity;
+import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.BattleUtils;
+import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.component.role.EnemyComponent;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.effect.basic.DeathEffect;
 import com.hjc.CardAdventure.effect.basic.PauseEffect;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
+import com.hjc.CardAdventure.pojo.HurtType;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
+import javafx.scene.paint.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -61,8 +66,14 @@ public class Enemy implements Role {
 
     @Override
     public void action() {
-        //失去所有护盾
-        setRoleArmor(0);
+        if (getRoleArmor() != 0) {
+            //失去所有护盾
+            setRoleArmor(0);
+            //暂缓0.5秒
+            BattleInformation.EFFECTS.add(new PauseEffect(null, "5"));
+        }
+        //触发自身回合效果
+        Opportunity.launchOpportunity(this, OpportunityType.OWN_ROUND_BEGIN);
 
         //解析并执行当前意图效果
         ArrayList<Effect> effects = new ArrayList<>();
@@ -71,7 +82,7 @@ public class Enemy implements Role {
             if (now == null) continue;
             effects.add(now);
         }
-        BattleInformation.insetEffect(effects);
+        BattleInformation.EFFECTS.addAll(effects);
 
         //行动结束
         //BattleInformation.EFFECTS.add(new PauseEffect(null, "999"));
@@ -108,14 +119,25 @@ public class Enemy implements Role {
             //护盾减少
             int x = getRoleArmor() + value;
             setRoleArmor(value * (-1));
+            EffectUtils.lossBlood(x, this, Color.valueOf("#15FEFC"));
             update();
         }
+
+        //触发受到物理伤害效果
+        Opportunity.launchOpportunity(this, OpportunityType.PHY_HURT);
+    }
+
+    @Override
+    public void specialHurt(HurtType hurtType, int value) {
+        Role.specialHurtEffect(this, hurtType);
+        lossBlood(value);
     }
 
     @Override
     public void lossBlood(int value) {
         this.blood -= value;
         if (this.blood < 0) this.blood = 0;
+        EffectUtils.lossBlood(value, this, Color.RED);
         update();
 
         if (this.blood == 0) BattleInformation.insetEffect(new DeathEffect(this, ""));
@@ -128,6 +150,9 @@ public class Enemy implements Role {
 
     @Override
     public void setRoleArmor(int armor) {
+        if (armor == 0 && this.armor != 0) {
+            EffectUtils.amplifyAndDisappear(this, 30, -40, "armorBreak");
+        }
         setArmor(armor);
         update();
     }
@@ -170,6 +195,13 @@ public class Enemy implements Role {
 
     @Override
     public String toString() {
-        return name + "   " + blood + "/" + maxBlood + Effect.NEW_LINE + attribute.displayAttribute() + Effect.NEW_LINE;
+        return name + "   " + blood + "/" + maxBlood +
+                Effect.NEW_LINE +
+                attribute.displayAttribute() +
+                Effect.NEW_LINE +
+                "该敌人拥有效果" +
+                Effect.NEW_LINE +
+                Opportunity.displayOpportunities(opportunities) +
+                Opportunity.detailOpportunities(this);
     }
 }

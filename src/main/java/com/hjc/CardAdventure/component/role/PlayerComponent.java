@@ -3,7 +3,11 @@ package com.hjc.CardAdventure.component.role;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
+import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.component.information.TipBarComponent;
+import com.hjc.CardAdventure.effect.Effect;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import static com.hjc.CardAdventure.Global.PLAYER.*;
@@ -19,6 +23,15 @@ public class PlayerComponent extends Component {
     public void onAdded() {
         //显示
         update();
+
+        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e -> lookInformation());
+//        entity.getViewComponent().addOnClickHandler(e -> {
+//            EffectUtils.displayEffect("fireDamage",23,1,1,player,40,0);
+//        });
+    }
+
+    private void lookInformation() {
+        TipBarComponent.update(player.toString());
     }
 
     //非人物组件

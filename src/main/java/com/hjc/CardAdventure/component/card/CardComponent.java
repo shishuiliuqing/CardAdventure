@@ -12,11 +12,14 @@ import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.component.battle.SumCardsComponent;
 import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.card.Card;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -48,10 +51,32 @@ public class CardComponent extends Component {
     private static final double X_TO_BOX = 30 / PROPORTION;
     private static final double Y_TO_BOX = 70 / PROPORTION;
 
+//    @Override
+//    public void onUpdate(double tpf) {
+//        //非卡牌使用阶段
+//        if (!isUse) return;
+//        //卡牌正在使用
+//        if (isUsing) return;
+//        //若为攻击卡，触发攻击后效果
+//        if (isAttack) {
+//            Opportunity.launchOpportunity(player, OpportunityType.PHY_ATTACK_END);
+//            isAttack = false;
+//        }
+//        System.out.println(card);
+//        //执行卡牌放下效果--目标指定刷新
+//        card.putDown();
+//        //卡牌使用结束
+//        isUse = false;
+//        isUsing = false;
+//        //如果当前行动仍然是玩家，可以继续行动
+//        if (BattleInformation.nowAction == player) selectable = true;
+//    }
+
     @Override
     public void onAdded() {
         this.boxNum = entity.getInt("boxNum");
         this.card = entity.getObject("card");
+        //System.out.println(card);
 
         //手牌区添加此牌
         HAND_CARDS.add(this);
@@ -59,7 +84,7 @@ public class CardComponent extends Component {
         addUI();
 
         entity.getViewComponent().addOnClickHandler(e -> select());
-        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED,e->lookInformation());
+        entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e -> lookInformation());
     }
 
     //查看卡牌信息
@@ -186,12 +211,17 @@ public class CardComponent extends Component {
         DrawCardsComponent.CARD_BOX_STATUS[boxNum - 1] = 0;
         //手牌区删除此牌
         HAND_CARDS.remove(this);
+        //设置当前使用的卡牌
+        usingCard = card;
+        //卡牌正在使用
+        isUsing = true;
+//        //进入卡牌使用阶段
+//        isUse = true;
         //运行卡牌效果
         card.action();
-        //执行卡牌放下效果--目标指定刷新
-        card.putDown();
-        //如果当前行动仍然是玩家，可以继续行动
-        if (BattleInformation.nowAction == player) selectable = true;
+        //启动线程,卡牌正在使用
+        //usingThread.start();
+        Platform.runLater(Global.CARD_USE::run);
     }
 
     //判断此牌是否在手牌区

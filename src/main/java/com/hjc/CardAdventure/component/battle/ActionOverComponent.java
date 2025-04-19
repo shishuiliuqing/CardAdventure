@@ -9,6 +9,8 @@ import com.hjc.CardAdventure.component.card.AbandonComponent;
 import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.effect.basic.PauseEffect;
+import com.hjc.CardAdventure.effect.opportunity.Opportunity;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import javafx.scene.input.MouseEvent;

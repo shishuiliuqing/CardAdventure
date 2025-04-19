@@ -14,7 +14,7 @@ public class RoleAction extends TargetedEffect {
     public void action() {
         if (getFrom() == null || getTo() == null) return;
         getTo().action();
-        Effect.continueAction(getFrom(), getEffect(), null);
+        Effect.continueAction(getFrom(), getEffect(), getTo());
     }
 
     @Override

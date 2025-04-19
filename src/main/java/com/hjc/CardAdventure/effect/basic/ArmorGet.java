@@ -1,6 +1,8 @@
 package com.hjc.CardAdventure.effect.basic;
 
 import com.hjc.CardAdventure.Utils.AttributeUtils;
+import com.hjc.CardAdventure.Utils.EffectUtils;
+import com.hjc.CardAdventure.Utils.EntityUtils;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.effect.target.TargetedEffect;
 import com.hjc.CardAdventure.pojo.Role;
@@ -25,9 +27,10 @@ public class ArmorGet extends TargetedEffect {
         //计算获得的护盾值
         int realValue = AttributeUtils.mathArmor(to, value);
         to.setRoleArmor(to.getRoleArmor() + realValue);
-
+        //播放动画
+        EffectUtils.getArmor(getTo());
         //继续执行下面的效果
-        Effect.continueAction(getFrom(), montage(effect), null);
+        Effect.continueAction(getFrom(), montage(effect), getTo());
     }
 
     @Override

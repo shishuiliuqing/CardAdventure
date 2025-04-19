@@ -5,12 +5,12 @@
   "attribute": {
     "power": 2,
     "intelligence": 0,
-    "defense": 1,
+    "defense": 2,
     "agility": 6,
     "purity": 0,
     "speed": 1
   },
-  "experience": 0,
+  "experience": 100,
   "playerType": 0,
   "colorS": "#ff0000",
   "img": "soldier",

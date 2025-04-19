@@ -80,6 +80,12 @@ public class AttributeUtils {
         return value;
     }
 
+    //计算法术效果
+    public static int mathMagic(Role role, int value) {
+        if (!isBattle || role == null) return value;
+        return role.getRoleAttribute().getIntelligence() + value;
+    }
+
     //计算人物抽牌数
     public static int mathDraw() {
         int agility = player.getAttribute().getAgility();

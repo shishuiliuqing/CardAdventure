@@ -13,6 +13,7 @@ public class CardEntityFactory implements EntityFactory{
     public Entity newCard(SpawnData data) {
         return FXGL.entityBuilder(data)
                 .with(new CardComponent())
+                .neverUpdated()
                 .build();
     }
 

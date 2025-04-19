@@ -20,6 +20,8 @@ public class Opportunity {
     private String name;
     //触发时机
     private OpportunityType opportunityType;
+    //时机效果状态
+    private OpportunityStatus opportunityStatus;
     //可执行回合
     private int rounds;
     //可触发次数
@@ -74,21 +76,17 @@ public class Opportunity {
                     //解析效果
                     Effect result = Effect.parse(role, effect, null);
                     //执行效果
-                    if (result != null) BattleInformation.insetEffect(result);
+                    if (result != null) {
+                        BattleInformation.insetEffect(result);
+                        //result.action();
+                        BattleInformation.effectExecution();
+                    }
                 }
 
 
                 //发动次数为0，执行结束效果
                 if (opportunity.num == 0) {
-                    if (opportunity.endEffect != null) {
-                        String effect = opportunity.endEffect.replace("SValueS", String.valueOf(opportunity.getLayer()));
-                        //解析效果
-                        Effect result = Effect.parse(role, effect, null);
-                        //执行效果
-                        if (result != null) BattleInformation.insetEffect(result);
-                        //效果结束文字展示
-                        EffectUtils.textEffectEnd(opportunity.getName(), role);
-                    }
+                    endEffectAction(role, opportunity);
                     //删除该时机
                     opportunities.remove(n);
                     continue;
@@ -119,19 +117,100 @@ public class Opportunity {
                 //移除该时机效果
                 opportunities.remove(opportunity);
                 //触发结束效果
-                if (opportunity.endEffect != null) {
-                    String effect = opportunity.endEffect.replace("SValueS", String.valueOf(opportunity.getLayer()));
-                    //解析效果
-                    Effect result = Effect.parse(role, effect, null);
-                    //执行效果
-                    if (result != null) BattleInformation.insetEffect(result);
-                    //效果结束文字展示
-                    EffectUtils.textEffectEnd(opportunity.getName(), role);
-                }
+                endEffectAction(role, opportunity);
                 continue;
             }
 
             n++;
         }
+    }
+
+    //执行结束后效果
+    private static void endEffectAction(Role role, Opportunity opportunity) {
+        if (opportunity.endEffect != null) {
+            String effect = opportunity.endEffect.replace("SValueS", String.valueOf(opportunity.getLayer()));
+            //解析效果
+            Effect result = Effect.parse(role, effect, null);
+            //执行效果
+            if (result != null) {
+                BattleInformation.insetEffect(result);
+                //result.action();
+                BattleInformation.effectExecution();
+            }
+            //效果结束文字展示
+            EffectUtils.textEffectEnd(opportunity.getName(), role);
+        }
+    }
+
+    //查看某角色是否拥有某种时机
+    public static boolean exist(Role role, String opportunityName) {
+        ArrayList<Opportunity> opportunities = role.getRoleOpportunities();
+        for (Opportunity opportunity : opportunities) {
+            if (opportunity.name.equals(opportunityName)) return true;
+        }
+        return false;
+    }
+
+    private static final String NO_DISPLAY = "";
+
+    //展示时机效果
+    public static String displayOpportunities(ArrayList<Opportunity> opportunities) {
+        StringBuilder sb = new StringBuilder();
+        for (Opportunity opportunity : opportunities) {
+            String name = opportunity.name;
+            if (NO_DISPLAY.contains(name)) continue;
+            sb.append(name).append(" ");
+        }
+        sb.append(Effect.NEW_LINE);
+        return sb.toString();
+    }
+
+    //时机序列效果详情
+    public static String detailOpportunities(Role role) {
+        ArrayList<Opportunity> opportunities = role.getRoleOpportunities();
+        StringBuilder sb = new StringBuilder();
+        for (Opportunity opportunity : opportunities) {
+            sb.append(detailOpportunity(role, opportunity));
+        }
+        return sb.toString();
+    }
+
+    //展示某个时机效果的详情
+    private static String detailOpportunity(Role role, Opportunity opportunity) {
+        if (NO_DISPLAY.contains(opportunity.name)) return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(opportunity.name).append(" ");
+        //层数显示
+        if (opportunity.stackable) {
+            sb.append(opportunity.layer).append("层");
+        } else if (opportunity.num != 999) {
+            sb.append(opportunity.num).append("层");
+        }
+        sb.append("\n");
+
+        //回合数展示
+        if (opportunity.rounds != 0) {
+            sb.append("持续").append(opportunity.rounds).append("回合");
+        } else if (opportunity.num == 999) {
+            sb.append("永久效果");
+        }
+
+        //详情效果展示
+        String detail = Effect.effectDetail(opportunity.name);
+        if (detail.isEmpty()) {
+            sb.append(OpportunityType.getTypeName(opportunity.opportunityType)).append(",");
+            if (opportunity.effect == null) {
+                Effect endEffect = Effect.parse(role, opportunity.endEffect.replace("SValueS", String.valueOf(opportunity.layer)), null);
+                sb.append(endEffect.toString());
+            } else {
+                Effect thisEffect = Effect.parse(role, opportunity.effect.replace("SValueS", String.valueOf(opportunity.layer)), null);
+                sb.append(thisEffect.toString());
+            }
+            sb.append(Effect.NEW_LINE);
+        } else {
+            sb.append(detail).append(Effect.NEW_LINE);
+        }
+
+        return sb.toString();
     }
 }

@@ -1,23 +1,24 @@
 {
-  "cardAddress": "flurry",
-  "cardName": "乱舞",
+  "cardAddress": "blockAssault",
+  "cardName": "格挡突击",
   "attribute": {
-    "power": 2,
+    "power": 1,
     "intelligence": 0,
-    "defense": 0,
+    "defense": 1,
     "agility": 0,
     "purity": 0,
-    "speed": 2
+    "speed": 0
   },
   "cardQuality": 0,
   "colorS": "#ff0000",
   "cardEffects": [
-    "ALL#",
+    "TARGET#DAMAGE#5#1",
+    "PLAYER#ARMOR_GET#5",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],
-  "targetType": 3,
+  "targetType": 0,
   "effectiveEffect": 2,
-  "description": "EFFECT0",
+  "description": "EFFECT0;EFFECT1",
   "detail": ""
 }

@@ -1,5 +1,6 @@
 package com.hjc.CardAdventure.effect.basic;
 
+import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.AttributeUtils;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
@@ -20,6 +21,8 @@ public class PhysicalDamage extends TargetedEffect {
     @Override
     public void action() {
         if (getFrom() == null || getTo() == null) return;
+        //为物理攻击
+        Global.CARD_USE.isAttack = true;
         //获取效果序列
         ArrayList<String> effect = cutEffect(getEffect());
         //获取初始数值
@@ -30,10 +33,8 @@ public class PhysicalDamage extends TargetedEffect {
         int realValue = AttributeUtils.mathPhyDamage(getFrom(), getTo(), value, magnification);
         //对目标造成伤害
         getTo().phyHurt(realValue);
-        //触发发动者攻击后时机
-        Opportunity.launchOpportunity(getFrom(), OpportunityType.PHY_ATTACK_END);
         //继续执行下面的序列
-        Effect.continueAction(getFrom(), montage(effect), null);
+        Effect.continueAction(getFrom(), montage(effect), getTo());
     }
 
     @Override
@@ -47,6 +48,7 @@ public class PhysicalDamage extends TargetedEffect {
         //计算真实伤害数值
         int realValue = AttributeUtils.mathPhyDamage(getFrom(), getTo(), value, magnification);
         String next = Effect.getNextEffectString(getFrom(), montage(effect), null, ",");
+        //System.out.println(realValue);
         return "造成" + realValue + "点物理伤害" + (magnification == 1 ? "" : "," + magnification + "倍力量加成") + next;
     }
 }

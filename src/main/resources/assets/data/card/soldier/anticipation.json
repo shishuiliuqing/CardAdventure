@@ -12,12 +12,13 @@
   "cardQuality": 1,
   "colorS": "#ff0000",
   "cardEffects": [
-    "PLAYER#DAMAGE_M_ADD#200",
-    "PLAYER#OPPORTUNITY_END#蓄势#PHY_ATTACK_END#1#1#1#NO#PLAYER#DAMAGE_M_ADD#50",
+    "PLAYER#CONDITION_TARGETED#TWO#蓄势#PLAYER#DAMAGE_M_ADD#FROM_M_ADD#A#200",
+    "PLAYER#OPPORTUNITY_END#蓄势#PHY_ATTACK_END#POSITIVE_END#1#1#1#NO#PLAYER#DAMAGE_M_ADD#FROM_M_ADD#D#200",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],
   "targetType": 1,
-  "effectiveEffect": 1,
-  "description": "[P]使下一次物理伤害翻倍，持续一回合"
+  "effectiveEffect": 2,
+  "description": "[P]使下一次物理伤害翻倍，持续一回合",
+  "detail": ""
 }
