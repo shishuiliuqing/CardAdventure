@@ -138,6 +138,7 @@ public class Enemy implements Role {
         this.blood -= value;
         if (this.blood < 0) this.blood = 0;
         EffectUtils.lossBlood(value, this, Color.RED);
+        BattleUtils.pause(0.3);
         update();
 
         if (this.blood == 0) BattleInformation.insetEffect(new DeathEffect(this, ""));

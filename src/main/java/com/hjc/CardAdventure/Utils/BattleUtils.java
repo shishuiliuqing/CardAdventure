@@ -24,4 +24,11 @@ public class BattleUtils {
         BattleInformation.EFFECTS.add(new ActionOver(BattleInformation.nowAction, ""));
         //BattleInformation.effectExecution();
     }
+
+    //暂停效果
+    public static void pause(double seconds) {
+        int value = (int) (seconds * 10);
+        BattleInformation.insetEffect(new PauseEffect(null, String.valueOf(value)));
+        BattleInformation.effectExecution();
+    }
 }

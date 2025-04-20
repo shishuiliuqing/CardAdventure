@@ -1,6 +1,8 @@
 {
   "initial": [
-    "burningStrike"
+    "strike",
+    "demonPower",
+    "intimidation"
   ],
   "white": [
     "strike",
@@ -14,7 +16,12 @@
     "intimidation",
     "siteReaction",
     "punch",
-    "burningStrike"
+    "burningStrike",
+    "fightHand",
+    "fleeDisarray",
+    "revolveBlade",
+    "demonPower",
+    "bloodBlade"
   ],
   "blue": [
     "anticipation"

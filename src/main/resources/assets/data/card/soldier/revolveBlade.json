@@ -1,0 +1,23 @@
+{
+  "cardAddress": "revolveBlade",
+  "cardName": "回旋刃",
+  "attribute": {
+    "power": 3,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 2,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "TARGET#DAMAGE#12#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#DRAW"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT2",
+  "detail": "回抽"
+}

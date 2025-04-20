@@ -5,11 +5,11 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.hjc.CardAdventure.CardAdventureApp;
 import com.hjc.CardAdventure.Global;
+import com.hjc.CardAdventure.Utils.BattleUtils;
+import com.hjc.CardAdventure.Utils.CardsUtils;
+import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.Utils.EntityUtils;
-import com.hjc.CardAdventure.component.battle.AbandonCardsComponent;
-import com.hjc.CardAdventure.component.battle.ConsumeCardsComponent;
-import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
-import com.hjc.CardAdventure.component.battle.SumCardsComponent;
+import com.hjc.CardAdventure.component.battle.*;
 import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
@@ -215,13 +215,15 @@ public class CardComponent extends Component {
         usingCard = card;
         //卡牌正在使用
         isUsing = true;
-//        //进入卡牌使用阶段
-//        isUse = true;
+        //进入卡牌使用阶段
+        isUse = true;
         //运行卡牌效果
         card.action();
         //启动线程,卡牌正在使用
-        //usingThread.start();
-        Platform.runLater(Global.CARD_USE::run);
+//        usingThread.setDaemon(true);
+//        usingThread.start();
+        //Platform.runLater(Global.CARD_USE::run);
+        FXGL.entityBuilder().with(new CardUseComponent()).buildAndAttach();
     }
 
     //判断此牌是否在手牌区
@@ -236,6 +238,11 @@ public class CardComponent extends Component {
     public void disappear(ArrayList<Card> cards) {
         //牌堆置入此牌
         cards.add(card);
+        //如果为抽牌堆，打乱卡牌
+        if (cards == BattleInformation.DRAW_CARDS) {
+            CardsUtils.disruptCards(cards);
+        }
+
         ScaleTransition st = new ScaleTransition(Duration.seconds(0.3), pane);
         st.setToX(0.2);
         st.setToY(0.2);
@@ -249,46 +256,49 @@ public class CardComponent extends Component {
 
     //置入牌堆
     private void goToCards(ArrayList<Card> cards, double x, double y) {
+        double[] targetLocal = EffectUtils.getCardsLocal(cards);
+        EffectUtils.CircleToCards(x + CARD_WIDTH / 2, y + CARD_HEIGHT / 2, targetLocal[0], targetLocal[1], Color.valueOf(card.getColorS()), cards);
         //生成一个圆
-        Circle circle = new Circle(20, Color.valueOf(card.getColorS()));
-        double cx = x + CARD_WIDTH / 2;
-        double cy = y + CARD_HEIGHT / 2;
-        circle.setCenterX(cx);
-        circle.setCenterY(cy);
-        Entity c = FXGL.entityBuilder().view(circle).buildAndAttach();
+//        Circle circle = new Circle(20, Color.valueOf(card.getColorS()));
+//        double cx = x + CARD_WIDTH / 2;
+//        double cy = y + CARD_HEIGHT / 2;
+//        circle.setCenterX(cx);
+//        circle.setCenterY(cy);
+//        Entity c = FXGL.entityBuilder().view(circle).buildAndAttach();
         //生成圆圈移动动画
-        double targetCircleX;
-        double targetCircleY;
-        if (cards == BattleInformation.ABANDON_CARDS) {
-            //外框偏移量
-            double outXMove = APP_WITH - CARD_BOX_WIDTH;
-            double outYMove = APP_HEIGHT - CARD_BOX_HEIGHT;
-            //内框偏移量
-            double inXMove = outXMove + 30 / PROPORTION;
-            double inYMove = outYMove + 75 / PROPORTION;
-            //圆心所在位置
-            targetCircleX = inXMove + CARD_WIDTH / 2;
-            targetCircleY = inYMove + CARD_HEIGHT / 2;
-        } else if (cards == BattleInformation.DRAW_CARDS) {
-            targetCircleX = 30 / PROPORTION + CARD_WIDTH / 2;
-            targetCircleY = APP_HEIGHT - CARD_BOX_HEIGHT + 75 / PROPORTION + CARD_HEIGHT / 2;
-        } else {
-            targetCircleX = 1825;
-            targetCircleY = 630;
-        }
+//        double[] targetLocal = EffectUtils.getCardsLocal(cards);
+//        double targetCircleX = targetLocal[0];
+//        double targetCircleY = targetLocal[1];
+//        if (cards == BattleInformation.ABANDON_CARDS) {
+//            //外框偏移量
+//            double outXMove = APP_WITH - CARD_BOX_WIDTH;
+//            double outYMove = APP_HEIGHT - CARD_BOX_HEIGHT;
+//            //内框偏移量
+//            double inXMove = outXMove + 30 / PROPORTION;
+//            double inYMove = outYMove + 75 / PROPORTION;
+//            //圆心所在位置
+//            targetCircleX = inXMove + CARD_WIDTH / 2;
+//            targetCircleY = inYMove + CARD_HEIGHT / 2;
+//        } else if (cards == BattleInformation.DRAW_CARDS) {
+//            targetCircleX = 30 / PROPORTION + CARD_WIDTH / 2;
+//            targetCircleY = APP_HEIGHT - CARD_BOX_HEIGHT + 75 / PROPORTION + CARD_HEIGHT / 2;
+//        } else {
+//            targetCircleX = 1825;
+//            targetCircleY = 630;
+//        }
 
-        TranslateTransition tt = new TranslateTransition(Duration.seconds(0.5), circle);
-        tt.setToX(targetCircleX - cx);
-        tt.setToY(targetCircleY - cy);
-        tt.setOnFinished(e -> {
-            c.removeFromWorld();
-            if (cards == BattleInformation.DRAW_CARDS)
-                BattleEntity.drawCards.getComponent(DrawCardsComponent.class).update();
-            else if (cards == BattleInformation.ABANDON_CARDS)
-                BattleEntity.abandonCards.getComponent(AbandonCardsComponent.class).update();
-            else BattleEntity.consumeCards.getComponent(ConsumeCardsComponent.class).update();
-        });
-        tt.play();
+//        TranslateTransition tt = new TranslateTransition(Duration.seconds(0.5), circle);
+//        tt.setToX(targetCircleX - cx);
+//        tt.setToY(targetCircleY - cy);
+//        tt.setOnFinished(e -> {
+//            c.removeFromWorld();
+//            if (cards == BattleInformation.DRAW_CARDS)
+//                BattleEntity.drawCards.getComponent(DrawCardsComponent.class).update();
+//            else if (cards == BattleInformation.ABANDON_CARDS)
+//                BattleEntity.abandonCards.getComponent(AbandonCardsComponent.class).update();
+//            else BattleEntity.consumeCards.getComponent(ConsumeCardsComponent.class).update();
+//        });
+//        tt.play();
     }
 
     //判断当前卡牌是否被选择

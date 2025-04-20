@@ -53,6 +53,7 @@ public class AttributeUp extends TargetedEffect {
             case PURITY_UP -> "纯洁";
             case AGILITY_UP -> "敏捷";
             case DEFENSE_UP -> "防御";
+            case ALL_UP -> "全属性";
         } + next;
     }
 
@@ -83,6 +84,17 @@ public class AttributeUp extends TargetedEffect {
             case SPEED_UP -> {
                 attribute.setSpeed((Math.min(999, value + attribute.getSpeed())));
                 EffectUtils.textBigger("速度上升⬆", role, Color.WHITE);
+                BattleInformation.sort(BattleInformation.NEXT_ACTION);
+                BattleEntity.actionBox.getComponent(ActionComponent.class).update();
+            }
+            case ALL_UP -> {
+                attribute.setPower(Math.min(999, value + attribute.getPower()));
+                attribute.setIntelligence(Math.min(999, value + attribute.getIntelligence()));
+                attribute.setDefense(Math.min(999, value + attribute.getDefense()));
+                attribute.setAgility(Math.min(999, value + attribute.getAgility()));
+                attribute.setPurity(Math.min(999, value + attribute.getPurity()));
+                attribute.setSpeed((Math.min(999, value + attribute.getSpeed())));
+                EffectUtils.textBigger("全属性上升⬆", role, Color.YELLOW);
                 BattleInformation.sort(BattleInformation.NEXT_ACTION);
                 BattleEntity.actionBox.getComponent(ActionComponent.class).update();
             }

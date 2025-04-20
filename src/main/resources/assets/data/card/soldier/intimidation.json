@@ -15,10 +15,10 @@
     "ALL#CONDITION_TARGETED#TWO#虚弱#DAMAGE_M_ADD#FROM_M_ADD#A#75",
     "ALL#OPPORTUNITY_END#虚弱#PHY_ATTACK_END#NEGATIVE_END#0#1#1#NO#FROM#DAMAGE_M_ADD#FROM_M_ADD#D#75",
     "PLAYER#HEAVY#1",
-    "USE_TO#ABANDON"
+    "USE_TO#CONSUME"
   ],
   "targetType": 3,
   "effectiveEffect": 2,
-  "description": "[A]给予\"虚弱 1\"",
-  "detail": "虚弱"
+  "description": "[A]给予\"虚弱 1\";EFFECT3",
+  "detail": "虚弱;消耗"
 }

@@ -26,7 +26,7 @@ public class PlayerComponent extends Component {
 
         entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e -> lookInformation());
 //        entity.getViewComponent().addOnClickHandler(e -> {
-//            EffectUtils.displayEffect("fireDamage",23,1,1,player,40,0);
+//            EffectUtils.displayEffect("burn",16,0.5,1.8,player,40,50);
 //        });
     }
 

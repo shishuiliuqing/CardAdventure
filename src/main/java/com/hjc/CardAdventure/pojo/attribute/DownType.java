@@ -6,7 +6,8 @@ public enum DownType {
     DEFENSE_DOWN,
     AGILITY_DOWN,
     PURITY_DOWN,
-    SPEED_DOWN;
+    SPEED_DOWN,
+    ALL_DOWN;
 
     public static DownType getInstance(String type) {
         return switch (type) {
@@ -15,7 +16,8 @@ public enum DownType {
             case "D" -> DEFENSE_DOWN;
             case "A" -> AGILITY_DOWN;
             case "U" -> PURITY_DOWN;
-            default -> SPEED_DOWN;
+            case "S" -> SPEED_DOWN;
+            default -> ALL_DOWN;
         };
     }
 }

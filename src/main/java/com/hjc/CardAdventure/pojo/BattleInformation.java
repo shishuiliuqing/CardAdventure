@@ -314,13 +314,23 @@ public class BattleInformation {
 
     //效果序列插入一种效果
     public static void insetEffect(Effect effect) {
-        EFFECTS.add(0, effect);
+        int index = 0;
+        if (!EFFECTS.isEmpty()) {
+            while ((EFFECTS.get(index) instanceof PauseEffect)) {
+                index++;
+            }
+        }
+        EFFECTS.add(index, effect);
     }
 
     //效果序列插入多种效果
     public static void insetEffect(ArrayList<Effect> effects) {
-        for (int i = effects.size() - 1; i >= 0; i--) {
-            EFFECTS.add(0, effects.get(i));
+        int index = 0;
+        if (!EFFECTS.isEmpty()) {
+            while ((EFFECTS.get(index) instanceof PauseEffect)) {
+                index++;
+            }
         }
+        EFFECTS.addAll(index,effects);
     }
 }

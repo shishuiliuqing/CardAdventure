@@ -69,7 +69,7 @@ public class Card {
             String s = strings[i];
             sb.append(s);
             if (i != strings.length - 1) {
-                sb.append(";");
+                sb.append("；");
             }
         }
         //返回

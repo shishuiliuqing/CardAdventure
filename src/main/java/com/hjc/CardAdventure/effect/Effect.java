@@ -2,6 +2,7 @@ package com.hjc.CardAdventure.effect;
 
 import com.hjc.CardAdventure.effect.basic.*;
 import com.hjc.CardAdventure.effect.condition.ConditionTargetedEffect;
+import com.hjc.CardAdventure.effect.condition.RecordEffect;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityEffect;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityEndEffect;
 import com.hjc.CardAdventure.effect.player.*;
@@ -68,6 +69,7 @@ public abstract class Effect {
             case "ATTRIBUTE_UP" -> new AttributeUp(from, montage(strings), to);
             //属性下降
             case "ATTRIBUTE_DOWN" -> new AttributeDown(from, montage(strings), to);
+
             //时机触发效果#effect
             case "OPPORTUNITY" -> new OpportunityEffect(from, montage(strings), to);
             //结束触发时机#effect
@@ -75,10 +77,14 @@ public abstract class Effect {
 
             //带目标条件效果#x#effect(x为指定条件--ONE，TWO，THREE。。。)
             case "CONDITION_TARGETED" -> new ConditionTargetedEffect(from, montage(strings), to);
+            //记录器效果#target#x#effect(记录角色，x为记录目标)
+            case "RECORD" -> new RecordEffect(from, montage(strings), to);
 
             //玩家特有
             //抽牌效果#x(x为抽牌数)
             case "DRAW" -> new DrawEffect(from, montage(strings));
+            //牌堆卡牌转移效果
+            case "CARDS_TO_CARDS" -> new CardsToCards(from, montage(strings));
             //使用牌后置入牌堆效果#cards(cards为指定牌堆)
             case "USE_TO" -> new CardUseEnd(from, montage(strings));
             //减少出牌数效果#x(x为减少出牌数的数值)
@@ -147,6 +153,8 @@ public abstract class Effect {
             case "易伤" -> "使下x次受到的物理伤害增加50%（x为易伤层数）";
             case "蓄势" -> "使下x次造成的物理伤害翻倍（x为蓄势层数）";
             case "燃烧" -> "自身回合开始,受到x点火焰伤害（x为燃烧层数）";
+            case "回抽" -> "此牌使用后置入抽牌堆";
+            case "消耗" -> "此牌使用后置入消耗牌堆";
             default -> "";
         };
     }

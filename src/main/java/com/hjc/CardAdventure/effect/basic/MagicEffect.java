@@ -1,12 +1,14 @@
 package com.hjc.CardAdventure.effect.basic;
 
 import com.hjc.CardAdventure.Utils.AttributeUtils;
+import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityStatus;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
 import com.hjc.CardAdventure.effect.target.TargetedEffect;
 import com.hjc.CardAdventure.pojo.HurtType;
 import com.hjc.CardAdventure.pojo.Role;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,10 @@ public class MagicEffect extends TargetedEffect {
         int realValue = AttributeUtils.mathMagic(getFrom(), value);
         switch (hurtType) {
             case FIRE -> {
+                //播放特效
+                EffectUtils.displayEffect("burn", 16, 0.3, 1.8, getTo(), 40, 50);
+                //播放字体
+                EffectUtils.textBigger("燃烧效果⬆",getTo(), Color.ORANGE);
                 String e = "FROM#MAGIC_DAMAGE#FIRE#SValueS";
                 Opportunity opportunity = new Opportunity("燃烧", OpportunityType.OWN_ROUND_BEGIN, OpportunityStatus.NEGATIVE,
                         0, 1, realValue, true, e, null);

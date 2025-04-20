@@ -6,7 +6,8 @@ public enum UpType {
     DEFENSE_UP,
     AGILITY_UP,
     PURITY_UP,
-    SPEED_UP;
+    SPEED_UP,
+    ALL_UP;
 
     public static UpType getInstance(String type) {
         return switch (type) {
@@ -15,7 +16,8 @@ public enum UpType {
             case "D" -> DEFENSE_UP;
             case "A" -> AGILITY_UP;
             case "U" -> PURITY_UP;
-            default -> SPEED_UP;
+            case "S" -> SPEED_UP;
+            default -> ALL_UP;
         };
     }
 }

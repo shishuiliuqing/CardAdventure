@@ -2,6 +2,7 @@ package com.hjc.CardAdventure.pojo.player;
 
 import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.AttributeUtils;
+import com.hjc.CardAdventure.Utils.BattleUtils;
 import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.component.information.BloodComponent;
 import com.hjc.CardAdventure.component.role.PlayerComponent;
@@ -130,7 +131,10 @@ public class Player implements Role {
     public void lossBlood(int value) {
         this.blood -= value;
         if (this.blood < 0) this.blood = 0;
+        //播放文字
         EffectUtils.lossBlood(value, this, Color.RED);
+        //暂停0.3秒
+        BattleUtils.pause(0.3);
         update();
     }
 

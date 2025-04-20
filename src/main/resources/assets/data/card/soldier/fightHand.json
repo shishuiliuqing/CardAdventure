@@ -1,23 +1,23 @@
 {
-  "cardAddress": "flurry",
-  "cardName": "乱舞",
+  "cardAddress": "fightHand",
+  "cardName": "肉搏",
   "attribute": {
-    "power": 2,
+    "power": 0,
     "intelligence": 0,
     "defense": 0,
     "agility": 0,
     "purity": 0,
-    "speed": 2
+    "speed": 3
   },
   "cardQuality": 0,
   "colorS": "#ff0000",
   "cardEffects": [
-    "ALL#DAMAGE#8#1",
+    "PLAYER#RECORD#TO#ARMOR#TARGET#DAMAGE#SRecordS#1",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],
-  "targetType": 3,
+  "targetType": 0,
   "effectiveEffect": 1,
-  "description": "EFFECT0",
+  "description": "[T]造成等同于自身护盾值的物理伤害",
   "detail": ""
 }

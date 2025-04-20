@@ -1,7 +1,14 @@
 package com.hjc.CardAdventure.Utils;
 
+import com.hjc.CardAdventure.component.battle.AbandonCardsComponent;
+import com.hjc.CardAdventure.component.battle.ConsumeCardsComponent;
+import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
 import com.hjc.CardAdventure.component.card.CardComponent;
+import com.hjc.CardAdventure.entity.BattleEntity;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.card.Card;
+
+import static com.hjc.CardAdventure.pojo.BattleInformation.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,5 +33,14 @@ public class CardsUtils {
         for (CardComponent handCard : CardComponent.HAND_CARDS) {
             handCard.update();
         }
+    }
+
+    //更新指定牌堆
+    public static void updateCards(ArrayList<Card> cards) {
+        if (cards == BattleInformation.DRAW_CARDS)
+            BattleEntity.drawCards.getComponent(DrawCardsComponent.class).update();
+        else if (cards == BattleInformation.ABANDON_CARDS)
+            BattleEntity.abandonCards.getComponent(AbandonCardsComponent.class).update();
+        else BattleEntity.consumeCards.getComponent(ConsumeCardsComponent.class).update();
     }
 }

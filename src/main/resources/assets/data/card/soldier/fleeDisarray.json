@@ -1,0 +1,24 @@
+{
+  "cardAddress": "fleeDisarray",
+  "cardName": "弃甲",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 3,
+    "agility": 1,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#ARMOR_GET#12",
+    "PLAYER#CARDS_TO_CARDS#DRAW#CONSUME#1#TOP",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;EFFECT1",
+  "detail": ""
+}

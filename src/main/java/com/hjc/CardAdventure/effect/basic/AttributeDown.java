@@ -49,6 +49,7 @@ public class AttributeDown extends TargetedEffect implements Negative {
             case PURITY_DOWN -> "纯洁";
             case AGILITY_DOWN -> "敏捷";
             case DEFENSE_DOWN -> "防御";
+            case ALL_DOWN -> "全属性";
         } + next;
     }
 
@@ -78,6 +79,17 @@ public class AttributeDown extends TargetedEffect implements Negative {
             case SPEED_DOWN -> {
                 attribute.setSpeed((Math.max(0, attribute.getSpeed() - value)));
                 EffectUtils.textBigger("速度下降⬇", role, Color.WHITE);
+                BattleInformation.sort(BattleInformation.NEXT_ACTION);
+                BattleEntity.actionBox.getComponent(ActionComponent.class).update();
+            }
+            case ALL_DOWN -> {
+                attribute.setPower(Math.max(0, attribute.getPower() - value));
+                attribute.setIntelligence(Math.max(0, attribute.getIntelligence() - value));
+                attribute.setDefense(Math.max(0, attribute.getDefense() - value));
+                attribute.setAgility(Math.max(0, attribute.getAgility() - value));
+                attribute.setPurity(Math.max(0, attribute.getPurity() - value));
+                attribute.setSpeed((Math.max(0, attribute.getSpeed() - value)));
+                EffectUtils.textBigger("全属性下降⬇", role, Color.YELLOW);
                 BattleInformation.sort(BattleInformation.NEXT_ACTION);
                 BattleEntity.actionBox.getComponent(ActionComponent.class).update();
             }

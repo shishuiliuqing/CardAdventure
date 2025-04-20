@@ -5,9 +5,13 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 import com.almasb.fxgl.texture.Texture;
-import com.hjc.CardAdventure.Global;
-import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.component.battle.AbandonCardsComponent;
+import com.hjc.CardAdventure.component.battle.ConsumeCardsComponent;
+import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
+import com.hjc.CardAdventure.entity.BattleEntity;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
+import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
 import com.hjc.CardAdventure.pojo.player.Player;
 import javafx.animation.FadeTransition;
@@ -16,14 +20,61 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 import static com.hjc.CardAdventure.Global.*;
+import static com.hjc.CardAdventure.Global.CARD_DISPLAY.*;
+import static com.hjc.CardAdventure.Global.GAME_SETTING.APP_HEIGHT;
+import static com.hjc.CardAdventure.Global.GAME_SETTING.APP_WITH;
 
 public class EffectUtils {
     private EffectUtils() {
+    }
+
+    //牌堆卡牌转移特效
+    public static void CircleToCards(double fromX, double fromY, double toX, double toY, Color color, ArrayList<Card> cards) {
+        //生成一个圆
+        Circle circle = new Circle(20, color);
+        circle.setCenterX(fromX);
+        circle.setCenterY(fromY);
+        Entity c = FXGL.entityBuilder().view(circle).buildAndAttach();
+
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(0.3), circle);
+        tt.setToX(toX - fromX);
+        tt.setToY(toY - fromY);
+        tt.setOnFinished(e -> {
+            c.removeFromWorld();
+            CardsUtils.updateCards(cards);
+        });
+        tt.play();
+    }
+
+    //获取牌堆位置
+    public static double[] getCardsLocal(ArrayList<Card> cards) {
+        double[] location = new double[2];
+        if (cards == BattleInformation.ABANDON_CARDS) {
+            //外框偏移量
+            double outXMove = APP_WITH - CARD_BOX_WIDTH;
+            double outYMove = APP_HEIGHT - CARD_BOX_HEIGHT;
+            //内框偏移量
+            double inXMove = outXMove + 30 / PROPORTION;
+            double inYMove = outYMove + 75 / PROPORTION;
+            //圆心所在位置
+            location[0] = inXMove + CARD_WIDTH / 2;
+            location[1] = inYMove + CARD_HEIGHT / 2;
+        } else if (cards == BattleInformation.DRAW_CARDS) {
+            location[0] = 30 / PROPORTION + CARD_WIDTH / 2;
+            location[1] = APP_HEIGHT - CARD_BOX_HEIGHT + 75 / PROPORTION + CARD_HEIGHT / 2;
+        } else {
+            location[0] = 1825;
+            location[1] = 630;
+        }
+        return location;
     }
 
     //效果文字展示之效果结束
