@@ -1,0 +1,26 @@
+{
+  "cardAddress": "bloodrage",
+  "cardName": "血怒",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 2,
+    "purity": 2,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#LOSS_BLOOD#4",
+    "PLAYER#ATTRIBUTE_UP#P#2",
+    "PLAYER#ATTRIBUTE_UP#D#2",
+    "PLAYER#ATTRIBUTE_UP#A#2",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 4,
+  "description": "EFFECT0;EFFECT1;EFFECT2;EFFECT3",
+  "detail": ""
+}

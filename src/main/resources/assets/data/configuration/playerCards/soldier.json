@@ -1,8 +1,10 @@
 {
   "initial": [
-    "strike",
-    "demonPower",
-    "intimidation"
+    "defense",
+    "consolidate",
+    "demonTransformation",
+    "seeThrough",
+    "trounce"
   ],
   "white": [
     "strike",
@@ -18,13 +20,24 @@
     "punch",
     "burningStrike",
     "fightHand",
+    "excited",
     "fleeDisarray",
     "revolveBlade",
     "demonPower",
     "bloodBlade"
   ],
   "blue": [
-    "anticipation"
+    "inspire",
+    "anticipation",
+    "pommelStrike",
+    "giantBladeSlash",
+    "bloodrage",
+    "sweeping",
+    "demonTransformation",
+    "seeThrough",
+    "consolidate",
+    "tough",
+    "trounce"
   ],
   "yellow": [
   ]

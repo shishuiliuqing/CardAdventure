@@ -1,0 +1,24 @@
+{
+  "cardAddress": "bloodBlade",
+  "cardName": "血刃",
+  "attribute": {
+    "power": 4,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 2,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#LOSS_BLOOD#2",
+    "TARGET#DAMAGE#15#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;EFFECT1",
+  "detail": ""
+}

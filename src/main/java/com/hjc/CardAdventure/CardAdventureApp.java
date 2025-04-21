@@ -51,7 +51,6 @@ public class CardAdventureApp extends GameApplication {
         getGameWorld().addEntityFactory(new BattleEntityFactory());
         getGameWorld().addEntityFactory(new CardEntityFactory());
         getGameWorld().addEntityFactory(new RoleEntityFactory());
-
         //初始化环境
         InsideInformation.generateInsideEnvironment();
 

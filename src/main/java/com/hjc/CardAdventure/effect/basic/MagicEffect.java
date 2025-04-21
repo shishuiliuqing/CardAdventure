@@ -2,6 +2,7 @@ package com.hjc.CardAdventure.effect.basic;
 
 import com.hjc.CardAdventure.Utils.AttributeUtils;
 import com.hjc.CardAdventure.Utils.EffectUtils;
+import com.hjc.CardAdventure.effect.effectType.Negative;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityStatus;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
@@ -13,7 +14,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 //法术效果
-public class MagicEffect extends TargetedEffect {
+public class MagicEffect extends TargetedEffect implements Negative {
     public MagicEffect(Role from, String effect, Role to) {
         super(from, effect, to);
     }
@@ -34,7 +35,7 @@ public class MagicEffect extends TargetedEffect {
                 //播放特效
                 EffectUtils.displayEffect("burn", 16, 0.3, 1.8, getTo(), 40, 50);
                 //播放字体
-                EffectUtils.textBigger("燃烧效果⬆",getTo(), Color.ORANGE);
+                EffectUtils.textBigger("燃烧效果⬆", getTo(), Color.ORANGE);
                 String e = "FROM#MAGIC_DAMAGE#FIRE#SValueS";
                 Opportunity opportunity = new Opportunity("燃烧", OpportunityType.OWN_ROUND_BEGIN, OpportunityStatus.NEGATIVE,
                         0, 1, realValue, true, e, null);
@@ -60,5 +61,10 @@ public class MagicEffect extends TargetedEffect {
             case FIRE -> "获得\"燃烧 " + realValue + "\"";
             case NULL -> "";
         } + next;
+    }
+
+    @Override
+    public boolean isNegative() {
+        return true;
     }
 }

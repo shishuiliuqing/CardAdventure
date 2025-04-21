@@ -1,0 +1,23 @@
+{
+  "cardAddress": "sweeping",
+  "cardName": "横扫",
+  "attribute": {
+    "power": 4,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 4
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "ALL#DAMAGE#15#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 3,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT2",
+  "detail": "消耗"
+}

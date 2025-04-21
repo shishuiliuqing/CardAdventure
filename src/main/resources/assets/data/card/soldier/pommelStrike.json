@@ -1,0 +1,24 @@
+{
+  "cardAddress": "pommelStrike",
+  "cardName": "剑柄打击",
+  "attribute": {
+    "power": 2,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 4,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "TARGET#DAMAGE#9#1",
+    "PLAYER#DRAW#2",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;EFFECT1",
+  "detail": ""
+}

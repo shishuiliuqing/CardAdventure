@@ -1,0 +1,23 @@
+{
+  "cardAddress": "tough",
+  "cardName": "坚韧",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 3,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#CONDITION_TARGETED#ONE#PLAYER#ARMOR_GET#14",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "EFFECT0",
+  "detail": ""
+}

@@ -1,0 +1,23 @@
+{
+  "cardAddress": "giantBladeSlash",
+  "cardName": "巨刃斩",
+  "attribute": {
+    "power": 5,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "TARGET#DAMAGE#20#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT0",
+  "detail": ""
+}

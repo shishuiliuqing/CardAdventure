@@ -1,5 +1,7 @@
 package com.hjc.CardAdventure.effect.condition;
 
+import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.effectType.Negative;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.effect.target.TargetedEffect;
 import com.hjc.CardAdventure.pojo.Role;
@@ -7,7 +9,7 @@ import com.hjc.CardAdventure.pojo.Role;
 import java.util.ArrayList;
 
 //带条件效果类型（有目标类型）
-public class ConditionTargetedEffect extends TargetedEffect {
+public class ConditionTargetedEffect extends TargetedEffect implements Negative {
     public ConditionTargetedEffect(Role from, String effect, Role to) {
         super(from, effect, to);
     }
@@ -24,6 +26,7 @@ public class ConditionTargetedEffect extends TargetedEffect {
             case "ONE" -> {
                 if (getTo().getRoleArmor() == 0) continueAction(getFrom(), montage(effect), getTo());
             }
+            //条件2，目标无某时机效果
             case "TWO" -> {
                 String name = getFirst(effect);
                 if (Opportunity.exist(getTo(), name)) return;
@@ -49,5 +52,18 @@ public class ConditionTargetedEffect extends TargetedEffect {
         }
 
         return s;
+    }
+
+    @Override
+    public boolean isNegative() {
+        //获取效果序列
+        ArrayList<String> effect = cutEffect(getEffect());
+        getFirst(effect);
+        getFirst(effect);
+        Effect next = parse(getFrom(), montage(effect), getTo());
+        if (next instanceof Negative negative) {
+            return negative.isNegative();
+        }
+        return false;
     }
 }

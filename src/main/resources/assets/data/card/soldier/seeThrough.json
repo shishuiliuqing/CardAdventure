@@ -1,0 +1,24 @@
+{
+  "cardAddress": "seeThrough",
+  "cardName": "看破",
+  "attribute": {
+    "power": 0,
+    "intelligence": 4,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 4
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "ALL#CONDITION_TARGETED#TWO#易伤#DAMAGE_M_ADD#TO_M_ADD#A#150",
+    "ALL#OPPORTUNITY_END#易伤#PHY_HURT#NEGATIVE_END#0#4#1#NO#FROM#DAMAGE_M_ADD#TO_M_ADD#D#150",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 3,
+  "effectiveEffect": 2,
+  "description": "[A]获得\"易伤 4\";EFFECT3",
+  "detail": "易伤;消耗"
+}

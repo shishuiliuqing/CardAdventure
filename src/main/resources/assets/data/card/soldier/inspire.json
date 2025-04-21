@@ -1,0 +1,23 @@
+{
+  "cardAddress": "inspire",
+  "cardName": "鼓舞",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 2,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#ATTRIBUTE_UP#P#3",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT2",
+  "detail": "消耗"
+}

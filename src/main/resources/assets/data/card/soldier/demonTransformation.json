@@ -1,0 +1,24 @@
+{
+  "cardAddress": "demonTransformation",
+  "cardName": "恶魔化",
+  "attribute": {
+    "power": 2,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 5,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#RECORD#TO#POWER#PLAYER#ATTRIBUTE_DOWN#P#SRecordS",
+    "PLAYER#OPPORTUNITY#恶魔化#OWN_ROUND_BEGIN#POSITIVE#0#999#1#YES#PLAYER#ATTRIBUTE_UP#ALL#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "[P]失去所有力量;[P]自身回合开始,[P]获得1点全属性;EFFECT3",
+  "detail": "消耗"
+}
