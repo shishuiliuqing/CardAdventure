@@ -56,6 +56,8 @@ public class Enemy implements Role {
     private int location;
     //护甲
     private int armor;
+    //护盾是否消失
+    private boolean armorDisappear = true;
     //敌人意图
     private ArrayList<Intention> intentions;
     //敌人当前意图
@@ -66,7 +68,10 @@ public class Enemy implements Role {
 
     @Override
     public void action() {
-        if (getRoleArmor() != 0) {
+        //当前行动对象
+        BattleInformation.nowAction = this;
+
+        if (getRoleArmor() != 0 && armorDisappear) {
             //失去所有护盾
             setRoleArmor(0);
             //暂缓0.5秒
@@ -121,6 +126,9 @@ public class Enemy implements Role {
             setRoleArmor(value * (-1));
             EffectUtils.lossBlood(x, this, Color.valueOf("#15FEFC"));
             update();
+
+            //触发受到物伤未失去生命效果
+            Opportunity.launchOpportunity(this, OpportunityType.DEFENSE_PHY_HURT);
         }
 
         //触发受到物理伤害效果
@@ -131,6 +139,7 @@ public class Enemy implements Role {
     public void specialHurt(HurtType hurtType, int value) {
         Role.specialHurtEffect(this, hurtType);
         lossBlood(value);
+        Opportunity.launchOpportunity(this, OpportunityType.SPECIAL_HURT);
     }
 
     @Override
@@ -140,7 +149,8 @@ public class Enemy implements Role {
         EffectUtils.lossBlood(value, this, Color.RED);
         BattleUtils.pause(0.3);
         update();
-
+        //触发失去生命效果
+        Opportunity.launchOpportunity(this, OpportunityType.LOSS_BLOOD);
         if (this.blood == 0) BattleInformation.insetEffect(new DeathEffect(this, ""));
     }
 
@@ -156,6 +166,11 @@ public class Enemy implements Role {
         }
         setArmor(armor);
         update();
+    }
+
+    @Override
+    public void setRoleArmorDisappear(boolean armorDisappear) {
+        this.armorDisappear = armorDisappear;
     }
 
     @Override
@@ -180,6 +195,7 @@ public class Enemy implements Role {
     }
 
     //更新敌人
+    @Override
     public void update() {
         int index = getIndex();
         Entity entity = BattleEntity.enemies[index];

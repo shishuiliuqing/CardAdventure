@@ -132,6 +132,22 @@ public class BattleInformation {
         initCardUse();
         //玩家时机效果序列刷新
         opportunities.clear();
+        //护盾会消失
+        armorDisappear = true;
+        //触发玩家进场时机效果
+        //卡牌的进场效果
+        for (Card card : cards) {
+            if (card.getEntryEffects() == null) continue;
+            //解析卡牌效果
+            ArrayList<Effect> effects = new ArrayList<>();
+            for (String entryEffect : card.getEntryEffects()) {
+                Effect e = Effect.parse(player, entryEffect, null);
+                if (e != null) effects.add(e);
+            }
+            //插入执行该效果
+            insetEffect(effects);
+        }
+        effectExecution();
     }
 
     //初始化行动序列
@@ -316,7 +332,7 @@ public class BattleInformation {
     public static void insetEffect(Effect effect) {
         int index = 0;
         if (!EFFECTS.isEmpty()) {
-            while ((EFFECTS.get(index) instanceof PauseEffect)) {
+            while (EFFECTS.size() > index && (EFFECTS.get(index) instanceof PauseEffect)) {
                 index++;
             }
         }
@@ -327,10 +343,10 @@ public class BattleInformation {
     public static void insetEffect(ArrayList<Effect> effects) {
         int index = 0;
         if (!EFFECTS.isEmpty()) {
-            while ((EFFECTS.get(index) instanceof PauseEffect)) {
+            while (EFFECTS.size() > index && (EFFECTS.get(index) instanceof PauseEffect)) {
                 index++;
             }
         }
-        EFFECTS.addAll(index,effects);
+        EFFECTS.addAll(index, effects);
     }
 }

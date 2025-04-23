@@ -1,0 +1,23 @@
+{
+  "cardAddress": "spontaneousCombustion",
+  "cardName": "自燃",
+  "attribute": {
+    "power": 0,
+    "intelligence": 3,
+    "defense": 0,
+    "agility": 0,
+    "purity": 3,
+    "speed": 3
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#OPPORTUNITY#自燃#OWN_ROUND_END#POSITIVE#0#999#1#YES#PLAYER#LOSS_BLOOD#SValueS#PLAYER#RECORD#TO#MATH_M#3#SValueS#ALL#MAGIC#FIRE#SRecordS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT2",
+  "detail": "自燃;燃烧;消耗"
+}

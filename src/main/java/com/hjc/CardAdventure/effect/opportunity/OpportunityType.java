@@ -19,6 +19,14 @@ public enum OpportunityType {
     PHY_ATTACK_END,
     //受到物理伤害后
     PHY_HURT,
+    //受到特殊伤害后
+    SPECIAL_HURT,
+    //失去生命时
+    LOSS_BLOOD,
+    //受到物理伤害未失去生命时
+    DEFENSE_PHY_HURT,
+    //其他,仅占位效果，不触发
+    OTHER
     ;
 
     //根据名称获取时机效果
@@ -33,6 +41,10 @@ public enum OpportunityType {
             case "ABANDON_STAGE" -> ABANDON_STAGE;
             case "PHY_ATTACK_END" -> PHY_ATTACK_END;
             case "PHY_HURT" -> PHY_HURT;
+            case "SPECIAL_HURT" -> SPECIAL_HURT;
+            case "DEFENSE_PHY_HURT" -> DEFENSE_PHY_HURT;
+            case "LOSS_BLOOD" -> LOSS_BLOOD;
+            case "OTHER" -> OTHER;
             default -> null;
         };
     }
@@ -49,6 +61,10 @@ public enum OpportunityType {
             case PHY_ATTACK_END -> "物理攻击后";
             case PHY_HURT -> "受到物理伤害后";
             case PRODUCE_STAGE_END -> "出牌阶段后";
+            case SPECIAL_HURT -> "因非物理伤害失去生命时";
+            case DEFENSE_PHY_HURT -> "受到物理伤害未失去生命时";
+            case LOSS_BLOOD -> "失去生命时";
+            case OTHER -> "其他";
         };
     }
 }

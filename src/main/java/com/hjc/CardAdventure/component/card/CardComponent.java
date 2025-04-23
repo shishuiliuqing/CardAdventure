@@ -83,6 +83,13 @@ public class CardComponent extends Component {
         //绘制卡牌
         addUI();
 
+        //特殊使用
+        if (specialProduce) {
+            selectable = true;
+            select();
+            selectable = false;
+        }
+
         entity.getViewComponent().addOnClickHandler(e -> select());
         entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_ENTERED, e -> lookInformation());
     }
@@ -107,7 +114,7 @@ public class CardComponent extends Component {
         if (!isHand()) return;
 
         double paneY = APP_HEIGHT - CARD_BOX_HEIGHT + Y_TO_BOX;
-
+        //特殊使用取消
         if (isSelected() && specialProduce) {
             //点击后下移
             pane.setTranslateY(paneY);
@@ -117,7 +124,7 @@ public class CardComponent extends Component {
             card.putDown();
             //使用按钮变暗
             BattleEntity.produce.getComponent(ProduceComponent.class).update(false);
-            //特殊时候结束
+            //特殊使用结束
             specialProduce = false;
             //恢复效果执行状态
             BattleInformation.effectExecution();
@@ -200,8 +207,6 @@ public class CardComponent extends Component {
 
     //执行卡牌效果
     public void action() {
-        //如果是特殊使用，特殊使用结束
-        specialProduce = false;
         //当前行动卡牌
         actionCard = this;
         //将该牌移至中央
@@ -219,6 +224,8 @@ public class CardComponent extends Component {
         isUse = true;
         //运行卡牌效果
         card.action();
+        //如果是特殊使用，特殊使用结束
+        specialProduce = false;
         //启动线程,卡牌正在使用
 //        usingThread.setDaemon(true);
 //        usingThread.start();

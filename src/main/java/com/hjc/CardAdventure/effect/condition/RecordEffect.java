@@ -22,8 +22,15 @@ public class RecordEffect extends TargetedEffect implements Negative {
         Role role = getFirst(effect).equals("FROM") ? getFrom() : getTo();
         String value;
         switch (getFirst(effect)) {
-            case "ARMOR" -> value = String.valueOf(getTo().getRoleArmor());
-            case "POWER" -> value = String.valueOf(getTo().getRoleAttribute().getPower());
+            case "ARMOR" -> value = String.valueOf(role.getRoleArmor());
+            case "POWER" -> value = String.valueOf(role.getRoleAttribute().getPower());
+            case "AGILITY" -> value = String.valueOf(role.getRoleAttribute().getAgility());
+            case "SPEED" -> value = String.valueOf(role.getRoleAttribute().getSpeed());
+            case "MATH_M" -> {
+                int m = changeToInt(getFirst(effect));
+                int record = changeToInt(getFirst(effect));
+                value = String.valueOf(record * m);
+            }
             default -> value = "";
         }
         //获取接下来执行的效果

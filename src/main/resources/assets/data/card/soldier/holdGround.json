@@ -1,0 +1,24 @@
+{
+  "cardAddress": "holdGround",
+  "cardName": "固守",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 8,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#ARMOR_DISAPPEAR#NO",
+    "PLAYER#OPPORTUNITY#固守#OTHER#POSITIVE#0#999#1#NO#NULL",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "[P]自身回合开始时,[P]护盾不再消失",
+  "detail": "消耗"
+}

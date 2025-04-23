@@ -1,0 +1,23 @@
+{
+  "cardAddress": "heavyBlade",
+  "cardName": "重刃",
+  "attribute": {
+    "power": 7,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "TARGET#DAMAGE#24#3",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT0",
+  "detail": ""
+}

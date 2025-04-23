@@ -1,0 +1,24 @@
+{
+  "cardAddress": "giantBladeTransformation",
+  "cardName": "巨刃化",
+  "attribute": {
+    "power": 2,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#DAMAGE_V_ADD#FROM#V_A#8",
+    "PLAYER#OPPORTUNITY_END#伤害增幅#PHY_ATTACK_END#POSITIVE_END#1#1#8#YES#PLAYER#DAMAGE_V_ADD#FROM#V_D#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "[P]获得\"伤害增幅 8\"",
+  "detail": ""
+}

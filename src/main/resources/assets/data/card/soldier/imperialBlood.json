@@ -1,0 +1,23 @@
+{
+  "cardAddress": "impregnable",
+  "cardName": "御血",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 4,
+    "purity": 4,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#OPPORTUNITY#御血#SPECIAL_HURT#POSITIVE#0#999#1#YES#DRAW#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "[P]因非物理伤害失去生命时,抽一张牌;消耗",
+  "detail": "消耗"
+}

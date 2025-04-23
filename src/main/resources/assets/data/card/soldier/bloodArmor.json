@@ -1,0 +1,23 @@
+{
+  "cardAddress": "bloodArmor",
+  "cardName": "血盾",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 3,
+    "agility": 0,
+    "purity": 7,
+    "speed": 0
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#OPPORTUNITY#血盾#LOSS_BLOOD#POSITIVE#0#999#3#YES#PLAYER#ARMOR_GET#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;消耗",
+  "detail": "血盾;消耗"
+}

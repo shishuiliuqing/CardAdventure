@@ -8,15 +8,18 @@ public enum OpportunityStatus {
     //负面
     NEGATIVE,
     //消极触发
-    NEGATIVE_END;
+    NEGATIVE_END,
+    //其他
+    OTHER;
 
     //根据string获得状态
     public static OpportunityStatus getInstance(String status) {
         return switch (status) {
+            case "POSITIVE" -> POSITIVE;
             case "POSITIVE_END" -> POSITIVE_END;
             case "NEGATIVE" -> NEGATIVE;
             case "NEGATIVE_END" -> NEGATIVE_END;
-            default -> POSITIVE;
+            default -> OTHER;
         };
     }
 }

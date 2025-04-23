@@ -1,0 +1,23 @@
+{
+  "cardAddress": "metallization",
+  "cardName": "金属化",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 4,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#OPPORTUNITY#金属化#OWN_ROUND_END#POSITIVE#0#999#4#YES#PLAYER#ARMOR_GET#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0",
+  "detail": "金属化;消耗"
+}

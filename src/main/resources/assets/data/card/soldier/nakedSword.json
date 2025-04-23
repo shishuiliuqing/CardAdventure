@@ -1,0 +1,24 @@
+{
+  "cardAddress": "nakedSword",
+  "cardName": "白刃战",
+  "attribute": {
+    "power": 2,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 2,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "TARGET#DAMAGE#4#1",
+    "PLAYER#DRAW#1",
+    "HEAVY#0",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT1;EFFECT2",
+  "detail": "轻盈"
+}

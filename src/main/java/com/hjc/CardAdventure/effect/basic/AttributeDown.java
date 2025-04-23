@@ -54,6 +54,7 @@ public class AttributeDown extends TargetedEffect implements Negative {
     }
 
     public static void attributeDown(Role role, DownType downType, int value) {
+        if (value == 0) return;
         Attribute attribute = role.getRoleAttribute();
         switch (downType) {
             case POWER_DOWN -> {

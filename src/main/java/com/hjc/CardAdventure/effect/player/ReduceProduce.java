@@ -32,6 +32,7 @@ public class ReduceProduce extends Effect {
         //获取数值
         int value = changeToInt(getFirst(effect));
         if (value == 1) return "";
+        if(value == 0) return "轻盈";
         String next = Effect.getNextEffectString(getFrom(), montage(effect), null, ",");
         return "沉重" + value + next;
     }

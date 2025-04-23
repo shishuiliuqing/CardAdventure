@@ -1,0 +1,24 @@
+{
+  "cardAddress": "beAtWar",
+  "cardName": "交战",
+  "attribute": {
+    "power": 2,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 5
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "TARGET#CONDITION_TARGETED#THREE#TARGET#DAMAGE#9#1#TARGET#ATTRIBUTE_UP#P#1#REUSE#0#1",
+    "PAUSE#5",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT0",
+  "detail": "复用"
+}

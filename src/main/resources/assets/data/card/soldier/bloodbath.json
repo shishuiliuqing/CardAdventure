@@ -1,0 +1,24 @@
+{
+  "cardAddress": "bloodbath",
+  "cardName": "血洗",
+  "attribute": {
+    "power": 6,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 3,
+    "speed": 6
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#LOSS_BLOOD#3",
+    "ALL#DAMAGE#24#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 3,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT1",
+  "detail": "消耗"
+}

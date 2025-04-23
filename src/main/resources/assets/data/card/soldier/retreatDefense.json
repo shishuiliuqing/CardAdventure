@@ -1,0 +1,24 @@
+{
+  "cardAddress": "retreatDefense",
+  "cardName": "退守",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 4,
+    "agility": 4,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#ARMOR_GET#15",
+    "PLAYER#OPPORTUNITY#灵敏#OWN_ROUND_BEGIN#POSITIVE#0#1#2#YES#PLAYER#DRAW#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;EFFECT1",
+  "detail": "灵敏"
+}

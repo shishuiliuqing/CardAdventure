@@ -1,0 +1,24 @@
+{
+  "cardAddress": "demonSacrifice",
+  "cardName": "恶魔祭品",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#ATTRIBUTE_UP#U#5",
+    "PLAYER#OPPORTUNITY#衰竭#OWN_ROUND_END#NEGATIVE#0#999#1#YES#PLAYER#ATTRIBUTE_DOWN#ALL#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT1;消耗",
+  "detail": "衰竭;消耗"
+}

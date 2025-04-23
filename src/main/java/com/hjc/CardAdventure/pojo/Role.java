@@ -36,6 +36,9 @@ public interface Role {
     //设置角色护盾
     void setRoleArmor(int armor);
 
+    //设置角色护盾消失
+    void setRoleArmorDisappear(boolean armorDisappear);
+
     //获取属性
     Attribute getRoleAttribute();
 
@@ -44,6 +47,9 @@ public interface Role {
 
     //死亡
     void die();
+
+    //角色更新
+    void update();
 
     //特殊伤害受伤特效播放
     static void specialHurtEffect(Role role, HurtType hurtType) {

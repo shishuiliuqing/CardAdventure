@@ -4,7 +4,6 @@ import com.hjc.CardAdventure.Utils.BattleUtils;
 import com.hjc.CardAdventure.Utils.CardsUtils;
 import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.effect.Effect;
-import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
 import javafx.scene.paint.Color;
@@ -12,6 +11,9 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 import static com.hjc.CardAdventure.Global.PLAYER.player;
+import static com.hjc.CardAdventure.Utils.CardsUtils.getCards;
+import static com.hjc.CardAdventure.Utils.CardsUtils.getCardsName;
+
 
 //将某个牌堆的牌置入其他牌堆
 public class CardsToCards extends Effect {
@@ -68,23 +70,5 @@ public class CardsToCards extends Effect {
         if (operation.equals("TOP")) {
             return "将" + From_Cards + "的前" + value + "张牌置入" + To_Cards + next;
         } else return "";
-    }
-
-    //根据名字获取牌堆
-    public static ArrayList<Card> getCards(String cards) {
-        return switch (cards) {
-            case "DRAW" -> BattleInformation.DRAW_CARDS;
-            case "ABANDON" -> BattleInformation.ABANDON_CARDS;
-            default -> BattleInformation.CONSUME_CARDS;
-        };
-    }
-
-    //根据名字获取牌堆中文名
-    public static String getCardsName(String cards) {
-        return switch (cards) {
-            case "DRAW" -> "抽牌堆";
-            case "ABANDON" -> "弃牌堆";
-            default -> "消耗牌堆";
-        };
     }
 }

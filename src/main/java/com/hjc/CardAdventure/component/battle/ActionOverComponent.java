@@ -77,9 +77,9 @@ public class ActionOverComponent extends Component {
         //执行动画
         animatedTexture.play();
         //暂停1秒
-        BattleInformation.EFFECTS.add(new PauseEffect(null,"10"));
+        BattleInformation.EFFECTS.add(new PauseEffect(null, "10"));
         //删除当前行动者
-        BattleInformation.THIS_ACTION.remove(0);
+        BattleInformation.THIS_ACTION.remove(BattleInformation.nowAction);
         //更新行动序列
         BattleEntity.actionBox.getComponent(ActionComponent.class).update();
         //下一个角色行动

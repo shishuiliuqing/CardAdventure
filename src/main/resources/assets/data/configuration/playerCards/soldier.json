@@ -1,10 +1,9 @@
 {
   "initial": [
-    "defense",
-    "consolidate",
-    "demonTransformation",
-    "seeThrough",
-    "trounce"
+    "bloodbath",
+    "bloodArmor",
+    "holdGround",
+    "indestructible"
   ],
   "white": [
     "strike",
@@ -37,8 +36,27 @@
     "seeThrough",
     "consolidate",
     "tough",
-    "trounce"
+    "trounce",
+    "flameBarrier",
+    "unscrupulous",
+    "metallization",
+    "giantBladeTransformation",
+    "spontaneousCombustion",
+    "oppressTheWeak",
+    "nakedSword",
+    "retreatDefense",
+    "impregnable",
+    "demonSacrifice",
+    "beAtWar",
+    "imperialBlood"
   ],
   "yellow": [
+    "heavyBlade",
+    "kaiTian",
+    "breakLimit",
+    "defenseCounterattack",
+    "bloodbath",
+    "holdGround",
+    "indestructible"
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "cardAddress": "impregnable",
+  "cardName": "固若金汤",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 5,
+    "agility": 0,
+    "purity": 0,
+    "speed": 3
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#RECORD#TO#ARMOR#PLAYER#DAMAGE_V_ADD#TO#V_D#SRecordS",
+    "PLAYER#RECORD#TO#ARMOR#PLAYER#OPPORTUNITY_END#伤害减免#OWN_ROUND_BEGIN#POSITIVE_END#0#1#SRecordS#YES#PLAYER#DAMAGE_V_ADD#TO#V_A#SValueS",
+    "PLAYER#ARMOR_SET#0",
+    "PLAYER#RECORD#TO#SPEED#PLAYER#ATTRIBUTE_DOWN#S#SRecordS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "[P]获得x层伤害减免（x取决于护盾值）;[P]失去所有护盾;[P]失去所有速度;消耗",
+  "detail": "伤害减免;消耗"
+}

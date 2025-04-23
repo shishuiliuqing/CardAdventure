@@ -1,0 +1,23 @@
+{
+  "cardAddress": "oppressTheWeak",
+  "cardName": "恃强凌弱",
+  "attribute": {
+    "power": 5,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 3,
+    "speed": 3
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "ALL#CONDITION_TARGETED#THREE#ATTRIBUTE_DOWN#P#2",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 3,
+  "effectiveEffect": 1,
+  "description": "[A]若目标力量低于玩家,失去2点力量;EFFECT2",
+  "detail": "消耗"
+}

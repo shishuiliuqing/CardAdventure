@@ -5,7 +5,9 @@ import com.hjc.CardAdventure.component.card.CardComponent;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.effect.effectType.Negative;
 import com.hjc.CardAdventure.effect.target.TargetedEffect;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
+import com.hjc.CardAdventure.pojo.enemy.Enemy;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,10 @@ public class PhyDamageMagnificationAdd extends TargetedEffect implements Negativ
         for (CardComponent handCard : CardComponent.HAND_CARDS) {
             handCard.update();
         }
+        //更新敌人
+        for (Enemy enemy : BattleInformation.ENEMIES) {
+            enemy.update();
+        }
         //继续执行接下来的效果
         Effect.continueAction(getFrom(), montage(effect), getTo());
     }
@@ -69,12 +75,11 @@ public class PhyDamageMagnificationAdd extends TargetedEffect implements Negativ
         //获取效果序列
         ArrayList<String> effect = cutEffect(getEffect());
         //获取操作码
-        getFirst(effect);
+        String operation = getFirst(effect);
         //获取乘除
         String operator = getFirst(effect);
         //获取初始数值
         double value = changeToInt(getFirst(effect)) * 0.01;
-        //如果增加的数值<100为负面效果
-        return operator.equals("A") && value < 1;
+        return (operation.equals("FROM") && operator.equals("A") && value < 100) || (operation.equals("TO") && operator.equals("A") && value > 100);
     }
 }

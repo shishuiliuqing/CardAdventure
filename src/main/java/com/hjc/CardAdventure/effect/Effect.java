@@ -61,14 +61,20 @@ public abstract class Effect {
             case "MAGIC_DAMAGE" -> new MagicDamage(from, montage(strings), to);
             //失去血量效果#x(x为失去生命的数值)
             case "LOSS_BLOOD" -> new LossBlood(from, montage(strings), to);
+            //物理伤害增幅#V_A/V_D#x(x为增幅数值)
+            case "DAMAGE_V_ADD" -> new PhyDamageValueAdd(from, montage(strings), to);
             //物理伤害倍率变化#FROM_M_ADD/TO_M_ADD#A/D#x(x为倍率*100)
             case "DAMAGE_M_ADD" -> new PhyDamageMagnificationAdd(from, montage(strings), to);
             //获得护盾#x(x为获得的护盾)
             case "ARMOR_GET" -> new ArmorGet(from, montage(strings), to);
+            //设置护盾值
+            case "ARMOR_SET" -> new ArmorSet(from, montage(strings), to);
             //属性上升#type#x(type为上升的属性--P力量，I智力，D防御，A敏捷，U纯洁，S速度，x为上升数值，可为负)
             case "ATTRIBUTE_UP" -> new AttributeUp(from, montage(strings), to);
             //属性下降
             case "ATTRIBUTE_DOWN" -> new AttributeDown(from, montage(strings), to);
+
+            case "ARMOR_DISAPPEAR" -> new ArmorDisappearSet(from, montage(strings), to);
 
             //时机触发效果#effect
             case "OPPORTUNITY" -> new OpportunityEffect(from, montage(strings), to);
@@ -83,8 +89,12 @@ public abstract class Effect {
             //玩家特有
             //抽牌效果#x(x为抽牌数)
             case "DRAW" -> new DrawEffect(from, montage(strings));
-            //牌堆卡牌转移效果
+            //牌堆卡牌转移效果#fromCards#toCards#operation
             case "CARDS_TO_CARDS" -> new CardsToCards(from, montage(strings));
+            //复用效果#0#1#2...
+            case "REUSE" -> new Reuse(from, montage(strings));
+            //寻回效果#cards#PRODUCE/NO_PRODUCE#cardName/x(x为寻回张数)
+            case "FIND_CARD" -> new FindCard(from, montage(strings));
             //使用牌后置入牌堆效果#cards(cards为指定牌堆)
             case "USE_TO" -> new CardUseEnd(from, montage(strings));
             //减少出牌数效果#x(x为减少出牌数的数值)
@@ -152,9 +162,20 @@ public abstract class Effect {
             case "虚弱" -> "使下x次造成的物理伤害降低25%（x为虚弱层数）";
             case "易伤" -> "使下x次受到的物理伤害增加50%（x为易伤层数）";
             case "蓄势" -> "使下x次造成的物理伤害翻倍（x为蓄势层数）";
-            case "燃烧" -> "自身回合开始,受到x点火焰伤害（x为燃烧层数）";
+            case "燃烧" -> "自身回合开始,受到x点火焰伤害（x为燃烧层数）,触发后消失";
             case "回抽" -> "此牌使用后置入抽牌堆";
             case "消耗" -> "此牌使用后置入消耗牌堆";
+            case "火焰保护" -> "受到物理伤害时,[A]获得x层燃烧（x为火焰保护层数 + 智力值）";
+            case "伤害增幅" -> "使下一次造成的物理伤害增加x点（x为伤害增幅层数）";
+            case "伤害减免" -> "使下一次受到的物理伤害减少x点（x为伤害减免层数）";
+            case "自燃" -> "自身回合结束时,[F]失去x点生命,[A]获得y层燃烧（x为自燃层数,y = 3x+智力值）";
+            case "轻盈" -> "此牌使用后不消化出牌数";
+            case "灵敏" -> "自身回合开始,抽x张牌（x为灵敏层数）";
+            case "衰竭" -> "自身回合开始,失去x点全属性（x为衰竭层数）";
+            case "复用" -> "再次执行此卡效果";
+            case "寻回/抽" -> "从抽牌堆找到此牌并选择是否打出";
+            case "血盾" -> "失去生命时,获得x点护盾（x为血盾层数+防御值）";
+            case "固守" -> "自身回合开始时,护盾不再消失";
             default -> "";
         };
     }

@@ -18,6 +18,7 @@ public class AttributeUtils {
     public static void initAttributeUtils() {
         //初始化发动者伤害增幅器
         FROM_ADD_DAMAGE.clear();
+        TO_ADD_DAMAGE.clear();
         //初始化倍率增幅器
         FROM_MAGNIFICATION.clear();
         TO_MAGNIFICATION.clear();
@@ -26,6 +27,7 @@ public class AttributeUtils {
 
         //增幅器添加玩家单位
         FROM_ADD_DAMAGE.put(player, 0);
+        TO_ADD_DAMAGE.put(player, 0);
         FROM_MAGNIFICATION.put(player, 1.0);
         TO_MAGNIFICATION.put(player, 1.0);
         ARMOR_ADD_MAGNIFICATION.put(player, 1.0);
@@ -33,6 +35,7 @@ public class AttributeUtils {
         //增幅器添加敌人单位
         for (Enemy enemy : ENEMIES) {
             FROM_ADD_DAMAGE.put(enemy, 0);
+            TO_ADD_DAMAGE.put(enemy, 0);
             FROM_MAGNIFICATION.put(enemy, 1.0);
             TO_MAGNIFICATION.put(enemy, 1.0);
             ARMOR_ADD_MAGNIFICATION.put(enemy, 1.0);
@@ -41,6 +44,8 @@ public class AttributeUtils {
 
     //发动者伤害增幅器
     public static final HashMap<Role, Integer> FROM_ADD_DAMAGE = new HashMap<>();
+    //目标伤害增幅器
+    public static final HashMap<Role, Integer> TO_ADD_DAMAGE = new HashMap<>();
     //发动者倍率增幅器
     public static final HashMap<Role, Double> FROM_MAGNIFICATION = new HashMap<>();
     //目标倍率增幅器
@@ -62,6 +67,8 @@ public class AttributeUtils {
 
         //目标不为null
         if (to != null) {
+            //添加伤害增幅器加成
+            value += TO_ADD_DAMAGE.get(to);
             //倍率加成
             value = (int) (value * TO_MAGNIFICATION.get(to));
         }

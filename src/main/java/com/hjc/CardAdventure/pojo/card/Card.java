@@ -7,15 +7,14 @@ import com.hjc.CardAdventure.component.card.TargetComponent;
 import com.hjc.CardAdventure.component.role.EnemyComponent;
 import com.hjc.CardAdventure.component.role.PlayerComponent;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.PauseEffect;
+import com.hjc.CardAdventure.effect.player.SpecialProduce;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,7 +22,8 @@ import java.util.Objects;
 import static com.hjc.CardAdventure.Global.PLAYER.player;
 import static com.hjc.CardAdventure.Global.CARD_USE.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Card {
@@ -47,6 +47,8 @@ public class Card {
     private String description;
     //卡牌详情
     private String detail;
+    //进场效果
+    private ArrayList<String> entryEffects;
 
     @Override
     public String toString() {
@@ -116,7 +118,13 @@ public class Card {
             effects.add(Effect.parse(player, cardEffect, null));
         }
         //将所有效果添加至效果序列
-        BattleInformation.EFFECTS.addAll(effects);
+        if (specialProduce) {
+            effects.add(new PauseEffect(player,"2"));
+            effects.add(new SpecialProduce(player, ""));
+            BattleInformation.insetEffect(effects);
+        } else {
+            BattleInformation.EFFECTS.addAll(effects);
+        }
         //执行效果序列
         //BattleInformation.effectExecution();
     }

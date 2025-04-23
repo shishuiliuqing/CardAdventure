@@ -63,7 +63,10 @@ public class Player implements Role {
 
     @Override
     public void action() {
-        if (getRoleArmor() != 0) {
+        //当前行动对象
+        BattleInformation.nowAction = this;
+
+        if (getRoleArmor() != 0 && armorDisappear) {
             //失去所有护盾
             setRoleArmor(0);
             //暂缓0.5秒
@@ -75,7 +78,6 @@ public class Player implements Role {
 
         //回合开始阶段
         isPlayer = true;
-        BattleInformation.nowAction = this;
 
         //刷新本回合出牌数
         BattleInformation.EFFECTS.add(new ShuffleProduce(this, ""));
@@ -118,13 +120,21 @@ public class Player implements Role {
             setRoleArmor(value * (-1));
             EffectUtils.lossBlood(x, this, Color.valueOf("#15FEFC"));
             update();
+
+            //触发受到物伤未失去生命效果
+            Opportunity.launchOpportunity(this, OpportunityType.DEFENSE_PHY_HURT);
         }
+
+        //触发受到物理伤害效果
+        Opportunity.launchOpportunity(this, OpportunityType.PHY_HURT);
     }
 
     @Override
     public void specialHurt(HurtType hurtType, int value) {
         Role.specialHurtEffect(this, hurtType);
         lossBlood(value);
+        //触发特殊伤害效果
+        Opportunity.launchOpportunity(this, OpportunityType.SPECIAL_HURT);
     }
 
     @Override
@@ -136,6 +146,8 @@ public class Player implements Role {
         //暂停0.3秒
         BattleUtils.pause(0.3);
         update();
+        //触发失去生命效果
+        Opportunity.launchOpportunity(this,OpportunityType.LOSS_BLOOD);
     }
 
     @Override
@@ -150,6 +162,11 @@ public class Player implements Role {
         }
         Global.PLAYER.armor = armor;
         update();
+    }
+
+    @Override
+    public void setRoleArmorDisappear(boolean armorDisappear) {
+        Global.PLAYER.armorDisappear = armorDisappear;
     }
 
     @Override
@@ -168,6 +185,7 @@ public class Player implements Role {
     }
 
     //更新玩家
+    @Override
     public void update() {
         BattleEntity.playerBattle.getComponent(PlayerComponent.class).update();
         InformationEntity.playerBlood.getComponent(BloodComponent.class).update();

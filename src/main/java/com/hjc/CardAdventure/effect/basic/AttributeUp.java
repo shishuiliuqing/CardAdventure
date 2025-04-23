@@ -59,6 +59,7 @@ public class AttributeUp extends TargetedEffect {
 
     //提升目标属性
     public static void attributeUp(Role role, UpType upType, int value) {
+        if(value == 0) return;
         Attribute attribute = role.getRoleAttribute();
         switch (upType) {
             case POWER_UP -> {

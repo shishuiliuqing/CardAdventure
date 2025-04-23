@@ -93,7 +93,7 @@ public class DrawCardsComponent extends Component {
     }
 
     //获取最近的空选牌框
-    private int nearEmptyBox() {
+    public static int nearEmptyBox() {
         for (int i = 0; i < CARD_BOX_STATUS.length; i++) {
             if (CARD_BOX_STATUS[i] == 0) {
                 //CARD_BOX_STATUS[i] = 1;

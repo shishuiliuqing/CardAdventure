@@ -1,0 +1,24 @@
+{
+  "cardAddress": "flameBarrier",
+  "cardName": "火焰屏障",
+  "attribute": {
+    "power": 0,
+    "intelligence": 4,
+    "defense": 4,
+    "agility": 0,
+    "purity": 0,
+    "speed": 3
+  },
+  "cardQuality": 1,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#ARMOR_GET#13",
+    "PLAYER#OPPORTUNITY#火焰保护#PHY_HURT#POSITIVE#1#999#2#YES#ALL#MAGIC#FIRE#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;EFFECT1",
+  "detail": "火焰保护;燃烧"
+}

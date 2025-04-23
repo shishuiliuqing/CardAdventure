@@ -6,12 +6,14 @@ import com.hjc.CardAdventure.configuration.PlayerCards;
 import com.hjc.CardAdventure.configuration.SeasonMonsterPool;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
+import com.hjc.CardAdventure.effect.player.SpecialProduce;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.player.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.almasb.fxgl.dsl.FXGL.getAssetLoader;
 import static com.hjc.CardAdventure.Global.PLAYER.player;
@@ -98,7 +100,7 @@ public class Global {
     public static class CARD_USE {
         //当前正在使用的卡牌
         public static Card usingCard;
-//        //卡牌检测线程
+        //        //卡牌检测线程
 //        public static Thread usingThread = new Thread(CARD_USE::run);
         //使用按钮
         public static boolean produce = false;
@@ -134,6 +136,8 @@ public class Global {
         public static boolean isUsing = false;
         //是否为攻击卡
         public static boolean isAttack = false;
+        //寻卡公用池
+        public static HashMap<Integer, Card> findCards = new HashMap<>();
 
         //初始化卡牌使用
         public static void initCardUse() {
@@ -152,6 +156,7 @@ public class Global {
             specialProduce = false;
             needAbandon = 0;
             isAttack = false;
+            findCards.clear();
         }
 
         //检测卡牌使用
@@ -188,6 +193,8 @@ public class Global {
         public static int armor = 0;
         //玩家时机效果
         public static ArrayList<Opportunity> opportunities = new ArrayList<>();
+        //玩家护盾是否消失
+        public static boolean armorDisappear = true;
 
         //初始化角色
         public static void initPlayer() {

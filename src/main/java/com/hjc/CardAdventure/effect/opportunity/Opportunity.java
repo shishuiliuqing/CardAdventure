@@ -35,9 +35,18 @@ public class Opportunity {
     //时机结束触发效果
     private String endEffect;
 
+    //特殊效果
+    //private static final String SPECIAL_OPPORTUNITY = "寻回/抽";
+
     //向某个角色添加某个时机效果
     public static void addOpportunity(Role role, Opportunity opportunity) {
         ArrayList<Opportunity> opportunities = role.getRoleOpportunities();
+//        //特殊效果，直接添加
+//        if (SPECIAL_OPPORTUNITY.contains(opportunity.name)) {
+//            opportunities.add(opportunity);
+//            return;
+//        }
+        //非特殊效果
         for (Opportunity o : opportunities) {
             //效果名字相同
             if (o.getName().equals(opportunity.getName())) {
@@ -151,7 +160,7 @@ public class Opportunity {
         return false;
     }
 
-    private static final String NO_DISPLAY = "";
+    private static final String NO_DISPLAY = "寻回/抽";
 
     //展示时机效果
     public static String displayOpportunities(ArrayList<Opportunity> opportunities) {
@@ -190,9 +199,9 @@ public class Opportunity {
 
         //回合数展示
         if (opportunity.rounds != 0) {
-            sb.append("持续").append(opportunity.rounds).append("回合");
+            sb.append("持续").append(opportunity.rounds).append("回合\n");
         } else if (opportunity.num == 999) {
-            sb.append("永久效果");
+            sb.append("永久效果\n");
         }
 
         //详情效果展示
