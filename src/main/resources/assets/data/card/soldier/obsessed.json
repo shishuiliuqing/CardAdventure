@@ -1,0 +1,25 @@
+{
+  "cardAddress": "obsessed",
+  "cardName": "走火入魔",
+  "attribute": {
+    "power": 7,
+    "intelligence": 7,
+    "defense": 7,
+    "agility": 7,
+    "purity": 7,
+    "speed": 7
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#RECORD#TO#BLOOD#B_D#1#PLAYER#LOSS_BLOOD#SRecordS",
+    "PLAYER#ATTRIBUTE_UP#ALL#5",
+    "PLAYER#OPPORTUNITY#走火入魔#USE_CARD_END#POSITIVE#0#999#1#NO#PLAYER#RESTORE#0",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "[P]失去生命直至1点;EFFECT1;每次使用牌后,[P]回复血量;消耗",
+  "detail": "消耗"
+}

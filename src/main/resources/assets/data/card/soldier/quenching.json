@@ -1,0 +1,23 @@
+{
+  "cardAddress": "quenching",
+  "cardName": "淬火",
+  "attribute": {
+    "power": 0,
+    "intelligence": 4,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#OPPORTUNITY#淬火#PHY_DAMAGE_END#POSITIVE#0#999#4#YES#TARGET#MAGIC#FIRE#SValueS",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;消耗",
+  "detail": "淬火;燃烧;消耗"
+}

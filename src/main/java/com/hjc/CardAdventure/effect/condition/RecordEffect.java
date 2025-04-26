@@ -26,6 +26,13 @@ public class RecordEffect extends TargetedEffect implements Negative {
             case "POWER" -> value = String.valueOf(role.getRoleAttribute().getPower());
             case "AGILITY" -> value = String.valueOf(role.getRoleAttribute().getAgility());
             case "SPEED" -> value = String.valueOf(role.getRoleAttribute().getSpeed());
+            case "BLOOD" -> {
+                String operator = getFirst(effect);
+                int num = changeToInt(getFirst(effect));
+                if (operator.equals("B_D")) {
+                    value = String.valueOf(role.getRoleBlood() - num);
+                } else value = String.valueOf(role.getRoleBlood());
+            }
             case "MATH_M" -> {
                 int m = changeToInt(getFirst(effect));
                 int record = changeToInt(getFirst(effect));

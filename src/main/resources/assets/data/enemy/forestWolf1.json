@@ -1,7 +1,7 @@
 {
   "enemyNum": 1,
   "name": "森林狼",
-  "blood": 48,
+  "blood": 1,
   "maxBlood": 48,
   "attribute": {
     "power": 1,

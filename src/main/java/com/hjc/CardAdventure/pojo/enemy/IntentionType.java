@@ -46,6 +46,17 @@ public enum IntentionType {
                 int magnification = Effect.changeToInt(result.get(3));
                 value[1] = AttributeUtils.mathPhyDamage(enemy, Global.PLAYER.player, damageValue, magnification);
             }
+            //第2位为多段效果，且第4位为攻击效果
+            else if (result.get(1).equals("MANY") && result.get(3).equals("DAMAGE")) {
+                //初始化多段第三位
+                int manyNum = Effect.changeToInt(result.get(2));
+                //初始数值为第五位
+                int damageValue = Effect.changeToInt(result.get(4));
+                //倍率为第六位
+                int magnification = Effect.changeToInt(result.get(5));
+                value[0] = manyNum;
+                value[1] = AttributeUtils.mathPhyDamage(enemy, Global.PLAYER.player, damageValue, magnification);
+            }
         }
         return value;
     }

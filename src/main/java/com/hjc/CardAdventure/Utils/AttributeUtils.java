@@ -100,4 +100,14 @@ public class AttributeUtils {
         if (agility <= 3) return agility;
         return 3 + (agility - 3) / 3;
     }
+
+    //计算回血效果
+    public static int mathRestore(Role from, int value) {
+        if (!isBattle) return value;
+        int purity = from.getRoleAttribute().getPurity();
+        //纯洁小于3，每点加一回血
+        if (purity <= 3) return value + purity;
+        //纯洁大于3，每三点加一回血
+        return value + 3 + (purity - 3) / 3;
+    }
 }

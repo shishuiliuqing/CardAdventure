@@ -1,0 +1,23 @@
+{
+  "cardAddress": "claw",
+  "cardName": "爪击",
+  "attribute": {
+    "power": 1,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 2
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "TARGET#DAMAGE#6#1",
+    "PLAYER#HEAVY#0",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;轻盈",
+  "detail": "轻盈"
+}

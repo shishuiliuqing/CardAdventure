@@ -1,0 +1,27 @@
+[
+  {
+    "num": 0,
+    "intentionType": 0,
+    "intentionGenerateType": 0,
+    "effects": [
+      "PLAYER#MANY#2#DAMAGE#2#1",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  },
+  {
+    "num": 1,
+    "intentionType": 3,
+    "intentionGenerateType": 0,
+    "effects": [
+      "PLAYER#CONDITION_TARGETED#TWO#虚弱#DAMAGE_M_ADD#FROM_M_ADD#A#75",
+      "PLAYER#OPPORTUNITY_END#虚弱#PHY_ATTACK_END#NEGATIVE_END#0#1#1#NO#FROM#DAMAGE_M_ADD#FROM_M_ADD#D#75",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  }
+]

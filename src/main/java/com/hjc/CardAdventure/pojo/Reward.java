@@ -19,7 +19,7 @@ import static com.hjc.CardAdventure.Global.*;
 @NoArgsConstructor
 public class Reward {
     //卡牌奖励
-    private ArrayList<ArrayList<Card>> cards;
+    private ArrayList<ArrayList<Card>> cards = new ArrayList<>();
     //金币奖励
     private int gold;
     //经验奖励
@@ -60,7 +60,7 @@ public class Reward {
                     //奖励经验
                     //取第二操作符
                     int value = Effect.changeToInt(Effect.getFirst(r));
-                    result.setGold(value);
+                    result.setExperience(value);
                 }
             }
         }

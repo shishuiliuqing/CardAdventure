@@ -1,0 +1,24 @@
+{
+  "cardAddress": "demonicPact",
+  "cardName": "恶魔契约",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 6,
+    "purity": 6,
+    "speed": 6
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#LOSS_BLOOD#3",
+    "PLAYER#DRAW#4",
+    "PLAYER#HEAVY#0",
+    "USE_TO#DRAW"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0;EFFECT1;轻盈;回抽",
+  "detail": "轻盈;回抽"
+}

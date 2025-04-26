@@ -4,6 +4,7 @@ import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
+import javafx.scene.paint.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,6 +54,9 @@ public class Opportunity {
                 //可叠加
                 if (opportunity.stackable) {
                     o.setLayer(o.getLayer() + opportunity.getLayer());
+                    if (!NO_DISPLAY.contains(opportunity.name)) {
+                        EffectUtils.textBigger("获得" + opportunity.name + "效果", role, Color.WHITE);
+                    }
                     return;
                 }
 
@@ -60,12 +64,18 @@ public class Opportunity {
                 if (o.getNum() == 999) return;
                 //仅添加次数
                 o.setNum(o.getNum() + opportunity.getNum());
+                if (!NO_DISPLAY.contains(opportunity.name)) {
+                    EffectUtils.textBigger("获得" + opportunity.name + "效果", role,Color.WHITE);
+                }
                 return;
             }
         }
 
         //未有此效果，直接添加
         opportunities.add(opportunity);
+        if (!NO_DISPLAY.contains(opportunity.name)) {
+            EffectUtils.textBigger("获得" + opportunity.name + "效果", role,Color.WHITE);
+        }
     }
 
     //某个时机到来，触发时机效果
@@ -82,6 +92,8 @@ public class Opportunity {
                 if (opportunity.effect != null) {
                     //将数值替换为层数
                     String effect = opportunity.effect.replace("SValueS", String.valueOf(opportunity.getLayer()));
+                    //若有@，将@替换为S，即效果含有时机效果
+                    effect = effect.replace("@", "S");
                     //解析效果
                     Effect result = Effect.parse(role, effect, null);
                     //执行效果
@@ -151,6 +163,17 @@ public class Opportunity {
         }
     }
 
+    //删除某角色的时机效果
+    public static void deleteOpportunity(Role role, String name) {
+        ArrayList<Opportunity> opportunities = role.getRoleOpportunities();
+        for (Opportunity opportunity : opportunities) {
+            if (opportunity.name.equals(name)) {
+                opportunities.remove(opportunity);
+                return;
+            }
+        }
+    }
+
     //查看某角色是否拥有某种时机
     public static boolean exist(Role role, String opportunityName) {
         ArrayList<Opportunity> opportunities = role.getRoleOpportunities();
@@ -160,7 +183,7 @@ public class Opportunity {
         return false;
     }
 
-    private static final String NO_DISPLAY = "寻回/抽";
+    private static final String NO_DISPLAY = "寻回/抽;无";
 
     //展示时机效果
     public static String displayOpportunities(ArrayList<Opportunity> opportunities) {

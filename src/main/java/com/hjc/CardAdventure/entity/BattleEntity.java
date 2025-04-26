@@ -45,9 +45,6 @@ public class BattleEntity {
     public static void initBattleEntities() {
         //初始化背景
 //        bg = FXGL.spawn("bg");
-        //获得怪池
-        MonsterPool.enemyType = EnemyType.LITTLE_MONSTER;
-        MonsterPool.monsterPool = Global.CONFIGURATION.seasonMonsterPool.generateLittleMonsterPool(InsideInformation.day, TimeStatus.EVENING);
         //初始化战斗信息
         BattleInformation.initBattle();
         //初始化出牌框

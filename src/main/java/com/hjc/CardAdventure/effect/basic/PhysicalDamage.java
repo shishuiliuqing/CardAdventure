@@ -32,7 +32,20 @@ public class PhysicalDamage extends TargetedEffect {
         //计算真实伤害数值
         int realValue = AttributeUtils.mathPhyDamage(getFrom(), getTo(), value, magnification);
         //对目标造成伤害
-        getTo().phyHurt(realValue);
+        boolean isHurt = getTo().phyHurt(realValue);
+
+        //受到物理伤害后效果
+        Opportunity.launchOpportunity(getTo(), OpportunityType.PHY_HURT);
+        //触发造成物理伤害后效果
+        Opportunity.launchOpportunity(getFrom(), OpportunityType.PHY_DAMAGE_END);
+
+        if (isHurt) {
+            //成功造成伤害，触发攻击者攻击后造成伤害效果
+            Opportunity.launchOpportunity(getFrom(), OpportunityType.PHY_DAMAGE_SUCCESS);
+        } else {
+            //失败，触发受伤者完全抵挡物理伤害效果
+            Opportunity.launchOpportunity(getTo(), OpportunityType.DEFENSE_PHY_HURT);
+        }
         //继续执行下面的序列
         Effect.continueAction(getFrom(), montage(effect), getTo());
     }

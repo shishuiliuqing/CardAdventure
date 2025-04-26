@@ -105,7 +105,7 @@ public class Player implements Role {
     }
 
     @Override
-    public void phyHurt(int value) {
+    public boolean phyHurt(int value) {
         //伤害减护盾
         value -= getRoleArmor();
 
@@ -114,19 +114,16 @@ public class Player implements Role {
             setRoleArmor(0);
             //血量减少
             lossBlood(value);
+            return true;
         } else {
             //护盾减少
             int x = getRoleArmor() + value;
             setRoleArmor(value * (-1));
-            EffectUtils.lossBlood(x, this, Color.valueOf("#15FEFC"));
+            EffectUtils.displayValue(x, this, Color.valueOf("#15FEFC"), "-");
             update();
-
-            //触发受到物伤未失去生命效果
-            Opportunity.launchOpportunity(this, OpportunityType.DEFENSE_PHY_HURT);
         }
+        return false;
 
-        //触发受到物理伤害效果
-        Opportunity.launchOpportunity(this, OpportunityType.PHY_HURT);
     }
 
     @Override
@@ -142,12 +139,27 @@ public class Player implements Role {
         this.blood -= value;
         if (this.blood < 0) this.blood = 0;
         //播放文字
-        EffectUtils.lossBlood(value, this, Color.RED);
+        EffectUtils.displayValue(value, this, Color.RED, "-");
         //暂停0.3秒
         BattleUtils.pause(0.3);
         update();
         //触发失去生命效果
-        Opportunity.launchOpportunity(this,OpportunityType.LOSS_BLOOD);
+        Opportunity.launchOpportunity(this, OpportunityType.LOSS_BLOOD);
+    }
+
+    @Override
+    public void restore(int value) {
+        blood += value;
+        if (blood > maxBlood) blood = maxBlood;
+        //如果战斗，播放回血文字
+        if (BattleInformation.isBattle) {
+            //播放动画
+            EffectUtils.displayEffect("restore", 27, 1, 0.8, this, -10, -90);
+            EffectUtils.displayValue(value, this, Color.GREEN, "+");
+            BattleInformation.insetEffect(new PauseEffect(null, "5"));
+        }
+        //更新
+        update();
     }
 
     @Override

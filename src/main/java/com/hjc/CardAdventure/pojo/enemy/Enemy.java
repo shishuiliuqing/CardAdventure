@@ -1,7 +1,6 @@
 package com.hjc.CardAdventure.pojo.enemy;
 
 import com.almasb.fxgl.entity.Entity;
-import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.BattleUtils;
 import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.component.role.EnemyComponent;
@@ -62,6 +61,8 @@ public class Enemy implements Role {
     private ArrayList<Intention> intentions;
     //敌人当前意图
     private Intention nowIntention;
+    //怪物进场效果
+    private ArrayList<String> entryEffects;
 
     //怪物时机效果
     private ArrayList<Opportunity> opportunities = new ArrayList<>();
@@ -110,7 +111,7 @@ public class Enemy implements Role {
     }
 
     @Override
-    public void phyHurt(int value) {
+    public boolean phyHurt(int value) {
 
         //伤害减护盾
         value -= getRoleArmor();
@@ -120,19 +121,17 @@ public class Enemy implements Role {
             setRoleArmor(0);
             //血量减少
             lossBlood(value);
+            //返回true
+            return true;
         } else {
             //护盾减少
             int x = getRoleArmor() + value;
             setRoleArmor(value * (-1));
-            EffectUtils.lossBlood(x, this, Color.valueOf("#15FEFC"));
+            EffectUtils.displayValue(x, this, Color.valueOf("#15FEFC"), "-");
             update();
-
-            //触发受到物伤未失去生命效果
-            Opportunity.launchOpportunity(this, OpportunityType.DEFENSE_PHY_HURT);
         }
 
-        //触发受到物理伤害效果
-        Opportunity.launchOpportunity(this, OpportunityType.PHY_HURT);
+        return false;
     }
 
     @Override
@@ -146,12 +145,26 @@ public class Enemy implements Role {
     public void lossBlood(int value) {
         this.blood -= value;
         if (this.blood < 0) this.blood = 0;
-        EffectUtils.lossBlood(value, this, Color.RED);
+        EffectUtils.displayValue(value, this, Color.RED, "-");
         BattleUtils.pause(0.3);
         update();
         //触发失去生命效果
         Opportunity.launchOpportunity(this, OpportunityType.LOSS_BLOOD);
         if (this.blood == 0) BattleInformation.insetEffect(new DeathEffect(this, ""));
+    }
+
+    @Override
+    public void restore(int value) {
+        blood += value;
+        if (blood > maxBlood) blood = maxBlood;
+        //如果战斗，播放回血文字
+        if (BattleInformation.isBattle) {
+            EffectUtils.displayEffect("restore", 27, 1, 0.8, this, -10, -90);
+            EffectUtils.displayValue(value, this, Color.GREEN, "+");
+            BattleInformation.insetEffect(new PauseEffect(null, "5"));
+        }
+        //更新
+        update();
     }
 
     @Override

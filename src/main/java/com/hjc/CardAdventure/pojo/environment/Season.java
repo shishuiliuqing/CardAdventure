@@ -14,4 +14,14 @@ public enum Season {
             return "冬";
         } else return "";
     }
+
+    //获取英文地址
+    public String getAddress() {
+        return switch (this) {
+            case spring -> "spring";
+            case summer -> "summer";
+            case fall -> "fall";
+            case winter -> "winter";
+        };
+    }
 }

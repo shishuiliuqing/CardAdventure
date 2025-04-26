@@ -21,14 +21,17 @@ public interface Role {
     //获取最大生命值
     int getRoleMaxBlood();
 
-    //受到物理伤害
-    void phyHurt(int value);
+    //受到物理伤害，若成功造成伤害，返回true
+    boolean phyHurt(int value);
 
     //特殊受伤效果
     void specialHurt(HurtType hurtType, int value);
 
     //失去生命
     void lossBlood(int value);
+
+    //回血
+    void restore(int value);
 
     //获取角色护盾
     int getRoleArmor();

@@ -15,4 +15,14 @@ public enum Environment {
             return "湿地";
         } else return "";
     }
+
+    //获取英文地址
+    public String getAddress() {
+        return switch (this) {
+            case FOREST -> "forest";
+            case DESERT -> "desert";
+            case GRASSLAND -> "grassland";
+            case WETLAND -> "wetland";
+        };
+    }
 }

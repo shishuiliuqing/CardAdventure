@@ -2,11 +2,11 @@ package com.hjc.CardAdventure;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.hjc.CardAdventure.component.card.CardComponent;
+import com.hjc.CardAdventure.configuration.EventConfiguration;
 import com.hjc.CardAdventure.configuration.PlayerCards;
 import com.hjc.CardAdventure.configuration.SeasonMonsterPool;
 import com.hjc.CardAdventure.effect.opportunity.Opportunity;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityType;
-import com.hjc.CardAdventure.effect.player.SpecialProduce;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
@@ -50,6 +50,12 @@ public class Global {
     public static final String INTENTION_IMG_ADDRESS = "intention/";
     //特效图片
     public static final String EFFECT_IMG_ADDRESS = "effect/";
+    //事件地址
+    public static final String EVENT_IMG_ADDRESS = "event/";
+    //事件图片地址
+    public static final String EVENT_PIC_ADDRESS = EVENT_IMG_ADDRESS + "picture/";
+    //子场景图片地址
+    public static final String SUB_SCENE_IMG_ADDRESS = "subScene/";
 
     //根据图片地址和图片名字获取地址
     public static String getTextureAddress(String textTureTypeAddress, String textureName) {
@@ -64,14 +70,18 @@ public class Global {
     public static final String CARDS_ADDRESS = "data/card/";
     //配置文件地址
     public static final String CONFIGURATION_ADDRESS = "data/configuration/";
-    //森林怪池文件地址
-    public static final String FOREST_ADDRESS = CONFIGURATION_ADDRESS + "forest/";
+    //怪池文件地址
+    public static final String MONSTER_POOL_ADDRESS = CONFIGURATION_ADDRESS + "monsterPool/";
+    //事件池
+    public static final String EVENT_CONFIGURATION_ADDRESS = CONFIGURATION_ADDRESS + "event/";
     //怪物意图文件地址
     public static final String INTENTION_ADDRESS = CONFIGURATION_ADDRESS + "intention/";
     //角色卡牌
     public static final String PLAYER_CARDS_ADDRESS = CONFIGURATION_ADDRESS + "playerCards/";
     //怪物卡牌
     public static final String ENEMY_CARDS_ADDRESS = CONFIGURATION_ADDRESS + "enemyCards/";
+    //事件地址
+    public static final String EVENT_ADDRESS = "data/event/";
 
     //根据json文件地址和名字获取json文件地址
     public static String getJsonAddress(String jsonAddress, String jsonName) {
@@ -172,6 +182,8 @@ public class Global {
             //卡牌使用结束
             isUse = false;
             isUsing = false;
+            //触发卡牌使用后效果
+            Opportunity.launchOpportunity(player, OpportunityType.USE_CARD_END);
             //更新手牌区
 //            for (CardComponent handCard : CardComponent.HAND_CARDS) {
 //                handCard.update();
@@ -208,14 +220,37 @@ public class Global {
     //配置
     public static class CONFIGURATION {
         //怪池
-        public static SeasonMonsterPool seasonMonsterPool = FXGL.getAssetLoader().loadJSON(getJsonAddress(FOREST_ADDRESS, "spring"), SeasonMonsterPool.class).get();
+        public static SeasonMonsterPool seasonMonsterPool;
         //人物卡牌
         public static PlayerCards playerCards = FXGL.getAssetLoader().loadJSON(getJsonAddress(PLAYER_CARDS_ADDRESS, "soldier"), PlayerCards.class).get();
+        //事件池
+        public static EventConfiguration eventConfiguration;
 
         //初始化配置
         public static void initConfiguration() {
-            seasonMonsterPool = FXGL.getAssetLoader().loadJSON(getJsonAddress(FOREST_ADDRESS, "spring"), SeasonMonsterPool.class).get();
-            playerCards = FXGL.getAssetLoader().loadJSON(getJsonAddress(PLAYER_CARDS_ADDRESS, "soldier"), PlayerCards.class).get();
+            //初始化怪池
+            seasonMonsterPool = SeasonMonsterPool.getInstance();
+            //初始化事件池
+            eventConfiguration = EventConfiguration.getInstance();
+        }
+    }
+
+    //营地
+    public static class CAMP {
+        //是否展示休息
+        public static boolean canRest;
+        //是否展示战斗
+        public static boolean canBattle;
+        //是否展示探险
+        public static boolean canAdventure;
+        //是否展示事件
+        public static boolean canEvent;
+
+        public static void init() {
+            canRest = false;
+            canBattle = false;
+            canAdventure = false;
+            canEvent = false;
         }
     }
 }

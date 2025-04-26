@@ -12,13 +12,13 @@
   "cardQuality": 2,
   "colorS": "#ff0000",
   "cardEffects": [
-    "TARGET#DAMAGE#6#1",
+    "TARGET#DAMAGE#4#1",
     "PLAYER#HEAVY#0",
     "USE_TO#DRAW"
   ],
   "targetType": 0,
   "effectiveEffect": 1,
-  "description": "[P]当受到物理伤害而未失去生命时,[P]寻回/抽;轻盈;回抽",
+  "description": "EFFECT0;[P]当受到物理伤害而未失去生命时,[P]寻回/抽;轻盈;回抽",
   "detail": "寻回/抽;轻盈;回抽;",
   "entryEffects": [
     "PLAYER#OPPORTUNITY#寻回/抽#DEFENSE_PHY_HURT#OTHER#0#999#1#YES#PLAYER#FIND_CARD#DRAW#PRODUCE#防守反击#SValueS"

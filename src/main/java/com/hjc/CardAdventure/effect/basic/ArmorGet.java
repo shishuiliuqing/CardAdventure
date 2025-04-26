@@ -5,6 +5,7 @@ import com.hjc.CardAdventure.Utils.EffectUtils;
 import com.hjc.CardAdventure.Utils.EntityUtils;
 import com.hjc.CardAdventure.effect.Effect;
 import com.hjc.CardAdventure.effect.target.TargetedEffect;
+import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class ArmorGet extends TargetedEffect {
         to.setRoleArmor(to.getRoleArmor() + realValue);
         //播放动画
         EffectUtils.getArmor(getTo());
+        //暂停播放动画
+        BattleInformation.insetEffect(new PauseEffect(null,"2"));
         //继续执行下面的效果
         Effect.continueAction(getFrom(), montage(effect), getTo());
     }

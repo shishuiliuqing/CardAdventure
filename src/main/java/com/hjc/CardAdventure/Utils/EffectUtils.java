@@ -5,10 +5,6 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 import com.almasb.fxgl.texture.Texture;
-import com.hjc.CardAdventure.component.battle.AbandonCardsComponent;
-import com.hjc.CardAdventure.component.battle.ConsumeCardsComponent;
-import com.hjc.CardAdventure.component.battle.DrawCardsComponent;
-import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.card.Card;
@@ -139,8 +135,8 @@ public class EffectUtils {
         pt.play();
     }
 
-    //伤害减少效果展示
-    public static void lossBlood(int value, Role role, Color color) {
+    //数值效果展示
+    public static void displayValue(int value, Role role, Color color, String operator) {
         //获取角色位置
         double[] location = getLocal(role);
 
@@ -149,11 +145,11 @@ public class EffectUtils {
         Rectangle rectangle = new Rectangle(200, 70, Color.rgb(0, 0, 0, 0));
         StackPane stackPane = new StackPane(rectangle);
         //文本创建
-        Text text = EntityUtils.getText("- " + value,
+        Text text = EntityUtils.getText(operator + " " + value,
                 "华文琥珀", 50,
                 color);
         stackPane.getChildren().add(text);
-        EntityUtils.nodeMove(stackPane, location[0] + 20, location[1] + 20);
+        EntityUtils.nodeMove(stackPane, location[0] + 100, location[1] + 20);
         entity.getViewComponent().addChild(stackPane);
 
         //创建文本消失动画

@@ -1,0 +1,25 @@
+{
+  "cardAddress": "warSupportFromWar",
+  "cardName": "以战养战",
+  "attribute": {
+    "power": 3,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 7,
+    "purity": 0,
+    "speed": 5
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#OPPORTUNITY#无#PHY_DAMAGE_SUCCESS#OTHER#0#1#1#NO#DRAW#2#GET_PRODUCE#2",
+    "TARGET#DAMAGE#12#1",
+    "PLAYER#OPPORTUNITY_DELETE#无",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 3,
+  "description": "EFFECT1;[T]若因此失去生命,[P]抽2张牌,[P]本回合出牌数增加2",
+  "detail": ""
+}

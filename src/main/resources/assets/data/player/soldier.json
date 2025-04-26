@@ -1,6 +1,6 @@
 {
   "name": "战士",
-  "blood": 80,
+  "blood": 50,
   "maxBlood": 80,
   "attribute": {
     "power": 4,

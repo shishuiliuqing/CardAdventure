@@ -3,12 +3,18 @@ package com.hjc.CardAdventure.configuration;
 import com.almasb.fxgl.dsl.FXGL;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.enemy.Enemy;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import static com.hjc.CardAdventure.Global.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EnemyCards {
     //1阶段
     private ArrayList<String> stageOne;
@@ -38,6 +44,7 @@ public class EnemyCards {
 
     //根据怪物名字获取怪物卡组
     public static EnemyCards getEnemyCards(String enemy) {
+        System.out.println(enemy);
         return FXGL.getAssetLoader().loadJSON(getJsonAddress(ENEMY_CARDS_ADDRESS, enemy), EnemyCards.class).get();
     }
 }

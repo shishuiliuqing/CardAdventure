@@ -1,14 +1,10 @@
 {
   "initial": [
-    "bloodbath",
-    "bloodArmor",
-    "holdGround",
-    "indestructible"
-  ],
-  "white": [
     "strike",
     "defense",
-    "heavyBlow",
+    "heavyBlow"
+  ],
+  "white": [
     "flurry",
     "blockAssault",
     "jumpSlash",
@@ -56,7 +52,14 @@
     "breakLimit",
     "defenseCounterattack",
     "bloodbath",
+    "bloodArmor",
     "holdGround",
-    "indestructible"
+    "indestructible",
+    "demonicPact",
+    "quenching",
+    "sacrifice",
+    "bloodBattle",
+    "warSupportFromWar",
+    "obsessed"
   ]
 }

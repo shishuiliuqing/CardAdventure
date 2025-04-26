@@ -1,5 +1,6 @@
 package com.hjc.CardAdventure.pojo;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.hjc.CardAdventure.Global;
 import com.hjc.CardAdventure.Utils.AttributeUtils;
 import com.hjc.CardAdventure.Utils.CardsUtils;
@@ -20,6 +21,8 @@ import com.hjc.CardAdventure.pojo.enemy.EnemyType;
 import com.hjc.CardAdventure.pojo.enemy.IntentionGenerateType;
 import com.hjc.CardAdventure.pojo.environment.InsideInformation;
 import com.hjc.CardAdventure.pojo.environment.TimeStatus;
+import com.hjc.CardAdventure.subScene.RewardSubScene;
+import javafx.application.Platform;
 
 import static com.hjc.CardAdventure.Global.CONFIGURATION.*;
 import static com.hjc.CardAdventure.Global.PLAYER.*;
@@ -254,11 +257,10 @@ public class BattleInformation {
             if (ENEMIES.isEmpty() && isBattle) {
                 EFFECTS.clear();
                 Attribute.cloneAttribute(attribute, player.getAttribute());
-                //FXGL.getSceneService().pushSubScene(new BattleRewardSubScene());
-                //reward();
-                Reward reward = Reward.getReward(getBattleReward());
                 isBattle = false;
                 isExecute = false;
+                RewardSubScene.reward = Reward.getReward(getBattleReward());
+                Platform.runLater(() -> FXGL.getSceneService().pushSubScene(new RewardSubScene()));
                 break;
             }
 
@@ -292,7 +294,7 @@ public class BattleInformation {
             int experience = InsideInformation.day;
             rewards.add("EXPERIENCE#" + experience);
         }
-
+        System.out.println(rewards);
         return rewards;
     }
 

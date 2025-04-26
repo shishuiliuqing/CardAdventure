@@ -1,0 +1,24 @@
+{
+  "cardAddress": "instinctiveDefense",
+  "cardName": "本能防御",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 1,
+    "agility": 2,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "PLAYER#ARMOR_GET#4",
+    "PLAYER#DRAW#2",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;EFFECT1;消耗",
+  "detail": "消耗"
+}

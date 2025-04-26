@@ -2,7 +2,9 @@ package com.hjc.CardAdventure.effect;
 
 import com.hjc.CardAdventure.effect.basic.*;
 import com.hjc.CardAdventure.effect.condition.ConditionTargetedEffect;
+import com.hjc.CardAdventure.effect.condition.ManyEffect;
 import com.hjc.CardAdventure.effect.condition.RecordEffect;
+import com.hjc.CardAdventure.effect.opportunity.OpportunityDelete;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityEffect;
 import com.hjc.CardAdventure.effect.opportunity.OpportunityEndEffect;
 import com.hjc.CardAdventure.effect.player.*;
@@ -61,6 +63,8 @@ public abstract class Effect {
             case "MAGIC_DAMAGE" -> new MagicDamage(from, montage(strings), to);
             //失去血量效果#x(x为失去生命的数值)
             case "LOSS_BLOOD" -> new LossBlood(from, montage(strings), to);
+            //回复效果#x(x为回复血量)
+            case "RESTORE" -> new RestoreEffect(from, montage(strings), to);
             //物理伤害增幅#V_A/V_D#x(x为增幅数值)
             case "DAMAGE_V_ADD" -> new PhyDamageValueAdd(from, montage(strings), to);
             //物理伤害倍率变化#FROM_M_ADD/TO_M_ADD#A/D#x(x为倍率*100)
@@ -80,11 +84,15 @@ public abstract class Effect {
             case "OPPORTUNITY" -> new OpportunityEffect(from, montage(strings), to);
             //结束触发时机#effect
             case "OPPORTUNITY_END" -> new OpportunityEndEffect(from, montage(strings), to);
+            //时机效果删除
+            case "OPPORTUNITY_DELETE" -> new OpportunityDelete(from, montage(strings), to);
 
             //带目标条件效果#x#effect(x为指定条件--ONE，TWO，THREE。。。)
             case "CONDITION_TARGETED" -> new ConditionTargetedEffect(from, montage(strings), to);
             //记录器效果#target#x#effect(记录角色，x为记录目标)
             case "RECORD" -> new RecordEffect(from, montage(strings), to);
+            //多段效果
+            case "MANY" -> new ManyEffect(from, montage(strings), to);
 
             //玩家特有
             //抽牌效果#x(x为抽牌数)
@@ -99,6 +107,10 @@ public abstract class Effect {
             case "USE_TO" -> new CardUseEnd(from, montage(strings));
             //减少出牌数效果#x(x为减少出牌数的数值)
             case "HEAVY" -> new ReduceProduce(from, montage(strings));
+            //获得出牌效果#X
+            case "GET_PRODUCE" -> new GetProduceNum(from, montage(strings));
+            //回合结束
+            case "ACTION_OVER" -> new PlayerActionOver(from, montage(strings));
 
             //敌人特有
             //删除意图效果
@@ -169,13 +181,16 @@ public abstract class Effect {
             case "伤害增幅" -> "使下一次造成的物理伤害增加x点（x为伤害增幅层数）";
             case "伤害减免" -> "使下一次受到的物理伤害减少x点（x为伤害减免层数）";
             case "自燃" -> "自身回合结束时,[F]失去x点生命,[A]获得y层燃烧（x为自燃层数,y = 3x+智力值）";
-            case "轻盈" -> "此牌使用后不消化出牌数";
+            case "轻盈" -> "此牌使用后不消耗出牌数";
             case "灵敏" -> "自身回合开始,抽x张牌（x为灵敏层数）";
             case "衰竭" -> "自身回合开始,失去x点全属性（x为衰竭层数）";
             case "复用" -> "再次执行此卡效果";
             case "寻回/抽" -> "从抽牌堆找到此牌并选择是否打出";
             case "血盾" -> "失去生命时,获得x点护盾（x为血盾层数+防御值）";
             case "固守" -> "自身回合开始时,护盾不再消失";
+            case "淬火" -> "造成物理伤害后,给予伤害目标x层\"燃烧\"(x为淬火层数+智力值)";
+            case "终止" -> "结束当前自身回合";
+            case "血战" -> "失去生命时,获得x层\"伤害增幅\"(x为血战层数)";
             default -> "";
         };
     }

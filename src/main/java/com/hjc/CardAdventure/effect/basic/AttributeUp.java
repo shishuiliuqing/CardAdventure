@@ -101,6 +101,8 @@ public class AttributeUp extends TargetedEffect {
             }
         }
 
+        //暂停播放文字
+        BattleInformation.insetEffect(new PauseEffect(null,"5"));
         if (role == Global.PLAYER.player) {
             BattleEntity.attribute.getComponent(AttributeComponent.class).update();
         }

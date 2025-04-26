@@ -1,0 +1,25 @@
+{
+  "cardAddress": "sacrifice",
+  "cardName": "舍身",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 7,
+    "agility": 0,
+    "purity": 7,
+    "speed": 0
+  },
+  "cardQuality": 2,
+  "colorS": "#ff0000",
+  "cardEffects": [
+    "PLAYER#RECORD#TO#ARMOR#PLAYER#RESTORE#SRecordS",
+    "PLAYER#ARMOR_SET#0",
+    "PLAYER#ACTION_OVER",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 3,
+  "description": "[P]回复等同于护盾的生命值;[P]失去所有护盾;[P]终止;消耗",
+  "detail": "终止;消耗"
+}

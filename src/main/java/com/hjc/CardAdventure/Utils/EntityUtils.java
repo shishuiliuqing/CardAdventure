@@ -195,6 +195,24 @@ public class EntityUtils {
 
             displayDamage(enemy, entity, x, y);
         }
+        //防御类
+        else if (enemy.getNowIntention().getIntentionType() == IntentionType.DEFENSE) {
+            Texture texture = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "defense"), 40, 40);
+            nodeMove(texture, x - 20, y - 50);
+            entity.getViewComponent().addChild(texture);
+        }
+        //强化类
+        else if (enemy.getNowIntention().getIntentionType() == IntentionType.STRENGTHEN) {
+            Texture upTexture = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "up"), 40, 40);
+            nodeMove(upTexture, x - 20, y - 50);
+            entity.getViewComponent().addChild(upTexture);
+        }
+        //攻击弱化类
+        else if (enemy.getNowIntention().getIntentionType() == IntentionType.WEAKEN) {
+            Texture weakenTexture = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "weaken"), 40, 40);
+            nodeMove(weakenTexture, x - 20, y - 50);
+            entity.getViewComponent().addChild(weakenTexture);
+        }
     }
 
     //伤害类意图伤害显示
