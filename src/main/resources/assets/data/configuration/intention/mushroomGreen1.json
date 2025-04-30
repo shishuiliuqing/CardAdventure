@@ -1,0 +1,26 @@
+[
+  {
+    "num": 0,
+    "intentionType": 0,
+    "intentionGenerateType": 0,
+    "effects": [
+      "PLAYER#DAMAGE#6#1",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  },
+  {
+    "num": 1,
+    "intentionType": 1,
+    "intentionGenerateType": 0,
+    "effects": [
+      "FROM#ARMOR_GET#6",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  }
+]

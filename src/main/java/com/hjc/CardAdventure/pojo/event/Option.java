@@ -4,6 +4,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.Utils.OtherUtils;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 
 import static com.hjc.CardAdventure.Global.*;
+import static com.hjc.CardAdventure.effect.Effect.*;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +29,20 @@ public class Option {
     private String text;
     //选项效果
     ArrayList<String> effects;
+
+    //选项解析
+    public static void parseAndAction(String effect) {
+        //获取效果序列
+        ArrayList<String> result = cutEffect(effect);
+        //获取第一操作数
+        String operation = getFirst(result);
+        switch (operation) {
+            //返回营地
+            case "BACK" -> {
+                OtherUtils.nextTime();
+            }
+        }
+    }
 
     //展示选项
     public static void displayOption(Entity entity, Option option) {

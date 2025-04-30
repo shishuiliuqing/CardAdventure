@@ -1,0 +1,22 @@
+{
+  "enemyNum": 9,
+  "name": "红螳螂",
+  "blood": 18,
+  "maxBlood": 18,
+  "attribute": {
+    "power": 2,
+    "intelligence": 1,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "enemyType": 1,
+  "img": "redMantis",
+  "width": 120,
+  "height": 120,
+  "x": 60,
+  "y": 30,
+  "armor": 0,
+  "entryEffects":[]
+}

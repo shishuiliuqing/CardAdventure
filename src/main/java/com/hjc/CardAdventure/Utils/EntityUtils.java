@@ -207,11 +207,25 @@ public class EntityUtils {
             nodeMove(upTexture, x - 20, y - 50);
             entity.getViewComponent().addChild(upTexture);
         }
-        //攻击弱化类
+        //弱化类
         else if (enemy.getNowIntention().getIntentionType() == IntentionType.WEAKEN) {
             Texture weakenTexture = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "weaken"), 40, 40);
             nodeMove(weakenTexture, x - 20, y - 50);
             entity.getViewComponent().addChild(weakenTexture);
+        }
+        //攻击弱化类
+        else if (enemy.getNowIntention().getIntentionType() == IntentionType.ATTACK_WEAKEN) {
+            Texture atkWeaken = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "attackWeaken"), 40, 40);
+            nodeMove(atkWeaken, x - 50, y - 50);
+            entity.getViewComponent().addChild(atkWeaken);
+
+            displayDamage(enemy, entity, x, y);
+        }
+        //防御强化类
+        else if (enemy.getNowIntention().getIntentionType() == IntentionType.DEFENSE_STRENGTHEN) {
+            Texture defenseUp = FXGL.texture(getTextureAddress(INTENTION_IMG_ADDRESS, "defenseUp"), 40, 40);
+            nodeMove(defenseUp, x - 20, y - 50);
+            entity.getViewComponent().addChild(defenseUp);
         }
     }
 

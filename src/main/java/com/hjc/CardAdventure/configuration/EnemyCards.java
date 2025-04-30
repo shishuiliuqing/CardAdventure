@@ -29,12 +29,13 @@ public class EnemyCards {
     public String getByDay(int day) {
         Random r = new Random();
         ArrayList<String> cards = byDay(day);
+        System.out.println(cards);
         return cards.get(r.nextInt(cards.size()));
     }
 
     //根据天数获得对应阶段的数组
     private ArrayList<String> byDay(int day) {
-        return switch ((day - 1) % 6 + 1) {
+        return switch ((day - 1) / 6 + 1) {
             case 1 -> stageOne;
             case 2 -> stageTwo;
             case 3 -> stageThree;
@@ -44,7 +45,7 @@ public class EnemyCards {
 
     //根据怪物名字获取怪物卡组
     public static EnemyCards getEnemyCards(String enemy) {
-        System.out.println(enemy);
+        //System.out.println(enemy);
         return FXGL.getAssetLoader().loadJSON(getJsonAddress(ENEMY_CARDS_ADDRESS, enemy), EnemyCards.class).get();
     }
 }

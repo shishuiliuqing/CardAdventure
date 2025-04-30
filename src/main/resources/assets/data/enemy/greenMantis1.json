@@ -1,0 +1,22 @@
+{
+  "enemyNum": 8,
+  "name": "绿螳螂",
+  "blood": 24,
+  "maxBlood": 24,
+  "attribute": {
+    "power": 0,
+    "intelligence": 1,
+    "defense": 2,
+    "agility": 0,
+    "purity": 1,
+    "speed": 2
+  },
+  "enemyType": 1,
+  "img": "greenMantis",
+  "width": 120,
+  "height": 120,
+  "x": 60,
+  "y": 30,
+  "armor": 0,
+  "entryEffects":[]
+}

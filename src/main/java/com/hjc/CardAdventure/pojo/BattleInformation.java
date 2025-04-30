@@ -62,7 +62,7 @@ public class BattleInformation {
 
     public static void initBattle() {
         //初始化回合数
-        rounds = 1;
+        rounds = 0;
 
         //初始化敌人序列
         initEnemies();
@@ -78,6 +78,9 @@ public class BattleInformation {
 
         //初始化工具类
         AttributeUtils.initAttributeUtils();
+
+        //回合数为1
+        rounds = 1;
 
         //正在战斗
         isBattle = true;
@@ -97,10 +100,9 @@ public class BattleInformation {
         }
 
         //怪物进场效果解析
-//        for (Enemy enemy : ENEMIES) {
-//            insetEffect(IntentionType.intentionEffects(enemy, enemy.getEntryEffects()));
-//            effectExecution();
-//        }
+        for (Enemy enemy : ENEMIES) {
+            enemy.initEntryEffects();
+        }
 
         //为每位敌人初始化意图
         for (Enemy enemy : ENEMIES) {
@@ -138,19 +140,7 @@ public class BattleInformation {
         //护盾会消失
         armorDisappear = true;
         //触发玩家进场时机效果
-        //卡牌的进场效果
-        for (Card card : cards) {
-            if (card.getEntryEffects() == null) continue;
-            //解析卡牌效果
-            ArrayList<Effect> effects = new ArrayList<>();
-            for (String entryEffect : card.getEntryEffects()) {
-                Effect e = Effect.parse(player, entryEffect, null);
-                if (e != null) effects.add(e);
-            }
-            //插入执行该效果
-            insetEffect(effects);
-        }
-        effectExecution();
+        player.initEntryEffects();
     }
 
     //初始化行动序列

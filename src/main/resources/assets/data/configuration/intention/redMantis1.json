@@ -1,0 +1,57 @@
+[
+  {
+    "num": 0,
+    "intentionType": 0,
+    "intentionGenerateType": 0,
+    "effects": [
+      "PLAYER#DAMAGE#5#1",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  },
+  {
+    "num": 1,
+    "intentionType": 6,
+    "intentionGenerateType": 2,
+    "effects": [
+      "GENERATE_C#INTELLIGENCE_OVER#ENEMY#2",
+      "PLAYER#DAMAGE#2#1",
+      "PLAYER#CONDITION_TARGETED#TWO#虚弱#PLAYER#DAMAGE_M_ADD#FROM_M_ADD#A#75",
+      "PLAYER#OPPORTUNITY_END#虚弱#PHY_HURT#NEGATIVE_END#0#2#1#NO#FROM#DAMAGE_M_ADD#FROM_M_ADD#D#75",
+      "FROM#ATTRIBUTE_DOWN#I#2",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  },
+  {
+    "num": 2,
+    "intentionType": 2,
+    "intentionGenerateType": 2,
+    "effects": [
+      "GENERATE_CR#33#PURITY_OVER#ENEMY#1",
+      "ALL#ATTRIBUTE_UP#P#1",
+      "ALL#ATTRIBUTE_UP#I#2",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  }
+,
+  {
+    "num": 3,
+    "intentionType": 0,
+    "intentionGenerateType": 0,
+    "effects": [
+      "PLAYER#DAMAGE#4#1",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  }
+]

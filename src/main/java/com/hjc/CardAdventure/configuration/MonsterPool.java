@@ -23,8 +23,9 @@ public class MonsterPool {
     public static ArrayList<Enemy> getEnemies(int day) {
         ArrayList<Enemy> enemies = new ArrayList<>();
         for (String monster : monsterPool) {
-            int x = (day - 1) % 6 + 1;
+            int x = (day - 1) / 6 + 1;
             String enemyName = monster + x;
+            //System.out.println(enemyName);
             Enemy enemy = FXGL.getAssetLoader().loadJSON(getJsonAddress(ENEMY_ADDRESS, enemyName), Enemy.class).get();
             String stage = String.valueOf((InsideInformation.day - 1) / 6 + 1);
             //System.out.println(MONSTER_INTENTION_ADDRESS + monster + stage + ".json");

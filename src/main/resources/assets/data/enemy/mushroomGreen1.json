@@ -1,0 +1,25 @@
+{
+  "enemyNum": 4,
+  "name": "魔菇*绿",
+  "blood": 31,
+  "maxBlood": 31,
+  "attribute": {
+    "power": 0,
+    "intelligence": 2,
+    "defense": 2,
+    "agility": 0,
+    "purity": 2,
+    "speed": 0
+  },
+  "enemyType": 1,
+  "img": "mushroomGreen",
+  "width": 110.0,
+  "height": 112.0,
+  "x": 75,
+  "y": 30,
+  "armor": 0,
+  "entryEffects":[
+    "FROM#OPPORTUNITY#无#PHY_HURT#POSITIVE#0#1#1#NO#NOW#OPPORTUNITY_END#虚弱#PHY_HURT#NEGATIVE_END#0#1#1#NO#FROM#DAMAGE_M_ADD#FROM_M_ADD#D#75",
+    "FROM#OPPORTUNITY#寄生*绿#PHY_HURT#POSITIVE#0#1#1#NO#NOW#CONDITION_TARGETED#TWO#虚弱#NOW#DAMAGE_M_ADD#FROM_M_ADD#A#75"
+  ]
+}

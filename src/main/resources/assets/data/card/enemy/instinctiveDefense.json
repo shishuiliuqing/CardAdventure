@@ -18,7 +18,7 @@
     "USE_TO#CONSUME"
   ],
   "targetType": 1,
-  "effectiveEffect": 1,
+  "effectiveEffect": 2,
   "description": "EFFECT0;EFFECT1;消耗",
   "detail": "消耗"
 }

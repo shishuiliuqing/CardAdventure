@@ -53,6 +53,8 @@ public abstract class Effect {
             case "FROM" -> new FromDesignation(from, montage(strings));
             //群体效果#effect
             case "ALL" -> new AllDesignation(from, montage(strings));
+            //当前行动对象
+            case "NOW" -> new NowDesignation(from, montage(strings));
 
             //基础效果
             //物理攻击效果#x#y(x为伤害数值，y为力量加成倍率)
@@ -73,13 +75,16 @@ public abstract class Effect {
             case "ARMOR_GET" -> new ArmorGet(from, montage(strings), to);
             //设置护盾值
             case "ARMOR_SET" -> new ArmorSet(from, montage(strings), to);
+            //护盾添加倍率变化#x(x为倍率值)
+            case "ARMOR_M_ADD" -> new ArmorMagnificationAdd(from, montage(strings), to);
             //属性上升#type#x(type为上升的属性--P力量，I智力，D防御，A敏捷，U纯洁，S速度，x为上升数值，可为负)
             case "ATTRIBUTE_UP" -> new AttributeUp(from, montage(strings), to);
             //属性下降
             case "ATTRIBUTE_DOWN" -> new AttributeDown(from, montage(strings), to);
-
+            //回合护盾是否消失设置效果
             case "ARMOR_DISAPPEAR" -> new ArmorDisappearSet(from, montage(strings), to);
-
+            //卡牌添加效果
+            case "ADD_CARD" -> new AddCard(from, montage(strings));
             //时机触发效果#effect
             case "OPPORTUNITY" -> new OpportunityEffect(from, montage(strings), to);
             //结束触发时机#effect
@@ -173,6 +178,7 @@ public abstract class Effect {
         return switch (sketch) {
             case "虚弱" -> "使下x次造成的物理伤害降低25%（x为虚弱层数）";
             case "易伤" -> "使下x次受到的物理伤害增加50%（x为易伤层数）";
+            case "碎甲" -> "直至下x个自身回合结束,获得的护盾值减少50%（x为碎甲层数）";
             case "蓄势" -> "使下x次造成的物理伤害翻倍（x为蓄势层数）";
             case "燃烧" -> "自身回合开始,受到x点火焰伤害（x为燃烧层数）,触发后消失";
             case "回抽" -> "此牌使用后置入抽牌堆";
@@ -191,6 +197,9 @@ public abstract class Effect {
             case "淬火" -> "造成物理伤害后,给予伤害目标x层\"燃烧\"(x为淬火层数+智力值)";
             case "终止" -> "结束当前自身回合";
             case "血战" -> "失去生命时,获得x层\"伤害增幅\"(x为血战层数)";
+            case "寄生*红" -> "受到物理伤害后,[N]获得1层易伤";
+            case "寄生*绿" -> "受到物理伤害后,[N]获得1层虚弱";
+            case "恶心" -> "状态牌，消耗";
             default -> "";
         };
     }

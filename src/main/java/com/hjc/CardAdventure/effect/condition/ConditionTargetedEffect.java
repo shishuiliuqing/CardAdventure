@@ -38,6 +38,12 @@ public class ConditionTargetedEffect extends TargetedEffect implements Negative 
                     continueAction(getFrom(), montage(effect), getTo());
                 }
             }
+            //条件4，目标有某时机效果
+            case "FOUR" -> {
+                String name = getFirst(effect);
+                if (!Opportunity.exist(getTo(), name)) return;
+                continueAction(getFrom(), montage(effect), getTo());
+            }
         }
     }
 
@@ -55,6 +61,10 @@ public class ConditionTargetedEffect extends TargetedEffect implements Negative 
                 s = "若无\"" + name + "\"" + getNextEffectString(getFrom(), montage(effect), getTo(), ",");
             }
             case "THREE" -> s = "若目标力量低于发动者" + getNextEffectString(getFrom(), montage(effect), getTo(), ",");
+            case "FOUR" -> {
+                String name = getFirst(effect);
+                s = "若有\"" + name + "\"" + getNextEffectString(getFrom(), montage(effect), getTo(), ",");
+            }
             default -> s = "";
         }
 

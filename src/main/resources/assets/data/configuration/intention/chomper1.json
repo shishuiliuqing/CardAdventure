@@ -1,0 +1,51 @@
+[
+  {
+    "num": 0,
+    "intentionType": 0,
+    "intentionGenerateType": 0,
+    "effects": [
+      "PLAYER#DAMAGE#11#1",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  },
+  {
+    "num": 1,
+    "intentionType": 2,
+    "intentionGenerateType": 0,
+    "effects": [
+      "FROM#ATTRIBUTE_UP#D#2",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  },
+  {
+    "num": 2,
+    "intentionType": 2,
+    "intentionGenerateType": 2,
+    "effects": [
+      "GENERATE_CR#80#NO_HAVE_EFFECT#韧性",
+      "FROM#OPPORTUNITY#韧性#OWN_ROUND_END#POSITIVE#0#3#1#NO#FROM#ARMOR_GET#4",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
+  },
+  {
+    "num": 3,
+    "intentionType": 3,
+    "intentionGenerateType": 2,
+    "effects": [
+      "GENERATE_CR#40#SPEED_OVER#PLAYER#0",
+      "PLAYER#ATTRIBUTE_DOWN#ALL#1",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ]
+  }
+]

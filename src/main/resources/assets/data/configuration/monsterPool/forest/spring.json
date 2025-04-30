@@ -4,6 +4,9 @@
       [
         "killerBee",
         "killerBee"
+      ],
+      [
+        "mushroomRed"
       ]
     ],
     "afternoon": [
@@ -18,15 +21,32 @@
     ],
     "evening": [
       [
-        "forestWolf",
         "forestWolf"
+      ],
+      [
+        "ghostImageSnake"
       ]
     ]
   },
   "medium": {
-    "day": [],
+    "day": [
+      [
+        "chomper"
+      ]
+    ],
     "afternoon": [],
-    "evening": []
+    "evening": [
+      [
+        "greenMantis",
+        "redMantis",
+        "redMantis"
+      ],
+      [
+        "redMantis",
+        "redMantis",
+        "redMantis"
+      ]
+    ]
   },
   "strong": {
     "day": [

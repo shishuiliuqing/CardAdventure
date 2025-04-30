@@ -18,6 +18,7 @@ import com.hjc.CardAdventure.pojo.BattleInformation;
 import com.hjc.CardAdventure.pojo.HurtType;
 import com.hjc.CardAdventure.pojo.Role;
 import com.hjc.CardAdventure.pojo.attribute.Attribute;
+import com.hjc.CardAdventure.pojo.card.Card;
 import javafx.scene.paint.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 
 import static com.hjc.CardAdventure.Global.CARD_USE.*;
 import static com.hjc.CardAdventure.Global.PLAYER.*;
+import static com.hjc.CardAdventure.pojo.BattleInformation.effectExecution;
+import static com.hjc.CardAdventure.pojo.BattleInformation.insetEffect;
 
 @Getter
 @Setter
@@ -87,6 +90,23 @@ public class Player implements Role {
 
         //可选择手牌
         selectable = true;
+    }
+
+    @Override
+    public void initEntryEffects() {
+        //卡牌的进场效果
+        for (Card card : cards) {
+            if (card.getEntryEffects() == null) continue;
+            //解析卡牌效果
+            ArrayList<Effect> effects = new ArrayList<>();
+            for (String entryEffect : card.getEntryEffects()) {
+                Effect e = Effect.parse(player, entryEffect, null);
+                if (e != null) effects.add(e);
+            }
+            //插入执行该效果
+            insetEffect(effects);
+        }
+        effectExecution();
     }
 
     @Override
@@ -156,7 +176,7 @@ public class Player implements Role {
             //播放动画
             EffectUtils.displayEffect("restore", 27, 1, 0.8, this, -10, -90);
             EffectUtils.displayValue(value, this, Color.GREEN, "+");
-            BattleInformation.insetEffect(new PauseEffect(null, "5"));
+            insetEffect(new PauseEffect(null, "5"));
         }
         //更新
         update();

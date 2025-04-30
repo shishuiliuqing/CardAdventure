@@ -14,6 +14,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -231,6 +232,48 @@ public class EffectUtils {
 
         at.setOnCycleFinished(entity::removeFromWorld);
         at.play();
+    }
+
+    //卡牌添加效果
+    public static void addCard(ArrayList<Card> object, ArrayList<Card> target) {
+        if (object == null || object.isEmpty()) return;
+        //实体
+        Entity entity = FXGL.entityBuilder().buildAndAttach();
+        //卡牌容器
+        Pane pane = new Pane();
+        pane.setMaxSize(130 * (object.size() - 1) + CARD_WIDTH, CARD_HEIGHT);
+        //获取卡牌实体
+        for (int i = 0; i < object.size(); i++) {
+            Card card = object.get(i);
+            Pane cardPane = EntityUtils.createCard(card);
+            EntityUtils.nodeMove(cardPane, 130 * i, 0);
+            pane.getChildren().add(cardPane);
+            //卡牌实体动画
+            //等待1秒
+            FadeTransition ft = new FadeTransition(Duration.seconds(0.5), cardPane);
+            ft.setOnFinished(e -> {
+                //收缩动画
+                ScaleTransition st = new ScaleTransition(Duration.seconds(0.5), cardPane);
+                st.setToX(0);
+                st.setToY(0);
+                st.setOnFinished(e1 -> {
+                    //创建圆移动动画
+                    double[] location = getCardsLocal(target);
+                    CircleToCards((APP_WITH - pane.getMaxWidth()) / 2 + cardPane.getTranslateX() + CARD_WIDTH / 2, APP_HEIGHT / 2.0 + CARD_HEIGHT / 2, location[0], location[1], Color.valueOf(card.getColorS()), target);
+                });
+                st.play();
+            });
+            ft.play();
+        }
+        //创建居中容器
+        Rectangle r = new Rectangle(APP_WITH, CARD_HEIGHT, Color.rgb(0, 0, 0, 0));
+        StackPane stackPane = new StackPane(r, pane);
+        EntityUtils.nodeMove(stackPane, 0, APP_HEIGHT / 2.0);
+        entity.getViewComponent().addChild(stackPane);
+        //2秒后删除实体
+        FadeTransition ft = new FadeTransition(Duration.seconds(1), stackPane);
+        ft.setOnFinished(e -> entity.removeFromWorld());
+        ft.play();
     }
 
     //获取角色位置

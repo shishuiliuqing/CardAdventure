@@ -1,12 +1,18 @@
 package com.hjc.CardAdventure.subScene;
 
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.scene.SubScene;
 import com.almasb.fxgl.texture.Texture;
 import com.hjc.CardAdventure.Utils.EntityUtils;
+import com.hjc.CardAdventure.Utils.OtherUtils;
+import com.hjc.CardAdventure.component.information.GoldComponent;
+import com.hjc.CardAdventure.entity.CampEntity;
+import com.hjc.CardAdventure.entity.InformationEntity;
 import com.hjc.CardAdventure.pojo.Reward;
 import com.hjc.CardAdventure.pojo.card.Card;
 import com.hjc.CardAdventure.pojo.card.CardQuality;
+import com.hjc.CardAdventure.pojo.environment.InsideInformation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
@@ -36,6 +42,9 @@ public class RewardSubScene extends SubScene {
         //前进按钮设置
         Texture forward = FXGL.texture(getTextureAddress(SUB_SCENE_IMG_ADDRESS, "forward"), 200, 200);
         EntityUtils.nodeMove(forward, 1700, 800);
+        forward.setOnMouseClicked(e -> {
+            goForward();
+        });
         getContentRoot().getChildren().add(forward);
 
         //获得奖励文本
@@ -75,6 +84,20 @@ public class RewardSubScene extends SubScene {
         ft.play();
     }
 
+    //前进
+    private void goForward() {
+        FXGL.getSceneService().popSubScene();
+
+        if (reward.getExperience() == 0) {
+            //进入下一时间状态
+            OtherUtils.nextTime();
+        } else {
+            //获得经验
+            ExperienceSubScene.flag = 0;
+            FXGL.getSceneService().pushSubScene(new ExperienceSubScene(reward.getExperience()));
+        }
+    }
+
     //展示奖励
     private void initReward() {
         //清除奖励框内容
@@ -87,21 +110,39 @@ public class RewardSubScene extends SubScene {
 
         //初始化卡牌奖励
         location = initRewardCards(location);
+        //初始化金币
+        location = initRewardGold(location);
+    }
+
+    //生成褐色背景框
+    private Pane getBackPane(int location) {
+        //生成矩形褐色背景框
+        Rectangle rBox = new Rectangle(560, 70, Color.valueOf("#F18E69"));
+        //生成容器
+        Pane pane = new Pane(rBox);
+        pane.setPrefSize(560, 70);
+        EntityUtils.nodeMove(pane, (APP_WITH - 560) / 2.0, 260 + 80 * location);
+        getContentRoot().getChildren().add(pane);
+        //添加鼠标进入选择
+        pane.setOnMouseEntered(e -> {
+            Rectangle r = (Rectangle) pane.getChildren().get(0);
+            r.setFill(Color.RED);
+        });
+        //添加鼠标离开选择
+        pane.setOnMouseExited(e -> {
+            Rectangle r = (Rectangle) pane.getChildren().get(0);
+            r.setFill(Color.valueOf("#F18E69"));
+        });
+        return pane;
     }
 
     //展示卡牌奖励
     private int initRewardCards(int location) {
-        if (reward.getCards() == null) return 0;
+        if (reward.getCards() == null) return location;
         for (int i = 0; i < reward.getCards().size(); i++) {
             ArrayList<Card> cards = reward.getCards().get(i);
 
-            //生成矩形褐色背景框
-            Rectangle rBox = new Rectangle(560, 70, Color.valueOf("#F18E69"));
-            //生成容器
-            Pane pane = new Pane(rBox);
-            pane.setPrefSize(560, 70);
-            EntityUtils.nodeMove(pane, (APP_WITH - 560) / 2.0, 260 + 80 * location);
-            getContentRoot().getChildren().add(pane);
+            Pane pane = getBackPane(location);
             //牌背颜色决定
             String cardBackColor = switch (judgeCardsQuality(cards)) {
                 case 0 -> "cardBackWhite";
@@ -120,16 +161,39 @@ public class RewardSubScene extends SubScene {
             pane.getChildren().add(text);
             //添加鼠标点击选择
             pane.setOnMouseClicked(e -> selectCards(cards));
-            //添加鼠标进入选择
-            pane.setOnMouseEntered(e -> {
-                Rectangle r = (Rectangle) pane.getChildren().get(0);
-                r.setFill(Color.RED);
+
+            location++;
+        }
+
+        return location;
+    }
+
+    //展示金币奖励
+    private int initRewardGold(int location) {
+        if (reward.getGolds() == null) return location;
+
+        for (int i = 0; i < reward.getGolds().size(); i++) {
+            int gold = reward.getGolds().get(i);
+
+            Pane pane = getBackPane(location);
+            //获得金币图片
+            Texture goldTexture = FXGL.texture(getTextureAddress(INFORMATION_ADDRESS, "gold"), 60, 60);
+            EntityUtils.nodeMove(goldTexture, 5, 5);
+            pane.getChildren().add(goldTexture);
+            //金币数量文本
+            Text goldText = EntityUtils.getText(String.valueOf(gold),
+                    "华文行楷", 35,
+                    Color.YELLOW);
+            EntityUtils.nodeMove(goldText, 80, 45);
+            pane.getChildren().add(goldText);
+            //点击后获得金币
+            pane.setOnMouseClicked(e -> {
+                PLAYER.gold += gold;
+                InformationEntity.gold.getComponent(GoldComponent.class).update();
+                reward.getGolds().remove(Integer.valueOf(gold));
+                initReward();
             });
-            //添加鼠标离开选择
-            pane.setOnMouseExited(e -> {
-                Rectangle r = (Rectangle) pane.getChildren().get(0);
-                r.setFill(Color.valueOf("#F18E69"));
-            });
+
             location++;
         }
 
@@ -159,11 +223,17 @@ public class RewardSubScene extends SubScene {
             //获得卡牌实体
             Pane cardPane = EntityUtils.createCard(card);
             //卡牌描述查看
-            cardPane.setOnMouseEntered(e -> {
-                label.setText(card.cardDescription());
-            });
+            cardPane.setOnMouseEntered(e ->
+                    label.setText(card.cardDescription())
+            );
             //移动卡牌实体
             EntityUtils.nodeMove(cardPane, 280 * i, 0);
+            //添加点击后获得
+            cardPane.setOnMouseClicked(e -> {
+                PLAYER.cards.add(card);
+                reward.getCards().remove(cards);
+                initReward();
+            });
             //容器添加卡牌
             pane.getChildren().add(cardPane);
         }

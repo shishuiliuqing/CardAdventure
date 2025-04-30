@@ -37,16 +37,16 @@ public class Opportunity {
     private String endEffect;
 
     //特殊效果
-    //private static final String SPECIAL_OPPORTUNITY = "寻回/抽";
+    private static final String SPECIAL_OPPORTUNITY = "无";
 
     //向某个角色添加某个时机效果
     public static void addOpportunity(Role role, Opportunity opportunity) {
         ArrayList<Opportunity> opportunities = role.getRoleOpportunities();
-//        //特殊效果，直接添加
-//        if (SPECIAL_OPPORTUNITY.contains(opportunity.name)) {
-//            opportunities.add(opportunity);
-//            return;
-//        }
+        //特殊效果，直接添加
+        if (SPECIAL_OPPORTUNITY.contains(opportunity.name)) {
+            opportunities.add(opportunity);
+            return;
+        }
         //非特殊效果
         for (Opportunity o : opportunities) {
             //效果名字相同

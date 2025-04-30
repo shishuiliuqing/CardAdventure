@@ -1,0 +1,24 @@
+{
+  "cardAddress": "harvest",
+  "cardName": "收割",
+  "attribute": {
+    "power": 3,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 1,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "TARGET#CONDITION_TARGETED#FOUR#易伤#DRAW#1",
+    "TARGET#DAMAGE#9#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT1;EFFECT0",
+  "detail": ""
+}

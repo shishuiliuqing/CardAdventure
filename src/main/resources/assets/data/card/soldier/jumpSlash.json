@@ -12,14 +12,13 @@
   "cardQuality": 0,
   "colorS": "#ff0000",
   "cardEffects": [
-    "TARGET#DAMAGE#9#1",
-    "PAUSE#2",
     "TARGET#CONDITION_TARGETED#ONE#TARGET#DAMAGE#9#1",
+    "TARGET#DAMAGE#9#1",
     "PLAYER#HEAVY#1",
     "USE_TO#ABANDON"
   ],
   "targetType": 0,
   "effectiveEffect": 3,
-  "description": "EFFECT0;EFFECT2",
+  "description": "EFFECT1;EFFECT0",
   "detail": ""
 }

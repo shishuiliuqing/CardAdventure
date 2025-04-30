@@ -1,0 +1,24 @@
+{
+  "cardAddress": "lick",
+  "cardName": "舔舐",
+  "attribute": {
+    "power": 2,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 1,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "TARGET#DAMAGE#12#1",
+    "ADD_CARD#DRAW#1#STATUS#nauseated",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "EFFECT0;[P]向抽牌堆添加1张\"恶心\"",
+  "detail": "恶心"
+}

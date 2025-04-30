@@ -1,0 +1,25 @@
+{
+  "cardAddress": "noTrace",
+  "cardName": "无踪",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 1,
+    "purity": 1,
+    "speed": 2
+  },
+  "cardQuality": 1,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "PLAYER#DRAW#1",
+    "PLAYER#ATTRIBUTE_UP#D#1",
+    "PLAYER#ATTRIBUTE_UP#U#1",
+    "PLAYER#HEAVY#0",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 3,
+  "description": "",
+  "detail": "轻盈;消耗"
+}

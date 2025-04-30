@@ -22,5 +22,17 @@
       "INTENTION_GENERATE"
     ],
     "consecutiveStarts": 0
+  },
+  {
+    "num": 2,
+    "intentionType": 2,
+    "intentionGenerateType": 0,
+    "effects": [
+      "FROM#ATTRIBUTE_UP#P#2",
+      "INTENTION_DELETE",
+      "PAUSE#10",
+      "INTENTION_GENERATE"
+    ],
+    "consecutiveStarts": 0
   }
 ]

@@ -1,0 +1,22 @@
+{
+  "enemyNum": 6,
+  "name": "池蛙",
+  "blood": 9,
+  "maxBlood": 9,
+  "attribute": {
+    "power": 1,
+    "intelligence": 1,
+    "defense": 0,
+    "agility": 2,
+    "purity": 0,
+    "speed": 1
+  },
+  "enemyType": 1,
+  "img": "greenFrog",
+  "width": 133,
+  "height": 107.8,
+  "x": 60,
+  "y": 30,
+  "armor": 10,
+  "entryEffects":[]
+}

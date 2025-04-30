@@ -1,0 +1,22 @@
+{
+  "enemyNum": 2,
+  "name": "鬼影蛇",
+  "blood": 24,
+  "maxBlood": 24,
+  "attribute": {
+    "power": 1,
+    "intelligence": 2,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 2
+  },
+  "enemyType": 1,
+  "img": "ghostImageSnake",
+  "width": 92.0,
+  "height": 94.0,
+  "x": 80,
+  "y": 30,
+  "armor": 0,
+  "entryEffects": []
+}

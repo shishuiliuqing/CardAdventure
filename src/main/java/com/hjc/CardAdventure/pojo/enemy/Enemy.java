@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -93,6 +94,25 @@ public class Enemy implements Role {
         //行动结束
         //BattleInformation.EFFECTS.add(new PauseEffect(null, "999"));
         BattleUtils.actionOver();
+    }
+
+    @Override
+    public void initEntryEffects() {
+        //随机添加-3 - 3 滴血
+        Random r = new Random();
+        int value = r.nextInt(7) - 3;
+        maxBlood += value;
+        blood += value;
+        //update();
+        //初始化进场效果
+        if (entryEffects == null) return;
+        ArrayList<Effect> effects = new ArrayList<>();
+        for (String entryEffect : entryEffects) {
+            Effect effect = Effect.parse(this, entryEffect, null);
+            if (effect != null) effects.add(effect);
+        }
+        BattleInformation.insetEffect(effects);
+        BattleInformation.effectExecution();
     }
 
     @Override
@@ -228,6 +248,8 @@ public class Enemy implements Role {
         return name + "   " + blood + "/" + maxBlood +
                 Effect.NEW_LINE +
                 attribute.displayAttribute() +
+                Effect.NEW_LINE +
+                IntentionType.intentionParse(this) +
                 Effect.NEW_LINE +
                 "该敌人拥有效果" +
                 Effect.NEW_LINE +

@@ -97,8 +97,8 @@ public class AttributeUtils {
     public static int mathDraw() {
         int agility = player.getAttribute().getAgility();
         if (agility <= 0) return 0;
-        if (agility <= 3) return agility;
-        return 3 + (agility - 3) / 3;
+        if (agility <= 5) return agility;
+        return 5 + (agility - 5) / 3;
     }
 
     //计算回血效果

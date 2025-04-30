@@ -1,0 +1,25 @@
+{
+  "cardAddress": "shrink",
+  "cardName": "畏缩",
+  "attribute": {
+    "power": 0,
+    "intelligence": 1,
+    "defense": 1,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "PLAYER#ARMOR_GET#5",
+    "TARGET#CONDITION_TARGETED#TWO#虚弱#DAMAGE_M_ADD#FROM_M_ADD#A#75",
+    "TARGET#OPPORTUNITY_END#虚弱#PHY_ATTACK_END#NEGATIVE_END#0#1#1#NO#FROM#DAMAGE_M_ADD#FROM_M_ADD#D#75",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 3,
+  "description": "EFFECT0;[T]获得\"虚弱 1\"",
+  "detail": "虚弱"
+}

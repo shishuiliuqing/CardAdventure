@@ -1,0 +1,23 @@
+{
+  "cardAddress": "strongLeafProtection",
+  "cardName": "强叶护身",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 3,
+    "agility": 2,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "PLAYER#MANY#3#ARMOR_GET#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 2,
+  "description": "EFFECT0",
+  "detail": ""
+}

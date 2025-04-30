@@ -1,0 +1,22 @@
+{
+  "cardAddress": "nauseated",
+  "cardName": "恶心",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#FE0BA5",
+  "cardEffects": [
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 0,
+  "description": "消耗",
+  "detail": ""
+}

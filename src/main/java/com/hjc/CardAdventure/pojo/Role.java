@@ -12,6 +12,9 @@ public interface Role {
     //角色行动
     void action();
 
+    //初始化进场效果
+    void initEntryEffects();
+
     //获取角色名字
     String getRoleName();
 

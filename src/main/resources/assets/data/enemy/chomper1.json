@@ -1,0 +1,21 @@
+{
+  "enemyNum": 7,
+  "name": "食人花",
+  "blood": 58,
+  "maxBlood": 58,
+  "attribute": {
+    "power": 0,
+    "intelligence": 3,
+    "defense": 2,
+    "agility": 0,
+    "purity": 0,
+    "speed": 1
+  },
+  "enemyType": 1,
+  "img": "chomper",
+  "width": 175.8,
+  "height": 181.2,
+  "x": 28,
+  "y": -28,
+  "armor": 0
+}

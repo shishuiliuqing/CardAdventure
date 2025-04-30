@@ -1,0 +1,24 @@
+{
+  "cardAddress": "mantisBlade",
+  "cardName": "螳刃",
+  "attribute": {
+    "power": 3,
+    "intelligence": 2,
+    "defense": 0,
+    "agility": 0,
+    "purity": 0,
+    "speed": 1
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "TARGET#ARMOR_SET#0",
+    "TARGET#DAMAGE#9#1",
+    "PLAYER#HEAVY#1",
+    "USE_TO#ABANDON"
+  ],
+  "targetType": 0,
+  "effectiveEffect": 1,
+  "description": "[T]失去所有护盾;EFFECT1",
+  "detail": ""
+}

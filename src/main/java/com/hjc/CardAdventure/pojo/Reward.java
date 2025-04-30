@@ -21,7 +21,7 @@ public class Reward {
     //卡牌奖励
     private ArrayList<ArrayList<Card>> cards = new ArrayList<>();
     //金币奖励
-    private int gold;
+    private ArrayList<Integer> golds = new ArrayList<>();
     //经验奖励
     private int experience;
 
@@ -54,7 +54,7 @@ public class Reward {
                     //奖励金币
                     //取第二操作符
                     int value = Effect.changeToInt(Effect.getFirst(r));
-                    result.setGold(value);
+                    result.getGolds().add(value);
                 }
                 case "EXPERIENCE" -> {
                     //奖励经验

@@ -8,6 +8,7 @@ import com.hjc.CardAdventure.Utils.CampUtils;
 import com.hjc.CardAdventure.component.information.TipBarComponent;
 import com.hjc.CardAdventure.configuration.MonsterPool;
 import com.hjc.CardAdventure.effect.Effect;
+import com.hjc.CardAdventure.effect.basic.PauseEffect;
 import com.hjc.CardAdventure.entity.BattleEntity;
 import com.hjc.CardAdventure.entity.CampEntity;
 import com.hjc.CardAdventure.pojo.BattleInformation;
@@ -44,9 +45,11 @@ public class BattleComponent extends Component {
     }
 
     private void goBattle() {
+        InsideInformation.day = 3;
+        InsideInformation.timeStatus = TimeStatus.EVENING;
         //获得怪池
         MonsterPool.enemyType = EnemyType.LITTLE_MONSTER;
-        MonsterPool.monsterPool = Global.CONFIGURATION.seasonMonsterPool.generateLittleMonsterPool(InsideInformation.day, TimeStatus.EVENING);
+        MonsterPool.monsterPool = Global.CONFIGURATION.seasonMonsterPool.generateLittleMonsterPool(InsideInformation.day, InsideInformation.timeStatus);
 
         //加载动画
         Rectangle rectangle = new Rectangle(1, 1, Color.BLACK);
@@ -68,6 +71,7 @@ public class BattleComponent extends Component {
             BattleEntity.initBattleEntities();
             //进行战斗
             BattleInformation.battle();
+            BattleInformation.insetEffect(new PauseEffect(null,"10"));
             BattleInformation.effectExecution();
         });
         st.play();

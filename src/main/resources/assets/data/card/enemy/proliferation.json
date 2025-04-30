@@ -1,0 +1,25 @@
+{
+  "cardAddress": "proliferation",
+  "cardName": "增殖",
+  "attribute": {
+    "power": 0,
+    "intelligence": 0,
+    "defense": 0,
+    "agility": 0,
+    "purity": 1,
+    "speed": 0
+  },
+  "cardQuality": 0,
+  "colorS": "#8D6F64",
+  "cardEffects": [
+    "PLAYER#ATTRIBUTE_UP#P#2",
+    "PLAYER#CONDITION_TARGETED#TWO#易伤#PLAYER#DAMAGE_M_ADD#TO_M_ADD#A#150",
+    "PLAYER#OPPORTUNITY_END#易伤#PHY_HURT#NEGATIVE_END#0#2#1#NO#FROM#DAMAGE_M_ADD#TO_M_ADD#D#150",
+    "PLAYER#HEAVY#1",
+    "USE_TO#CONSUME"
+  ],
+  "targetType": 1,
+  "effectiveEffect": 3,
+  "description": "EFFECT0;[P]获得\"易伤 2\";消耗",
+  "detail": "易伤;消耗"
+}
